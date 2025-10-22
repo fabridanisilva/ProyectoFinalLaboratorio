@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public class Proyeccion {
     private Pelicula pelicula;
+    private int idFuncion;
     private String idioma;
     private boolean es3D;
     private boolean subtitulada;
@@ -34,6 +35,19 @@ public class Proyeccion {
         this.precio = precio;
     }
 
+    public Proyeccion(Pelicula pelicula, int idFuncion, String idioma, boolean es3D, boolean subtitulada, LocalTime horInicio, LocalTime horaFin, ArrayList<Integer> lugaresDisponibles, Sala sala, double precio) {
+        this.pelicula = pelicula;
+        this.idFuncion = idFuncion;
+        this.idioma = idioma;
+        this.es3D = es3D;
+        this.subtitulada = subtitulada;
+        this.horInicio = horInicio;
+        this.horaFin = horaFin;
+        this.lugaresDisponibles = lugaresDisponibles;
+        this.sala = sala;
+        this.precio = precio;
+    }
+    
     public Pelicula getPelicula() {
         return pelicula;
     }

@@ -12,9 +12,19 @@ public class Asiento {
     private int codLugar;
     private int fila;
     private int numero;
+    private boolean estado;
     private Proyeccion proyeccion;
 
-    public Asiento(int codLugar, int fila, int numero, Proyeccion proyeccion) {
+    public Asiento(int fila, int numero, boolean estado, Proyeccion proyeccion) {
+        this.fila = fila;
+        this.numero = numero;
+        this.estado = estado;
+        this.proyeccion = proyeccion;
+    }
+    
+    
+    
+    public Asiento(int codLugar, int fila, int numero,boolean estado ,Proyeccion proyeccion) {
         this.codLugar = codLugar;
         this.fila = fila;
         this.numero = numero;

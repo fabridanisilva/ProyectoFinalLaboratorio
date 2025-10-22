@@ -12,6 +12,7 @@ import java.util.ArrayList;
  */
 public class DetalleTicket {
     private int codD;
+    private int idTicket;
     private Proyeccion proyeccion;
     private ArrayList<Asiento> lugar;
     private int cant;
@@ -25,6 +26,17 @@ public class DetalleTicket {
         this.subTotal = subTotal;
     }
 
+    public DetalleTicket(int codD, int idTicket, Proyeccion proyeccion, ArrayList<Asiento> lugar, int cant, double subTotal) {
+        this.codD = codD;
+        this.idTicket = idTicket;
+        this.proyeccion = proyeccion;
+        this.lugar = lugar;
+        this.cant = cant;
+        this.subTotal = subTotal;
+    }
+    
+    
+    
     public int getCodD() {
         return codD;
     }

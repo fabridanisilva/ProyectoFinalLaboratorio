@@ -21,6 +21,12 @@ public class Sala {
         this.estado = estado;
     }
 
+    public Sala(boolean apta3D, int capacidad, boolean estado) {
+        this.apta3D = apta3D;
+        this.capacidad = capacidad;
+        this.estado = estado;
+    }
+    
     public int getNroSala() {
         return NroSala;
     }

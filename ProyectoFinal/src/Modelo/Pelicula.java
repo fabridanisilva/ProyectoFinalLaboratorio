@@ -11,6 +11,7 @@ import java.time.LocalDate;
  * @author fabri
  */
 public class Pelicula {
+    private  int idPelicula;
     private String titulo;
     private String director;
     private String actores;
@@ -20,6 +21,17 @@ public class Pelicula {
     private boolean enCartelera;
 
     public Pelicula(String titulo, String director, String actores, String origen, String genero, LocalDate estreno, boolean enCartelera) {
+        this.titulo = titulo;
+        this.director = director;
+        this.actores = actores;
+        this.origen = origen;
+        this.genero = genero;
+        this.estreno = estreno;
+        this.enCartelera = enCartelera;
+    }
+
+    public Pelicula(int idPelicula, String titulo, String director, String actores, String origen, String genero, LocalDate estreno, boolean enCartelera) {
+        this.idPelicula = idPelicula;
         this.titulo = titulo;
         this.director = director;
         this.actores = actores;

@@ -23,6 +23,10 @@ public class Proyeccion {
     private Sala sala;
     private double precio;
 
+    public Proyeccion() {
+    }
+    
+    
     public Proyeccion(Pelicula pelicula, String idioma, boolean es3D, boolean subtitulada, LocalTime horInicio, LocalTime horaFin, ArrayList<Integer> lugaresDisponibles, Sala sala, double precio) {
         this.pelicula = pelicula;
         this.idioma = idioma;

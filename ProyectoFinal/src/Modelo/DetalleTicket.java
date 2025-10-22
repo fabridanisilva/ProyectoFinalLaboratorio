@@ -18,6 +18,11 @@ public class DetalleTicket {
     private int cant;
     private double subTotal;
 
+    public DetalleTicket() {
+    }
+    
+    
+    
     public DetalleTicket(int codD, Proyeccion proyeccion, ArrayList<Asiento> lugar, int cant, double subTotal) {
         this.codD = codD;
         this.proyeccion = proyeccion;

@@ -40,7 +40,15 @@ public class Pelicula {
         this.estreno = estreno;
         this.enCartelera = enCartelera;
     }
+    public Pelicula() {
+    }
+    public int getidPelicula() {
+        return idPelicula;
+    }
 
+    public void setidPelicula(int idPelicula) {
+        this.idPelicula = idPelicula;
+    }
     public String getTitulo() {
         return titulo;
     }

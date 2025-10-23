@@ -15,6 +15,11 @@ public class Asiento {
     private boolean estado;
     private Proyeccion proyeccion;
 
+    public Asiento() {
+    }
+
+    
+    
     public Asiento(int fila, int numero, boolean estado, Proyeccion proyeccion) {
         this.fila = fila;
         this.numero = numero;

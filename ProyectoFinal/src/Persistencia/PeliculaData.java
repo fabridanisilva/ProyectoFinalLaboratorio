@@ -54,7 +54,7 @@ public class PeliculaData {
         }
     public Pelicula BuscarPelicula(int id){
         String sql = "SELECT titulo, director, actores, origen, genero, estreno, encartelera FROM pelicula"
-                + "WHERE idpelicula = ?, AND estado = 1";
+                +  "WHERE idpelicula = ? AND estado = 1";
         
         Pelicula pelicula = null ;
         
@@ -89,7 +89,7 @@ public class PeliculaData {
     
     public void ActualizarPelicula(Pelicula pelicula){
         String sql = "UPDATE pelicula SET titulo = ?, director = ?, actores = ?, origen = ?"
-                + "genero = ?, estreno = ?, encartelera = ?";
+                +  "genero = ?, estreno = ?, encartelera = ?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,pelicula.getTitulo());
@@ -129,7 +129,7 @@ public class PeliculaData {
     public ArrayList<Pelicula> ListarPeliculas(){
        
         String sql = "SELECT idpelicula, titulo, director, actores, origen, genero, estreno, encartelera FROM pelicula"
-                + "WHERE estado = 1";
+                +  "WHERE estado = 1";
         ArrayList<Pelicula> peliculas = new ArrayList<>();
         try {
             PreparedStatement ps =con.prepareStatement(sql);

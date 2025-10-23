@@ -4,6 +4,9 @@
  */
 package Vista;
 
+import java.awt.Graphics;
+import java.awt.Image;
+import javax.swing.ImageIcon;
 /**
  *
  * @author chich
@@ -31,7 +34,14 @@ public class Pantalla extends javax.swing.JFrame {
         jMenuItem3 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
-        escritorio = new javax.swing.JDesktopPane();
+        ImageIcon icono= new ImageIcon(getClass().getResource("/ProyectoFinal/Imagenes/cinefondo.png"));
+        Image miImagen=icono.getImage();
+        escritorio = new javax.swing.JDesktopPane(){
+            public void paintComponent (Graphics g){
+
+                g.drawImage(miImagen,0,0,getWidth(),getHeight(),this);
+            }
+        };
         jMenuBar1 = new javax.swing.JMenuBar();
         jPeliculas = new javax.swing.JMenu();
         GestionPeliculas = new javax.swing.JMenuItem();

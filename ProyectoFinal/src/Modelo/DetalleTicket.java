@@ -39,6 +39,14 @@ public class DetalleTicket {
         this.cant = cant;
         this.subTotal = subTotal;
     }
+
+    public int getIdTicket() {
+        return idTicket;
+    }
+
+    public void setIdTicket(int idTicket) {
+        this.idTicket = idTicket;
+    }
     
     
     

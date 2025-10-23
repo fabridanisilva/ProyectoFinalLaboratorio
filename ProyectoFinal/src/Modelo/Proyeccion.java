@@ -12,14 +12,15 @@ import java.util.ArrayList;
  * @author fabri
  */
 public class Proyeccion {
-    private Pelicula pelicula;
     private int idFuncion;
+    private Pelicula pelicula;
+    
     private String idioma;
     private boolean es3D;
     private boolean subtitulada;
     private LocalTime horInicio;
     private LocalTime horaFin;
-    private ArrayList<Integer> lugaresDisponibles;
+    private int cantidadLugaresDisponibles;
     private Sala sala;
     private double precio;
 
@@ -27,29 +28,39 @@ public class Proyeccion {
     }
     
     
-    public Proyeccion(Pelicula pelicula, String idioma, boolean es3D, boolean subtitulada, LocalTime horInicio, LocalTime horaFin, ArrayList<Integer> lugaresDisponibles, Sala sala, double precio) {
+    public Proyeccion(Pelicula pelicula, String idioma, boolean es3D, boolean subtitulada, LocalTime horInicio, LocalTime horaFin, int  cantidadLugaresDisponibles, Sala sala, double precio) {
         this.pelicula = pelicula;
         this.idioma = idioma;
         this.es3D = es3D;
         this.subtitulada = subtitulada;
         this.horInicio = horInicio;
         this.horaFin = horaFin;
-        this.lugaresDisponibles = lugaresDisponibles;
+        this.cantidadLugaresDisponibles = cantidadLugaresDisponibles;
         this.sala = sala;
         this.precio = precio;
     }
 
-    public Proyeccion(Pelicula pelicula, int idFuncion, String idioma, boolean es3D, boolean subtitulada, LocalTime horInicio, LocalTime horaFin, ArrayList<Integer> lugaresDisponibles, Sala sala, double precio) {
-        this.pelicula = pelicula;
+    public Proyeccion(int idFuncion, Pelicula pelicula, String idioma, boolean es3D, boolean subtitulada, LocalTime horInicio, LocalTime horaFin, int cantidadLugaresDisponibles, Sala sala, double precio) {
         this.idFuncion = idFuncion;
+        this.pelicula = pelicula;
         this.idioma = idioma;
         this.es3D = es3D;
         this.subtitulada = subtitulada;
         this.horInicio = horInicio;
         this.horaFin = horaFin;
-        this.lugaresDisponibles = lugaresDisponibles;
+        this.cantidadLugaresDisponibles = cantidadLugaresDisponibles;
         this.sala = sala;
         this.precio = precio;
+    }
+
+    
+
+    public int getIdFuncion() {
+        return idFuncion;
+    }
+
+    public void setIdFuncion(int idFuncion) {
+        this.idFuncion = idFuncion;
     }
     
     public Pelicula getPelicula() {
@@ -100,13 +111,15 @@ public class Proyeccion {
         this.horaFin = horaFin;
     }
 
-    public ArrayList<Integer> getLugaresDisponibles() {
-        return lugaresDisponibles;
+    public int getCantidadLugaresDisponibles() {
+        return cantidadLugaresDisponibles;
     }
 
-    public void setLugaresDisponibles(ArrayList<Integer> lugaresDisponibles) {
-        this.lugaresDisponibles = lugaresDisponibles;
+    public void setCantidadLugaresDisponibles(int cantidadLugaresDisponibles) {
+        this.cantidadLugaresDisponibles = cantidadLugaresDisponibles;
     }
+
+    
 
     public Sala getSala() {
         return sala;
@@ -126,7 +139,7 @@ public class Proyeccion {
 
     @Override
     public String toString() {
-        return "Proyeccion{" + "pelicula=" + pelicula + ", idioma=" + idioma + ", es3D=" + es3D + ", subtitulada=" + subtitulada + ", horInicio=" + horInicio + ", horaFin=" + horaFin + ", lugaresDisponibles=" + lugaresDisponibles + ", sala=" + sala + ", precio=" + precio + '}';
+        return "Proyeccion{" + "pelicula=" + pelicula + ", idioma=" + idioma + ", es3D=" + es3D + ", subtitulada=" + subtitulada + ", horInicio=" + horInicio + ", horaFin=" + horaFin + ", lugaresDisponibles=" + cantidadLugaresDisponibles + ", sala=" + sala + ", precio=" + precio + '}';
     }
     
     

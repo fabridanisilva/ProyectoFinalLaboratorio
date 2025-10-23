@@ -42,8 +42,14 @@ public class Pelicula {
     }
     public Pelicula() {
     }
-    public int getidPelicula() {
+    
+
+    public int getIdPelicula() {
         return idPelicula;
+    }
+
+    public void setIdPelicula(int idPelicula) {
+        this.idPelicula = idPelicula;
     }
 
     public void setidPelicula(int idPelicula) {

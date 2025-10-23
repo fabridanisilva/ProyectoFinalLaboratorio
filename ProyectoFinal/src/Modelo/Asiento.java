@@ -36,6 +36,14 @@ public class Asiento {
         this.proyeccion = proyeccion;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
+    }
+
     public int getCodLugar() {
         return codLugar;
     }

@@ -21,8 +21,8 @@ import org.mariadb.jdbc.Statement;
 public class SalaData {
     private Connection con = null;
 
-    public SalaData(Connection con) {
-        con = (Connection) Conexion.getConexion();
+    public SalaData() {
+        con =  (Connection) Conexion.getConexion();
     }
     
     public void ingresarSala(Sala sala){
@@ -58,7 +58,7 @@ public class SalaData {
         String sql = "UPDATE sala SET apta3D=?,capacidad=?,estado=? WHERE NROsala = ?";
         
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement(sql);
             
             ps.setBoolean(1, sala.isApta3D());
             ps.setInt(2, sala.getCapacidad());
@@ -100,7 +100,7 @@ public class SalaData {
     
     }
     
-    public Sala buscarSalas(int NROsala){
+    public Sala buscarSala(int NROsala){
     
         String sql = "SELECT NROsala, apta3D, capacidad, estado FROM sala WHERE NROsala=? ";
         Sala sala = null;

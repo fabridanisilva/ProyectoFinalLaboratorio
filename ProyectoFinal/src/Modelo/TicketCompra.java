@@ -36,7 +36,7 @@ public class TicketCompra {
         this.monto = monto;
         this.comprador = comprador;
     }
-
+    
     public int getIdTicket() {
         return idTicket;
     }

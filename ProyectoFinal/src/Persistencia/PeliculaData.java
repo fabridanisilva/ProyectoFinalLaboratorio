@@ -40,6 +40,8 @@ public class PeliculaData {
             ps.setDate(6, Date.valueOf(pelicula.getEstreno()));
             ps.setBoolean(7, pelicula.isEnCartelera());
             
+            ps.executeUpdate();
+            
             ResultSet rs =ps.getGeneratedKeys();
             if (rs.next()) {
                 pelicula.setidPelicula(rs.getInt(1));
@@ -47,7 +49,7 @@ public class PeliculaData {
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"No se pudo agregar pelicula");
+            JOptionPane.showMessageDialog(null,"No se pudo agregar pelicula: " + ex.getMessage());
         }
         }
     public Pelicula BuscarPelicula(int id){

@@ -3,24 +3,108 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Vista;
+import Modelo.Pelicula;
+import Persistencia.PeliculaData;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.time.LocalDate;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author chich
  */
 public class Peliculas extends javax.swing.JInternalFrame {
-
-    
+ DefaultTableModel modelo = new DefaultTableModel();
+ private PeliculaData  peliculaData;   
     /**
      * Creates new form Peliculas
      */
     public Peliculas() {
         
         initComponents();
+        peliculaData = new PeliculaData();
+        modelo = (DefaultTableModel) TablaPelicula.getModel();
+        cargarComboPeliculas();
+        cargarPeliculasEnTabla();
+        
+        Buscar.addActionListener(e -> buscarPelicula());
+        Guardar.addActionListener(e -> guardarPelicula());
+        Actualizar.addActionListener(e -> actualizarPelicula());
+        Eliminar.addActionListener(e -> eliminarPelicula());
+        Cartelera.addActionListener(e -> cargarPeliculasEnTabla());
+    } 
+        private void cargarComboPeliculas() {
+        SeleccionarPelicula.removeAllItems();
+        for (Pelicula p : peliculaData.ListarPeliculas()) {
+            SeleccionarPelicula.addItem(p);
+        }
     }
+private void cargarPeliculasEnTabla() {
+        modelo.setRowCount(0);
+        for (Pelicula p : peliculaData.ListarPeliculas()) {
+            if (!Cartelera.isSelected() || p.isEnCartelera()) {
+                modelo.addRow(new Object[]{
+                    p.getIdPelicula(),
+                    p.getTitulo(),
+                    p.getDirector(),
+                    p.getActores(),
+                    p.getOrigen(),
+                    p.getGenero(),
+                    p.getEstreno(),
+                    p.isEnCartelera() ? "Sí" : "No"
+                });
+            }
+        }
+    }
+private void buscarPelicula() {
+        Pelicula seleccionada = (Pelicula) SeleccionarPelicula.getSelectedItem();
+        if (seleccionada != null) {
+            JOptionPane.showMessageDialog(this, "Seleccionaste: " + seleccionada.getTitulo());
+        }
+    }
+
+
+    private void guardarPelicula() {
+        
+        Pelicula nueva = new Pelicula();
+        nueva.setTitulo("Ejemplo");
+        nueva.setDirector("Director");
+        nueva.setActores("Actores");
+        nueva.setOrigen("Origen");
+        nueva.setGenero("Género");
+        nueva.setEstreno(LocalDate.now());
+        nueva.setEnCartelera(true);
+
+        peliculaData.GuardarPelicula(nueva);
+        cargarComboPeliculas();
+        cargarPeliculasEnTabla();
+    }
+
+    private void actualizarPelicula() {
+        Pelicula seleccionada = (Pelicula) SeleccionarPelicula.getSelectedItem();
+        if (seleccionada != null) {
+            seleccionada.setTitulo("Nuevo título");
+            peliculaData.ActualizarPelicula(seleccionada);
+            cargarPeliculasEnTabla();
+        }
+    }
+
+    private void eliminarPelicula() {
+        Pelicula seleccionada = (Pelicula) SeleccionarPelicula.getSelectedItem();
+        if (seleccionada != null) {
+            peliculaData.EliminarPelicula(seleccionada.getIdPelicula());
+            cargarComboPeliculas();
+            cargarPeliculasEnTabla();
+        }
+    }
+
+
+
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,16 +115,16 @@ public class Peliculas extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        Actualizar = new javax.swing.JButton();
+        Eliminar = new javax.swing.JButton();
+        Buscar = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        Guardar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         SeleccionarPelicula = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        Cartelera = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaPelicula = new javax.swing.JTable();
 
@@ -49,20 +133,40 @@ public class Peliculas extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
 
-        jButton1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jButton1.setText("Actualizar");
+        Actualizar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        Actualizar.setText("Actualizar");
+        Actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jButton2.setText("Eliminar");
+        Eliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jButton3.setText("Buscar");
+        Buscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        Buscar.setText("Buscar");
+        Buscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarActionPerformed(evt);
+            }
+        });
 
         jButton4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jButton4.setText("Salir");
 
-        jButton5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jButton5.setText("Guardar");
+        Guardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setText("Cartelera");
@@ -111,7 +215,7 @@ public class Peliculas extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel3))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton1)
+                                    .addComponent(Cartelera)
                                     .addComponent(SeleccionarPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
@@ -119,13 +223,13 @@ public class Peliculas extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton3)
+                                .addComponent(Buscar)
                                 .addGap(49, 49, 49)
-                                .addComponent(jButton5)
+                                .addComponent(Guardar)
                                 .addGap(50, 50, 50)
-                                .addComponent(jButton1)
+                                .addComponent(Actualizar)
                                 .addGap(52, 52, 52)
-                                .addComponent(jButton2)
+                                .addComponent(Eliminar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                                 .addComponent(jButton4)))))
                 .addContainerGap())
@@ -143,15 +247,15 @@ public class Peliculas extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addGap(31, 31, 31)
                         .addComponent(jLabel3))
-                    .addComponent(jRadioButton1))
+                    .addComponent(Cartelera))
                 .addGap(33, 33, 33)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3)
-                    .addComponent(jButton5)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
+                    .addComponent(Buscar)
+                    .addComponent(Guardar)
+                    .addComponent(Actualizar)
+                    .addComponent(Eliminar)
                     .addComponent(jButton4))
                 .addContainerGap(40, Short.MAX_VALUE))
         );
@@ -163,19 +267,46 @@ public class Peliculas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_SeleccionarPeliculaActionPerformed
 
+    private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
+        // TODO add your handling code here:
+         
+
+
+        
+
+
+    }//GEN-LAST:event_BuscarActionPerformed
+
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+        // TODO add your handling code here:
+       
+    }//GEN-LAST:event_GuardarActionPerformed
+
+    private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
+        // TODO add your handling code here:
+        
+        
+
+
+    }//GEN-LAST:event_ActualizarActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_EliminarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Actualizar;
+    private javax.swing.JButton Buscar;
+    private javax.swing.JRadioButton Cartelera;
+    private javax.swing.JButton Eliminar;
+    private javax.swing.JButton Guardar;
     private javax.swing.JComboBox SeleccionarPelicula;
     private javax.swing.JTable TablaPelicula;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 

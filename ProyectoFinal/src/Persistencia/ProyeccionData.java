@@ -112,7 +112,7 @@ public class ProyeccionData {
     
     public Proyeccion buscarProyeccion(int idFuncion){
     Proyeccion proyeccion = null;
-        String sql = "SELECT idPelicula, idFuncion, idioma, es3d, subtitulada, horainicio, horafin, cantidadLugaresDisponibles, salaProyeccion, precioLugar FROM proyeccion";
+        String sql = "SELECT idPelicula, idFuncion, idioma, es3d, subtitulada, horainicio, horafin, cantidadLugaresDisponibles, salaProyeccion, precioLugar FROM proyeccion WHERE idFuncion=?";
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);

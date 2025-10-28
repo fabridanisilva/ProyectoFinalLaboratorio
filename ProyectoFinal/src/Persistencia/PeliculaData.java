@@ -53,8 +53,7 @@ public class PeliculaData {
         }
         }
     public Pelicula BuscarPelicula(int id){
-        String sql = "SELECT titulo, director, actores, origen, genero, estreno, encartelera FROM pelicula"
-                +  "WHERE idpelicula = ? AND estado = 1";
+        String sql = "SELECT `idPelicula`, `Titulo`, `director`, `actores`, `origen`, `genero`, `estreno`, `encartelera` FROM `pelicula` WHERE `idPelicula`=? AND `encartelera`=1";
         
         Pelicula pelicula = null ;
         

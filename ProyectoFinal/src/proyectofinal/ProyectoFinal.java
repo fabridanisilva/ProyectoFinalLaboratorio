@@ -4,9 +4,11 @@
  */
 package proyectofinal;
 
+import Modelo.Asiento;
 import Modelo.Pelicula;
 import Modelo.Proyeccion;
 import Modelo.Sala;
+import Persistencia.AsientoData;
 import Persistencia.PeliculaData;
 import Persistencia.ProyeccionData;
 import Persistencia.SalaData;
@@ -39,11 +41,20 @@ public class ProyectoFinal {
         
         //hacemos la proyeccion
         
-        Proyeccion proyeccion1 = new Proyeccion(pelicula,"español",true,true,LocalTime.of(13, 00),LocalTime.of(14, 50),50,sala,3000);
+        Proyeccion proyeccion1 = new Proyeccion(2,pelicula,"español",true,true,LocalTime.of(13, 00),LocalTime.of(14, 50),50,sala,3000);
         ProyeccionData proyecciond = new ProyeccionData();
-        proyecciond.ingresarProyeccion(proyeccion1);
+        //proyecciond.ingresarProyeccion(proyeccion1);
+        
+        AsientoData ad = new AsientoData();
+        
+        //generamos los asientos de la funcion
+        //ad.generarAsientosParaFuncion(proyeccion1);
         
         
+        //recuperar la lista de asientos libres
+        for (Asiento listarAsiento : ad.listarAsientos(2)) {
+            System.out.println(listarAsiento);
+        }
         
     }
     

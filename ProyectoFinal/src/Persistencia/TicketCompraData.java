@@ -44,9 +44,11 @@ public class TicketCompraData {
             ResultSet rs =ps.getGeneratedKeys();
             if (rs.next()) {
                 ticketcompra.setIdTicket(rs.getInt(1));
-                JOptionPane.showMessageDialog(null, "se agrego ticket!");
+                
             }
+            rs.close();
             ps.close();
+            JOptionPane.showMessageDialog(null, "se agrego ticket!");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"no se pudo guardar ticket"+ ex);
         }
@@ -56,7 +58,7 @@ public class TicketCompraData {
 
     }
     public TicketCompra BuscarTicketCompra(int id){
-        String sql = "SELECT fechacompra, fechafuncion, monto, comprador WHERE idTicket = ?";
+        String sql = "SELECT fechacompra, fechafuncion, monto, comprador FROM ticketcompra WHERE idTicket = ?";
         
         TicketCompra ticketcompra = null;
         try {
@@ -81,7 +83,7 @@ public class TicketCompraData {
         return ticketcompra;
     }
     public ArrayList<TicketCompra> MostrarTicketComprados(){
-        String sql ="SELECT idTicket, fechacompra, fechafuncion, monto WHERE comprador = ?";
+        String sql ="SELECT idTicket, fechacompra, fechafuncion, monto FROM ticketcompra WHERE comprador = ?";
         
         ArrayList<TicketCompra> ticketcomprados = new ArrayList<>();
         
@@ -101,6 +103,9 @@ public class TicketCompraData {
                 
                 ticketcomprados.add(ticketcompra);
             }
+            rs.close();
+            ps.close();
+            JOptionPane.showMessageDialog(null, "ticket encontrado");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"no se encontraron ticket"+ ex);
         }

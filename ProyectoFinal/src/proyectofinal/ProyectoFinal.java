@@ -5,10 +5,12 @@
 package proyectofinal;
 
 import Modelo.Asiento;
+import Modelo.Comprador;
 import Modelo.Pelicula;
 import Modelo.Proyeccion;
 import Modelo.Sala;
 import Persistencia.AsientoData;
+import Persistencia.CompradorData;
 import Persistencia.PeliculaData;
 import Persistencia.ProyeccionData;
 import Persistencia.SalaData;
@@ -52,9 +54,22 @@ public class ProyectoFinal {
         
         
         //recuperar la lista de asientos libres
+        /*
         for (Asiento listarAsiento : ad.listarAsientos(2)) {
             System.out.println(listarAsiento);
         }
+        */
+        
+        //hacemos el comprador
+        
+        Comprador comprador = new Comprador(33444555,"Julian Alvarez",LocalDate.of(2000, 01, 31),"AtleticoMadrid","Efectivo");
+        
+        CompradorData cd = new CompradorData();
+        //cd.AgregarComprador(comprador);
+        
+        
+        
+        
         
     }
     

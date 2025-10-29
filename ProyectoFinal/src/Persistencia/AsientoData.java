@@ -25,7 +25,35 @@ public class AsientoData {
     }
     
     
-    
+    public Asiento buscarAsientoPorcodLugar(int codLugar) {
+    String sql = "SELECT codlugar, fila, numero, estado, funcion FROM asiento WHERE codlugar = ?";
+    Asiento asiento = null;
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, codLugar);
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            asiento = new Asiento();
+            asiento.setCodLugar(rs.getInt("codlugar"));
+            asiento.setFila(rs.getString("fila"));
+            asiento.setNumero(rs.getInt("numero"));
+            asiento.setEstado(rs.getBoolean("estado"));
+
+            ProyeccionData pd = new ProyeccionData();
+            asiento.setProyeccion(pd.buscarProyeccion(rs.getInt("funcion")));
+        }
+
+        rs.close();
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al buscar asiento: " + ex.getMessage());
+    }
+
+    return asiento;
+}
+
     
     public void ingresaAsiento(Asiento asiento){
     

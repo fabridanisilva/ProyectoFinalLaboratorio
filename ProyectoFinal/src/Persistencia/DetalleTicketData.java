@@ -28,7 +28,7 @@ public void guardarDetalle(DetalleTicket detalle) {
         String sql = "INSERT INTO `detalleticket`(`codD`, `funcion`, `codLugar`, `subtotal`) VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            double precioPorAsiento = detalle.getSubTotal() / detalle.getLugar();
+            double precioPorAsiento = detalle.getSubTotal() / detalle.getCodLugar();
 
             for (Asiento asiento : detalle.getAsientos()) {
 
@@ -40,7 +40,7 @@ public void guardarDetalle(DetalleTicket detalle) {
             }
 
             ps.close();
-            JOptionPane.showMessageDialog(null, "Se guardaron " + detalle.getLugar()+ " asientos en detalleticket.");
+            JOptionPane.showMessageDialog(null, "Se guardaron " + detalle.getCodLugar()+ " asientos en detalleticket.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar detalle: " + ex.getMessage());
         }
@@ -77,7 +77,7 @@ public void guardarDetalle(DetalleTicket detalle) {
             }
 
             
-            detalle.setLugar(cantidad);
+            detalle.setCodLugar(cantidad);
             detalle.setSubTotal(total);
               
                ps.close();
@@ -110,7 +110,7 @@ public ArrayList<DetalleTicket> listarDetallesIndividuales(int idTicket) {
 
                 ArrayList<Asiento> asientoUnico = new ArrayList<>();
                 asientoUnico.add(ad.buscarAsientoPorcodLugar(rs.getInt("codlugar")));
-                detalle.setLugar(1);
+                detalle.setCodLugar(1);
 
                 detalle.setCodD(1);
                 detalle.setSubTotal(rs.getDouble("subtotal"));

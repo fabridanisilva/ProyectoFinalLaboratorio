@@ -68,7 +68,7 @@ public class ProyectoFinal {
         
         CompradorData cd = new CompradorData();
         //cd.AgregarComprador(comprador);
-        cd.ActualizarComprador(comprador);
+        //cd.ActualizarComprador(comprador);
         //cd.EliminarComprador(33444555);
        // System.out.println(cd.BuscarComprador(33444555));
        

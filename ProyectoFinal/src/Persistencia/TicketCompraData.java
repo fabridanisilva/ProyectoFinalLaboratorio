@@ -34,7 +34,7 @@ public class TicketCompraData {
     
 }
     public void GuardarTicketCompra(TicketCompra ticketcompra){
-         String sql = "INSERT INTO ticketcompra (fechacompra, fechafuncion, monto, comprador, cantidadtickets, descuento, tipodeofertas) VALUES (?, ?, ?, ?, ?, ?, ?)";
+         String sql = "INSERT INTO ticketcompra (fechacompra, fechafuncion, monto, comprador, cantidadtickets, descuento) VALUES ( ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -44,7 +44,7 @@ public class TicketCompraData {
             ps.setInt(4, ticketcompra.getComprador().getDni());
             ps.setInt(5, ticketcompra.getCantidadtickets());
             ps.setDouble(6, ticketcompra.getDescuento());
-            ps.setString(7, ticketcompra.getTipodeofertas());
+            
             ps.executeUpdate();
 
             
@@ -91,7 +91,7 @@ public class TicketCompraData {
         DetalleTicket detalle = new DetalleTicket();
         detalle.setCodD(ticketcompra.getIdTicketCompra());
         detalle.setProyeccion(asientos.get(0).getProyeccion());
-        detalle.setLugar(2);
+        detalle.setCodLugar(2);
         
         detalle.setSubTotal(montoTotal);
 

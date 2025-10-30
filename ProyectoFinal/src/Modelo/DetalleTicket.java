@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import java.util.List;
 import java.util.ArrayList;
 
 /**
@@ -15,7 +16,7 @@ public class DetalleTicket {
     
     private Proyeccion proyeccion;
     private int lugar;
-    
+    private List<Asiento> asientos;
     private double subTotal;
 
     public DetalleTicket() {
@@ -25,19 +26,29 @@ public class DetalleTicket {
         this.codD = codD;
         this.proyeccion = proyeccion;
         this.lugar = lugar;
-        
+        this.asientos = new ArrayList<>();
         this.subTotal = subTotal;
     }
 
     public DetalleTicket(Proyeccion proyeccion, int lugar,  double subTotal) {
         this.proyeccion = proyeccion;
         this.lugar = lugar;
-        
+        this.asientos = new ArrayList<>();
         this.subTotal = subTotal;
     }
     
     
+    public List<Asiento> getAsientos() {
+        return asientos;
+    }
+
+    public void setAsientos(List<Asiento> asientos) {
+        this.asientos = asientos;
+    }
     
+    public void agregarAsiento(Asiento asiento) {
+        this.asientos.add(asiento);
+    }
    
 
  

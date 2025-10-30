@@ -16,18 +16,28 @@ public class Comprador {
     private LocalDate fechaNac;
     private String password;
     private String medioDePago;
-
+    private int maxticketpermitidos;
     public Comprador() {
     }
     
     
-    public Comprador(int dni, String nombre, LocalDate fechaNac, String password, String medioDePago) {
+    public Comprador(int dni, String nombre, LocalDate fechaNac, String password, String medioDePago, int maticketpermitidos) {
         this.dni = dni;
         this.nombre = nombre;
         this.fechaNac = fechaNac;
         this.password = password;
         this.medioDePago = medioDePago;
+        this.maxticketpermitidos = maxticketpermitidos;
     }
+
+    public int getMaxticketpermitidos() {
+        return maxticketpermitidos;
+    }
+
+    public void setMaxticketpermitidos(int maxticketpermitidos) {
+        this.maxticketpermitidos = maxticketpermitidos;
+    }
+    
 
     public int getDni() {
         return dni;
@@ -71,8 +81,10 @@ public class Comprador {
 
     @Override
     public String toString() {
-        return "Comprador{" + "dni=" + dni + ", nombre=" + nombre + ", fechaNac=" + fechaNac + ", password=" + password + ", medioDePago=" + medioDePago + '}';
+        return "Comprador{" + "dni=" + dni + ", nombre=" + nombre + ", fechaNac=" + fechaNac + ", password=" + password + ", medioDePago=" + medioDePago + ", maxticketpermitidos=" + maxticketpermitidos + '}';
     }
+
+    
     
     
 }

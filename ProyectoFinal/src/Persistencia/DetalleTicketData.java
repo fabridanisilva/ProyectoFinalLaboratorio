@@ -25,7 +25,7 @@ public class DetalleTicketData {
     }
 
 public void guardarDetalle(DetalleTicket detalle) {
-        String sql = "INSERT INTO detalleticket (idticket, funcion, codlugar, subtotal) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO `detalleticket`(`codD`, `funcion`, `codLugar`, `subtotal`) VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             double precioPorAsiento = detalle.getSubTotal() / detalle.getCant();

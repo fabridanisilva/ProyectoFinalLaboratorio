@@ -33,36 +33,8 @@ public class TicketCompraData {
         con = Conexion.getConexion();
     
 }
-    public void AgregarTicketCompra(TicketCompra ticketcompra){
     
-    String sql = "INSERT INTO `ticketcompra`(`idTicket`, `codD`, `fechaCompra`, `fechafuncion`, `cantidadtickets`, `descuento`, `monto`, `comprador`) VALUES (?,?,?,?,?,?,?,?)";
     
-        try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
-            ps.setInt(1, ticketcompra.getIdTicketCompra());
-            ps.setInt(2, ticketcompra.getcodD());
-            ps.setDate(3, Date.valueOf(ticketcompra.getFechaCompra()));
-            ps.setDate(4, Date.valueOf(ticketcompra.getFechaFuncion()));
-            ps.setInt(5, ticketcompra.getCantidadtickets());
-            ps.setDouble(6, ticketcompra.getDescuento());
-            ps.setDouble(7, ticketcompra.getMonto());
-            ps.setInt(8, ticketcompra.getComprador().getDni());
-            
-            ps.executeUpdate();
-            
-            ResultSet rs = ps.getGeneratedKeys();
-            
-            if (rs.next()) {
-                ticketcompra.setIdTicketCompra(1);
-                JOptionPane.showMessageDialog(null, "ticket agregado!!");
-            }
-            ps.close();
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"ticket no encontrado"+ ex);
-        }
-    }
     public void GuardarTicketCompra(TicketCompra ticketcompra){
          String sql = "INSERT INTO ticketcompra (fechacompra, fechafuncion, monto, comprador, cantidadtickets, descuento) VALUES ( ?, ?, ?, ?, ?, ?)";
 

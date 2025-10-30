@@ -17,31 +17,64 @@ public class TicketCompra {
     private LocalDate fechaFuncion;
     private double monto;
     private Comprador comprador;
+    private int cantidadtickets;
+    private double descuento;
+    private String tipodeofertas;
 
     public TicketCompra() {
     }
 
-    public TicketCompra(int detD, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador) {
+    public TicketCompra(int detD, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador,int cantidadtickets,double descuento,String tipodeofertas) {
         this.detD = detD;
         this.fechaCompra = fechaCompra;
         this.fechaFuncion = fechaFuncion;
         this.monto = monto;
         this.comprador = comprador;
+        this.cantidadtickets = cantidadtickets;
+        this.descuento = descuento;
+        this.tipodeofertas = tipodeofertas;
     }
 
-    public TicketCompra(int idTicketCompra, int detD, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador) {
+    public TicketCompra(int idTicketCompra, int detD, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento, String tipodeofertas) {
         this.idTicketCompra = idTicketCompra;
         this.detD = detD;
         this.fechaCompra = fechaCompra;
         this.fechaFuncion = fechaFuncion;
         this.monto = monto;
         this.comprador = comprador;
+        this.cantidadtickets = cantidadtickets;
+        this.descuento = descuento;
+        this.tipodeofertas = tipodeofertas;
     }
 
     public int getIdTicketCompra() {
         return idTicketCompra;
     }
 
+    public int getCantidadtickets() {
+        return cantidadtickets;
+    }
+
+    public void setCantidadtickets(int cantidadticket) {
+        this.cantidadtickets = cantidadticket;
+    }
+
+    public double getDescuento() {
+        return descuento;
+    }
+
+    public void setDescuento(double descuento) {
+        this.descuento = descuento;
+    }
+
+    public String getTipodeofertas() {
+        return tipodeofertas;
+    }
+
+    public void setTipodeofertas(String tipodeofertas) {
+        this.tipodeofertas = tipodeofertas;
+    }
+    
     public void setIdTicketCompra(int idTicketCompra) {
         this.idTicketCompra = idTicketCompra;
     }
@@ -88,8 +121,10 @@ public class TicketCompra {
 
     @Override
     public String toString() {
-        return "TicketCompra{" + "idTicketCompra=" + idTicketCompra + ", detD=" + detD + ", fechaCompra=" + fechaCompra + ", fechaFuncion=" + fechaFuncion + ", monto=" + monto + ", comprador=" + comprador + '}';
+        return "TicketCompra{" + "idTicketCompra=" + idTicketCompra + ", detD=" + detD + ", fechaCompra=" + fechaCompra + ", fechaFuncion=" + fechaFuncion + ", monto=" + monto + ", comprador=" + comprador + ", cantidadtickets=" + cantidadtickets + ", descuento=" + descuento + ", tipodeofertas=" + tipodeofertas + '}';
     }
+
+    
 
   
     

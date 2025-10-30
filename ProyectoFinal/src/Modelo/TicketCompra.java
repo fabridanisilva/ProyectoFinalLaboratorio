@@ -11,7 +11,8 @@ import java.time.LocalDate;
  * @author fabri
  */
 public class TicketCompra {
-    private int idTicket;
+    private int idTicketCompra;
+    private int detD;
     private LocalDate fechaCompra;
     private LocalDate fechaFuncion;
     private double monto;
@@ -19,30 +20,38 @@ public class TicketCompra {
 
     public TicketCompra() {
     }
-    
-    
-    
-    public TicketCompra(int idTicket, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador) {
-        this.idTicket = idTicket;
+
+    public TicketCompra(int detD, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador) {
+        this.detD = detD;
         this.fechaCompra = fechaCompra;
         this.fechaFuncion = fechaFuncion;
         this.monto = monto;
         this.comprador = comprador;
     }
 
-    public TicketCompra(LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador) {
+    public TicketCompra(int idTicketCompra, int detD, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador) {
+        this.idTicketCompra = idTicketCompra;
+        this.detD = detD;
         this.fechaCompra = fechaCompra;
         this.fechaFuncion = fechaFuncion;
         this.monto = monto;
         this.comprador = comprador;
     }
-    
-    public int getIdTicket() {
-        return idTicket;
+
+    public int getIdTicketCompra() {
+        return idTicketCompra;
     }
 
-    public void setIdTicket(int idTicket) {
-        this.idTicket = idTicket;
+    public void setIdTicketCompra(int idTicketCompra) {
+        this.idTicketCompra = idTicketCompra;
+    }
+
+    public int getDetD() {
+        return detD;
+    }
+
+    public void setDetD(int detD) {
+        this.detD = detD;
     }
 
     public LocalDate getFechaCompra() {
@@ -79,8 +88,10 @@ public class TicketCompra {
 
     @Override
     public String toString() {
-        return "TicketCompra{" + "idTicket=" + idTicket + ", fechaCompra=" + fechaCompra + ", fechaFuncion=" + fechaFuncion + ", monto=" + monto + ", comprador=" + comprador + '}';
+        return "TicketCompra{" + "idTicketCompra=" + idTicketCompra + ", detD=" + detD + ", fechaCompra=" + fechaCompra + ", fechaFuncion=" + fechaFuncion + ", monto=" + monto + ", comprador=" + comprador + '}';
     }
+
+  
     
     
 }

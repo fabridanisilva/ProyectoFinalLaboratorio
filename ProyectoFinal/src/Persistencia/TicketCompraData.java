@@ -73,10 +73,10 @@ public class TicketCompraData {
         // esto es para  Aplicar descuentos por cantidad
         if (ticketcompra.getCantidadtickets()>= 2) {
     ticketcompra.setDescuento(10); // 10% por pareja
-    ticketcompra.setTipodeofertas("pareja");
+    
 } else {
     ticketcompra.setDescuento(0);
-    ticketcompra.setTipodeofertas("ninguna");
+   
 }
 
         // esto es para Calcular monto total

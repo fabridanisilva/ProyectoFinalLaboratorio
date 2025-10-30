@@ -60,16 +60,18 @@ public void AgregarComprador(Comprador comprador){
 
  public void ActualizarComprador(Comprador comprador){
      
-     String sql = "UPDATE comprador SET dni = ?, nombre = ?, fechanacimineto = ?, password = ?, madiodepago = ? WHERE comprador = ?";
+     String sql = "UPDATE comprador SET nombre = ?, fechanacimineto = ?, password = ?, madiodepago = ? WHERE dni = ?";
+     
      
         try {
-            PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1,comprador.getDni());
-            ps.setString(2, comprador.getNombre());
-            ps.setDate(3,Date.valueOf(comprador.getFechaNac()));
-            ps.setString(4, comprador.getPassword());
-            ps.setString(5, comprador.getMedioDePago());
+            PreparedStatement ps= con.prepareStatement(sql);
             
+            
+            ps.setString(1, comprador.getNombre());
+            ps.setDate(2,Date.valueOf(comprador.getFechaNac()));
+            ps.setString(3, comprador.getPassword());
+            ps.setString(4, comprador.getMedioDePago());
+            ps.setInt(5, comprador.getDni());
             int exito = ps.executeUpdate();
             
             if (exito==1) {
@@ -83,11 +85,11 @@ public void AgregarComprador(Comprador comprador){
 }
  public void EliminarComprador (int dni){
      
-     String sql = "UPDATE comprador set mediodepago = 0, WHERE dni = ?";
+     String sql = "DELETE FROM `comprador` WHERE dni=?";
      
         try {
-            PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
+            PreparedStatement ps= con.prepareStatement(sql);
+            ps.setInt(1, dni);
             int exito = ps.executeUpdate();
             if (exito == 1) {
                 JOptionPane.showMessageDialog(null, "Se elimino correctamente!!");
@@ -99,14 +101,14 @@ public void AgregarComprador(Comprador comprador){
      
      
  }
- public void BuscarComprador (int dni){
-     
-        try {
-            String sql = "SELECT dni, nombre, fechanacimiento, password FROM comprador WHERE mediodepago = 1, AND dni = ?";
+ public Comprador BuscarComprador (int dni){
+        String sql = "SELECT `dni`, `nombre`, `fechaNacimiento`, `password`, `mediodepago` FROM `comprador` WHERE dni=?";
             
             Comprador comprador = null;
+        try {
             
-            PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            
+            PreparedStatement ps= con.prepareStatement(sql);
             
              ps.setInt(1, dni);
             ResultSet rs = ps.executeQuery();
@@ -124,12 +126,13 @@ public void AgregarComprador(Comprador comprador){
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"comprador no encontrado"+ ex);
         }
+        return comprador;
        
      
  }
  public ArrayList<Comprador> MostrarCompradores(){
      
-     String sql = "SELECT dni, nombre, fechanacimineto, password, FROM comprador WHERE mediodepago = 1 ";
+     String sql = "SELECT `dni`, `nombre`, `fechaNacimiento`, `password`, `mediodepago` FROM `comprador` ";
      
      ArrayList<Comprador> compradores = new ArrayList<>();
      

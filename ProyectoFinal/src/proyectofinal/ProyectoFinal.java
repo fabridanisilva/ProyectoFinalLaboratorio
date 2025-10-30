@@ -10,12 +10,14 @@ import Modelo.DetalleTicket;
 import Modelo.Pelicula;
 import Modelo.Proyeccion;
 import Modelo.Sala;
+import Modelo.TicketCompra;
 import Persistencia.AsientoData;
 import Persistencia.CompradorData;
 import Persistencia.DetalleTicketData;
 import Persistencia.PeliculaData;
 import Persistencia.ProyeccionData;
 import Persistencia.SalaData;
+import Persistencia.TicketCompraData;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -64,9 +66,9 @@ public class ProyectoFinal {
         
         //hacemos el comprador
         
-        Comprador comprador = new Comprador(33444555,"Julian Alvarez",LocalDate.of(2000, 01, 31),"AtleticoMadrid","Efectivo",4);
-        
-        CompradorData cd = new CompradorData();
+        //Comprador comprador = new Comprador(33444555,"Julian Alvarez",LocalDate.of(2000, 01, 31),"AtleticoMadrid","Efectivo",4);
+        Comprador comprador = new Comprador(24350998,"Emmanuel Vasquez",LocalDate.of(2025,10,30),"123","tarjeta",2);
+        //CompradorData cd = new CompradorData();
         //cd.AgregarComprador(comprador);
         //cd.ActualizarComprador(comprador);
         //cd.EliminarComprador(33444555);
@@ -79,12 +81,24 @@ public class ProyectoFinal {
         */
        
        //hacemos detalle ticket
-       
+       /*
        Asiento asiento = ad.buscarAsientoPorcodLugar(203);
        DetalleTicket detalleTicket = new DetalleTicket(proyeccion1,asiento.getCodLugar(),3000);
         DetalleTicketData dtd = new DetalleTicketData();
+        */
+       
+       /*
+         TicketCompra ticketcompra = new TicketCompra(3,2,LocalDate.of(2025,10,30),LocalDate.of(2025,10,31),3000,comprador,2,0);
+         TicketCompraData ticket = new TicketCompraData();
+         ticket.GuardarTicketCompra(ticketcompra);
+*/
+         
+         
+       
+
         
-        
+
+
         
     }
     

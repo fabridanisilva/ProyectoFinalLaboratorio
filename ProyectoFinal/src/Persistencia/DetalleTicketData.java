@@ -28,10 +28,11 @@ public void guardarDetalle(DetalleTicket detalle) {
         String sql = "INSERT INTO `detalleticket`(`codD`, `funcion`, `codLugar`, `subtotal`) VALUES (?,?,?,?)";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            double precioPorAsiento = detalle.getSubTotal() / detalle.getCant();
+            double precioPorAsiento = detalle.getSubTotal() / detalle.getLugar();
 
-            for (Asiento asiento : detalle.getLugar()) {
-                ps.setInt(1, detalle.getIdTicket());
+            for (Asiento asiento : detalle.getAsientos()) {
+
+                ps.setInt(1, detalle.getCodD());
                 ps.setInt(2, detalle.getProyeccion().getIdFuncion());
                 ps.setInt(3, asiento.getCodLugar());
                 ps.setDouble(4, precioPorAsiento);
@@ -39,13 +40,13 @@ public void guardarDetalle(DetalleTicket detalle) {
             }
 
             ps.close();
-            JOptionPane.showMessageDialog(null, "Se guardaron " + detalle.getCant() + " asientos en detalleticket.");
+            JOptionPane.showMessageDialog(null, "Se guardaron " + detalle.getLugar()+ " asientos en detalleticket.");
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar detalle: " + ex.getMessage());
         }
     
 }
- public DetalleTicket buscarDetallePorTicket(int idTicket) {
+ public DetalleTicket buscarDetallePorTicket(int codD) {
         String sql = "SELECT codD, funcion, codlugar, subtotal FROM detalleticket WHERE idticket = ?";
         DetalleTicket detalle = new DetalleTicket();
         ArrayList<Asiento> asientos = new ArrayList<>();
@@ -54,7 +55,7 @@ public void guardarDetalle(DetalleTicket detalle) {
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idTicket);
+            ps.setInt(1, codD);
             ResultSet rs = ps.executeQuery();
 
             ProyeccionData pd = new ProyeccionData();
@@ -64,7 +65,7 @@ public void guardarDetalle(DetalleTicket detalle) {
 
             while (rs.next()) {
                 if (primeraFila) {
-                    detalle.setIdTicket(idTicket);
+                    detalle.setCodD(codD);
                     detalle.setProyeccion(pd.buscarProyeccion(rs.getInt("funcion")));
                     primeraFila = false;
                 }
@@ -75,8 +76,8 @@ public void guardarDetalle(DetalleTicket detalle) {
                 cantidad++;
             }
 
-            detalle.setLugar(asientos);
-            detalle.setCant(cantidad);
+            
+            detalle.setLugar(cantidad);
             detalle.setSubTotal(total);
               
                ps.close();
@@ -104,14 +105,14 @@ public ArrayList<DetalleTicket> listarDetallesIndividuales(int idTicket) {
             while (rs.next()) {
                 DetalleTicket detalle = new DetalleTicket();
                 detalle.setCodD(rs.getInt("codd"));
-                detalle.setIdTicket(idTicket);
+                detalle.setCodD(idTicket);
                 detalle.setProyeccion(pd.buscarProyeccion(rs.getInt("funcion")));
 
                 ArrayList<Asiento> asientoUnico = new ArrayList<>();
                 asientoUnico.add(ad.buscarAsientoPorcodLugar(rs.getInt("codlugar")));
-                detalle.setLugar(asientoUnico);
+                detalle.setLugar(1);
 
-                detalle.setCant(1);
+                detalle.setCodD(1);
                 detalle.setSubTotal(rs.getDouble("subtotal"));
 
                 detalles.add(detalle);

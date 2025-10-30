@@ -6,11 +6,13 @@ package proyectofinal;
 
 import Modelo.Asiento;
 import Modelo.Comprador;
+import Modelo.DetalleTicket;
 import Modelo.Pelicula;
 import Modelo.Proyeccion;
 import Modelo.Sala;
 import Persistencia.AsientoData;
 import Persistencia.CompradorData;
+import Persistencia.DetalleTicketData;
 import Persistencia.PeliculaData;
 import Persistencia.ProyeccionData;
 import Persistencia.SalaData;
@@ -62,12 +64,25 @@ public class ProyectoFinal {
         
         //hacemos el comprador
         
-        Comprador comprador = new Comprador(33444555,"Julian Alvarez",LocalDate.of(2000, 01, 31),"AtleticoMadrid","Efectivo");
+        Comprador comprador = new Comprador(33444555,"Julian Alvarez",LocalDate.of(2000, 01, 31),"AtleticoMadrid","Efectivo",4);
         
         CompradorData cd = new CompradorData();
         //cd.AgregarComprador(comprador);
-        
-        
+        cd.ActualizarComprador(comprador);
+        //cd.EliminarComprador(33444555);
+       // System.out.println(cd.BuscarComprador(33444555));
+       
+       /*listamos compradores
+        for (Comprador MostrarCompradore : cd.MostrarCompradores()) {
+            System.out.println(MostrarCompradore);
+        }
+        */
+       
+       //hacemos detalle ticket
+       
+       Asiento asiento = ad.buscarAsientoPorcodLugar(203);
+       DetalleTicket detalleTicket = new DetalleTicket(proyeccion1,asiento.getCodLugar(),3000);
+        DetalleTicketData dtd = new DetalleTicketData();
         
         
         

@@ -19,9 +19,8 @@ public class Comprador {
     private int maxticketpermitidos;
     public Comprador() {
     }
-    
-    
-    public Comprador(int dni, String nombre, LocalDate fechaNac, String password, String medioDePago, int maticketpermitidos) {
+
+    public Comprador(int dni, String nombre, LocalDate fechaNac, String password, String medioDePago, int maxticketpermitidos) {
         this.dni = dni;
         this.nombre = nombre;
         this.fechaNac = fechaNac;
@@ -29,6 +28,9 @@ public class Comprador {
         this.medioDePago = medioDePago;
         this.maxticketpermitidos = maxticketpermitidos;
     }
+    
+    
+  
 
     public int getMaxticketpermitidos() {
         return maxticketpermitidos;

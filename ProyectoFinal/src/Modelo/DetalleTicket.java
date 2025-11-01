@@ -24,6 +24,7 @@ public class DetalleTicket {
     private double subTotal;
 
     public DetalleTicket() {
+        asientos = new ArrayList<>();
     }
 
     public DetalleTicket(int codD, Proyeccion proyeccion, int codLugar, int codLugar1, int codLugar2, int codLugar3, int codLugar4, List<Asiento> asientos, double subTotal) {
@@ -48,7 +49,12 @@ public class DetalleTicket {
         this.asientos = asientos;
         this.subTotal = subTotal;
     }
-
+public DetalleTicket(Proyeccion proyeccion, int codLugar, double subTotal) {
+    this.proyeccion = proyeccion;
+    this.codLugar = codLugar;
+    this.subTotal = subTotal;
+    this.asientos = new ArrayList<>(); // para evitar NullPointerException si luego agregás asientos
+}
 
     
     

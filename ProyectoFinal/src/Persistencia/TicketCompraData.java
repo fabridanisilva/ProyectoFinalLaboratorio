@@ -36,16 +36,17 @@ public class TicketCompraData {
     
     
     public void GuardarTicketCompra(TicketCompra ticketcompra){
-         String sql = "INSERT INTO ticketcompra (fechacompra, fechafuncion, monto, comprador, cantidadtickets, descuento) VALUES ( ?, ?, ?, ?, ?, ?)";
+         String sql = "INSERT INTO ticketcompra (codD, fechacompra, fechafuncion, monto, comprador, cantidadtickets, descuento) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setDate(1, Date.valueOf(ticketcompra.getFechaCompra()));
-            ps.setDate(2, Date.valueOf(ticketcompra.getFechaFuncion()));
-            ps.setDouble(3, ticketcompra.getMonto());
-            ps.setInt(4, ticketcompra.getComprador().getDni());
-            ps.setInt(5, ticketcompra.getCantidadtickets());
-            ps.setDouble(6, ticketcompra.getDescuento());
+            ps.setInt(1, ticketcompra.getcodD());
+            ps.setDate(2, Date.valueOf(ticketcompra.getFechaCompra()));
+            ps.setDate(3, Date.valueOf(ticketcompra.getFechaFuncion()));
+            ps.setDouble(4, ticketcompra.getMonto());
+            ps.setInt(5, ticketcompra.getComprador().getDni());
+            ps.setInt(6, ticketcompra.getCantidadtickets());
+            ps.setDouble(7, ticketcompra.getDescuento());
             
             ps.executeUpdate();
 
@@ -61,61 +62,131 @@ public class TicketCompraData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"no se pudo guardar ticket"+ ex);
         }
+}
+        public void EliminarTicketCompra(int idTicketCompra) {
+    String sql = "DELETE FROM ticketcompra WHERE idTicket = ?";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idTicketCompra);
+        int exito = ps.executeUpdate();
+        if (exito > 0) {
+            JOptionPane.showMessageDialog(null, "Ticket eliminado correctamente.");
+        } 
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar ticket: " + ex.getMessage());
+    }
+}
+
+        public void ModificarTicketCompra(TicketCompra ticket) {
+    String sql = "UPDATE ticketcompra SET fechacompra=?, fechafuncion=?, monto=?, comprador=?, cantidadtickets=?, descuento=? WHERE idTicket=?";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setDate(1, Date.valueOf(ticket.getFechaCompra()));
+        ps.setDate(2, Date.valueOf(ticket.getFechaFuncion()));
+        ps.setDouble(3, ticket.getMonto());
+        ps.setInt(4, ticket.getComprador().getDni());
+        ps.setInt(5, ticket.getCantidadtickets());
+        ps.setDouble(6, ticket.getDescuento());
+        ps.setInt(7, ticket.getIdTicketCompra());
+        
+        int exito = ps.executeUpdate();
+        if (exito > 0) {
+            JOptionPane.showMessageDialog(null, "Ticket actualizado correctamente.");
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró el ticket para actualizar.");
+        }
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al actualizar ticket: " + ex.getMessage());
+    }
+}
+
 
           
 
 
-    }
-    public boolean comprarTickets(TicketCompra ticketcompra, ArrayList<Asiento> asientos){
-        // esto es para Validar cantidad máxima permitida
-        if(ticketcompra.getCantidadtickets()> ticketcompra.getComprador().getMaxticketpermitidos()){
-            JOptionPane.showMessageDialog(null, "cantidad máxima de tickets permitida excedida.");
-            return false;
-        }
-        // esto es para  Aplicar descuentos por cantidad
-        if (ticketcompra.getCantidadtickets()>= 2) {
-    ticketcompra.setDescuento(10); // 10% por pareja
     
-} else {
-    ticketcompra.setDescuento(0);
-   
+    public void comprarTicket(TicketCompra ticket, ArrayList<Asiento> asientos) {
+    // esto es para Validar cantidad máxima permitida
+    if(ticket.getCantidadtickets() > ticket.getComprador().getMaxticketpermitidos()) {
+        JOptionPane.showMessageDialog(null, "Cantidad máxima de tickets permitida excedida.");
+        return;
+    }
+
+    String sql = "INSERT INTO ticketcompra (codD, fechacompra, fechafuncion, cantidadtickets, descuento, monto, comprador) "
+               + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+        // esto Calcula subtotal
+        double subtotal = 0;
+        for(Asiento a : asientos) {
+            subtotal += a.getProyeccion().getPrecio();
+        }
+
+        // aca Aplica descuento
+        double descuento = 0;
+        if(ticket.getCantidadtickets() >= 2) {
+            descuento = 10; // 10% de descuento por pareja por ejemplo
+        }
+        double total = subtotal - (subtotal * (descuento / 100.0));
+
+        // para Setear valores del ticket
+        ticket.setDescuento(descuento);
+        ticket.setMonto(total);
+
+       
+        ps.setInt(1, ticket.getcodD()); 
+        ps.setDate(2, Date.valueOf(ticket.getFechaCompra()));
+        ps.setDate(3, Date.valueOf(ticket.getFechaFuncion()));
+        ps.setInt(4, ticket.getCantidadtickets());
+        ps.setDouble(5, ticket.getDescuento());
+        ps.setDouble(6, ticket.getMonto());
+        ps.setInt(7, ticket.getComprador().getDni());
+
+        
+        ps.executeUpdate();
+
+        // para Obtener codD generado automáticamente si es necesario
+        ResultSet rs = ps.getGeneratedKeys();
+        if(rs.next()) {
+            ticket.setcodD(rs.getInt(1));
+        }
+
+        ps.close();
+
+        // esto Guarda detalle por cada asiento
+        DetalleTicket detalle = new DetalleTicket();
+        detalle.setCodD(ticket.getcodD());
+        detalle.setProyeccion(asientos.get(0).getProyeccion());
+        detalle.setCodLugar(asientos.size());
+        detalle.setSubTotal(total);
+        detalle.setAsientos(asientos);
+
+        DetalleTicketData detalleData = new DetalleTicketData();
+        detalleData.guardarDetalle(detalle);
+
+        //esto  Marca asientos como ocupados
+        AsientoData asientoData = new AsientoData();
+        for(Asiento a : asientos) {
+            a.setEstado(false); // ocupado
+            asientoData.modificarAsiento(a);
+        }
+
+        JOptionPane.showMessageDialog(null, "Compra realizada correctamente. Total: $" + total);
+
+    } catch(SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al registrar la compra: " + ex.getMessage());
+    }
 }
 
-        // esto es para Calcular monto total
-        double montoTotal = ticketcompra.getCantidadtickets()* asientos.get(0).getProyeccion().getPrecio();
-        montoTotal -= montoTotal * (ticketcompra.getDescuento() / 100.0);
-        ticketcompra.setMonto(montoTotal);
-        
-        // esto es para Guardar TicketCompra
-        GuardarTicketCompra(ticketcompra);
-        
-        // 5. Guardar DetalleTicket
-        DetalleTicket detalle = new DetalleTicket();
-        detalle.setCodD(ticketcompra.getIdTicketCompra());
-        detalle.setProyeccion(asientos.get(0).getProyeccion());
-        detalle.setCodLugar(2);
-        
-        detalle.setSubTotal(montoTotal);
-
-        DetalleTicketData dtd = new DetalleTicketData();
-        dtd.guardarDetalle(detalle);
-
-        // esto es para Marcar asientos como ocupados
-        AsientoData ad = new AsientoData();
-        for(Asiento a : asientos){
-            a.setEstado(false);
-            ad.modificarAsiento(a);
-        }
-
-        JOptionPane.showMessageDialog(null, "Compra realizada exitosamente!");
-        
-    
-        return true;
-    }   
+ 
         
             
     public TicketCompra BuscarTicketCompra(int id){
-        String sql = "SELECT fechacompra, fechafuncion, monto, comprador FROM ticketcompra WHERE idTicket = ?";
+        String sql = "SELECT idTicketCompra fechacompra, fechafuncion, monto, comprador FROM ticketcompra WHERE idTicket = ?";
         
         TicketCompra ticketcompra = null;
         try {
@@ -124,7 +195,7 @@ public class TicketCompraData {
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
                 ticketcompra = new TicketCompra ();
-                ticketcompra.setIdTicketCompra(rs.getInt("idTicket"));
+                ticketcompra.setIdTicketCompra(rs.getInt("idTicketCompra"));
                 ticketcompra.setFechaCompra(rs.getDate("fechacompra").toLocalDate());
                 ticketcompra.setFechaFuncion(rs.getDate("fechafuncion").toLocalDate());
                 ticketcompra.setMonto(rs.getDouble("monto"));
@@ -139,7 +210,7 @@ public class TicketCompraData {
         }
         return ticketcompra;
     }
-    public ArrayList<TicketCompra> MostrarTicketComprados(){
+    public ArrayList<TicketCompra> MostrarTicketComprados(int dniComprador){
         String sql ="SELECT idTicket, fechacompra, fechafuncion, monto FROM ticketcompra WHERE comprador = ?";
         
         ArrayList<TicketCompra> ticketcomprados = new ArrayList<>();

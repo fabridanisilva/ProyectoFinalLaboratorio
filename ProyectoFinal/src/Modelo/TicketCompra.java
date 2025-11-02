@@ -12,39 +12,39 @@ import java.time.LocalDate;
  */
 public class TicketCompra {
     private int idTicketCompra;
-    private int detD;
+    private int codD;
     private LocalDate fechaCompra;
     private LocalDate fechaFuncion;
     private double monto;
     private Comprador comprador;
     private int cantidadtickets;
     private double descuento;
-    private String tipodeofertas;
+    
 
     public TicketCompra() {
     }
 
-    public TicketCompra(int detD, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador,int cantidadtickets,double descuento,String tipodeofertas) {
-        this.detD = detD;
+    public TicketCompra(int codD, LocalDate fechaCompra, LocalDate fechaFuncion,int cantidadtickets,double descuento, double monto, Comprador comprador) {
+        this.codD = codD;
         this.fechaCompra = fechaCompra;
         this.fechaFuncion = fechaFuncion;
         this.monto = monto;
         this.comprador = comprador;
         this.cantidadtickets = cantidadtickets;
         this.descuento = descuento;
-        this.tipodeofertas = tipodeofertas;
+        
     }
 
-    public TicketCompra(int idTicketCompra, int detD, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento, String tipodeofertas) {
+    public TicketCompra(int idTicketCompra, int codD, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
         this.idTicketCompra = idTicketCompra;
-        this.detD = detD;
+        this.codD = codD;
         this.fechaCompra = fechaCompra;
         this.fechaFuncion = fechaFuncion;
         this.monto = monto;
         this.comprador = comprador;
         this.cantidadtickets = cantidadtickets;
         this.descuento = descuento;
-        this.tipodeofertas = tipodeofertas;
+        
     }
 
     public int getIdTicketCompra() {
@@ -67,24 +67,18 @@ public class TicketCompra {
         this.descuento = descuento;
     }
 
-    public String getTipodeofertas() {
-        return tipodeofertas;
-    }
-
-    public void setTipodeofertas(String tipodeofertas) {
-        this.tipodeofertas = tipodeofertas;
-    }
+   
     
     public void setIdTicketCompra(int idTicketCompra) {
         this.idTicketCompra = idTicketCompra;
     }
 
-    public int getDetD() {
-        return detD;
+    public int getcodD() {
+        return codD;
     }
 
-    public void setDetD(int detD) {
-        this.detD = detD;
+    public void setcodD(int detD) {
+        this.codD = codD;
     }
 
     public LocalDate getFechaCompra() {
@@ -121,12 +115,15 @@ public class TicketCompra {
 
     @Override
     public String toString() {
-        return "TicketCompra{" + "idTicketCompra=" + idTicketCompra + ", detD=" + detD + ", fechaCompra=" + fechaCompra + ", fechaFuncion=" + fechaFuncion + ", monto=" + monto + ", comprador=" + comprador + ", cantidadtickets=" + cantidadtickets + ", descuento=" + descuento + ", tipodeofertas=" + tipodeofertas + '}';
+        return "TicketCompra{" + "idTicketCompra=" + idTicketCompra + ", codD=" + codD + ", fechaCompra=" + fechaCompra + ", fechaFuncion=" + fechaFuncion + ", monto=" + monto + ", comprador=" + comprador + ", cantidadtickets=" + cantidadtickets + ", descuento=" + descuento + '}';
     }
+
+
+}
 
     
 
   
     
-    
-}
+ 
+

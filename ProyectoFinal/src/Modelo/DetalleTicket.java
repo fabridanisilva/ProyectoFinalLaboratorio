@@ -16,10 +16,6 @@ public class DetalleTicket {
     
     private Proyeccion proyeccion;
     private int codLugar;
-    private int codLugar1;
-    private int codLugar2;
-    private int codLugar3;
-    private int codLugar4;
     private List<Asiento> asientos;
     private double subTotal;
 
@@ -27,25 +23,19 @@ public class DetalleTicket {
         asientos = new ArrayList<>();
     }
 
-    public DetalleTicket(int codD, Proyeccion proyeccion, int codLugar, int codLugar1, int codLugar2, int codLugar3, int codLugar4, List<Asiento> asientos, double subTotal) {
+    public DetalleTicket(int codD, Proyeccion proyeccion, int codLugar,  List<Asiento> asientos, double subTotal) {
         this.codD = codD;
         this.proyeccion = proyeccion;
         this.codLugar = codLugar;
-        this.codLugar1 = codLugar1;
-        this.codLugar2 = codLugar2;
-        this.codLugar3 = codLugar3;
-        this.codLugar4 = codLugar4;
+       
         this.asientos = asientos;
         this.subTotal = subTotal;
     }
 
-    public DetalleTicket(Proyeccion proyeccion, int codLugar, int codLugar1, int codLugar2, int codLugar3, int codLugar4, List<Asiento> asientos, double subTotal) {
+    public DetalleTicket(Proyeccion proyeccion, int codLugar,  List<Asiento> asientos, double subTotal) {
         this.proyeccion = proyeccion;
         this.codLugar = codLugar;
-        this.codLugar1 = codLugar1;
-        this.codLugar2 = codLugar2;
-        this.codLugar3 = codLugar3;
-        this.codLugar4 = codLugar4;
+        
         this.asientos = asientos;
         this.subTotal = subTotal;
     }
@@ -99,39 +89,7 @@ public DetalleTicket(Proyeccion proyeccion, int codLugar, double subTotal) {
         this.codLugar = codLugar;
     }
 
-    public int getCodLugar1() {
-        return codLugar1;
-    }
 
-    public void setCodLugar1(int codLugar1) {
-        this.codLugar1 = codLugar1;
-    }
-
-    public int getCodLugar2() {
-        return codLugar2;
-    }
-
-    public void setCodLugar2(int codLugar2) {
-        this.codLugar2 = codLugar2;
-    }
-
-    public int getCodLugar3() {
-        return codLugar3;
-    }
-
-    public void setCodLugar3(int codLugar3) {
-        this.codLugar3 = codLugar3;
-    }
-
-    public int getCodLugar4() {
-        return codLugar4;
-    }
-
-    public void setCodLugar4(int codLugar4) {
-        this.codLugar4 = codLugar4;
-    }
-
-  
 
    
 
@@ -145,7 +103,7 @@ public DetalleTicket(Proyeccion proyeccion, int codLugar, double subTotal) {
 
     @Override
     public String toString() {
-        return "DetalleTicket{" + "codD=" + codD + ", proyeccion=" + proyeccion + ", codLugar=" + codLugar + ", codLugar1=" + codLugar1 + ", codLugar2=" + codLugar2 + ", codLugar3=" + codLugar3 + ", codLugar4=" + codLugar4 + ", asientos=" + asientos + ", subTotal=" + subTotal + '}';
+        return "DetalleTicket{" + "codD=" + codD + ", proyeccion=" + proyeccion + ", codLugar=" + codLugar + ", asientos=" + asientos + ", subTotal=" + subTotal + '}';
     }
 
     

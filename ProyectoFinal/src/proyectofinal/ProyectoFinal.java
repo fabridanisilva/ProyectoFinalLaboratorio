@@ -81,12 +81,15 @@ public class ProyectoFinal {
         */
        
        //hacemos detalle ticket
-       /*
+       
        Asiento asiento = ad.buscarAsientoPorcodLugar(203);
        DetalleTicket detalleTicket = new DetalleTicket(proyeccion1,asiento.getCodLugar(),3000);
         DetalleTicketData dtd = new DetalleTicketData();
-        */
-       
+        //dtd.guardarDetalle(detalleTicket);
+        //System.out.println(dtd.buscarDetallePorTicket(1));
+        for (DetalleTicket listarDetallesIndividuale : dtd.listarDetallesIndividuales(1)) {
+            System.out.println(listarDetallesIndividuale);
+        }
        /*
          TicketCompra ticketcompra = new TicketCompra(3,2,LocalDate.of(2025,10,30),LocalDate.of(2025,10,31),3000,comprador,2,0);
          TicketCompraData ticket = new TicketCompraData();

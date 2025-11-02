@@ -79,20 +79,16 @@ public class AsientoData {
         }
     }
     
-    public void modificarAsiento(Asiento asiento){
+    public void seleccionarAsiento(int cod){
         
-        String sql = "UPDATE asiento SET fila=?,numero=?,estado=?,funcion=? WHERE codlugar=?";
+        String sql = "UPDATE asiento estado=false WHERE codlugar=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             
-            ps.setString(1, asiento.getFila());
-            ps.setInt(2, asiento.getNumero());
-            ps.setBoolean(3, asiento.isEstado());
-            ps.setInt(4, asiento.getProyeccion().getIdFuncion());
-            ps.setInt(5, asiento.getCodLugar());
+            ps.setInt(1,cod);
             int exito = ps.executeUpdate();
             if (exito ==1) {
-                JOptionPane.showMessageDialog(null, "Se modifico exitosamente!!!");
+                JOptionPane.showMessageDialog(null, "Se selecciono exitosamente!!!");
             }
             ps.close();
         } catch (SQLException ex) {

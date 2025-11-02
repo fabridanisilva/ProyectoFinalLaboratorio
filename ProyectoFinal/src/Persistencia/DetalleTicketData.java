@@ -25,29 +25,41 @@ public class DetalleTicketData {
     }
 
 public void guardarDetalle(DetalleTicket detalle) {
-        String sql = "INSERT INTO `detalleticket`(`codD`, `funcion`, `codLugar`, `subtotal`) VALUES (?,?,?,?)";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            double precioPorAsiento = detalle.getSubTotal() / detalle.getCodLugar();
+    if(detalle.getAsientos().isEmpty()) {
+        JOptionPane.showMessageDialog(null, "No se puede guardar detalle porque no hay asientos.");
+        return;
+    }
+   Asiento asiento = detalle.getAsientos().get(0);
+    String sql = "INSERT INTO detalleticket(funcion, codLugar, subtotal) VALUES (?, ?, ?)";
+    try {
+        PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            for (Asiento asiento : detalle.getAsientos()) {
+        // Tomamos el primer asiento (si tenés varios, hay que iterar)
+        
+        ps.setInt(1, detalle.getProyeccion().getIdFuncion());
+        ps.setInt(2, asiento.getCodLugar());
+        ps.setDouble(3, detalle.getSubTotal());
 
-                ps.setInt(1, detalle.getCodD());
-                ps.setInt(2, detalle.getProyeccion().getIdFuncion());
-                ps.setInt(3, asiento.getCodLugar());
-                ps.setDouble(4, precioPorAsiento);
-                ps.executeUpdate();
-            }
+        ps.executeUpdate();
 
-            ps.close();
-            JOptionPane.showMessageDialog(null, "Se guardaron " + detalle.getCodLugar()+ " asientos en detalleticket.");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al guardar detalle: " + ex.getMessage());
+        ResultSet rs = ps.getGeneratedKeys();
+        if (rs.next()) {
+            detalle.setCodD(rs.getInt(1)); // codD generado correctamente
         }
-    
+
+        rs.close();
+        ps.close();
+
+        JOptionPane.showMessageDialog(null, "DetalleTicket guardado correctamente, codD=" + detalle.getCodD());
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al guardar detalle: " + ex.getMessage());
+    }
 }
+
+
+
  public DetalleTicket buscarDetallePorTicket(int codD) {
-        String sql = "SELECT codD, funcion, codlugar, subtotal FROM detalleticket WHERE idticket = ?";
+       String sql = "SELECT funcion, codLugar, subtotal FROM detalleticket WHERE idticket = ?";
         DetalleTicket detalle = new DetalleTicket();
         ArrayList<Asiento> asientos = new ArrayList<>();
         double total = 0;
@@ -92,7 +104,7 @@ public void guardarDetalle(DetalleTicket detalle) {
 
 public ArrayList<DetalleTicket> listarDetallesIndividuales(int idTicket) {
         ArrayList<DetalleTicket> detalles = new ArrayList<>();
-        String sql = "SELECT codd, funcion, codlugar, subtotal FROM detalleticket WHERE idticket = ?";
+        String sql = "SELECT codD, funcion, codlugar, subtotal FROM detalleticket WHERE idticket = ?";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -104,15 +116,16 @@ public ArrayList<DetalleTicket> listarDetallesIndividuales(int idTicket) {
 
             while (rs.next()) {
                 DetalleTicket detalle = new DetalleTicket();
-                detalle.setCodD(rs.getInt("codd"));
-                detalle.setCodD(idTicket);
+                detalle.setCodD(rs.getInt("codD"));
+                
                 detalle.setProyeccion(pd.buscarProyeccion(rs.getInt("funcion")));
 
                 ArrayList<Asiento> asientoUnico = new ArrayList<>();
                 asientoUnico.add(ad.buscarAsientoPorcodLugar(rs.getInt("codlugar")));
                 detalle.setCodLugar(1);
+                detalle.setAsientos(asientoUnico); // ← esto falta
 
-                detalle.setCodD(1);
+                detalle.setCodD(idTicket);
                 detalle.setSubTotal(rs.getDouble("subtotal"));
 
                 detalles.add(detalle);
@@ -132,3 +145,6 @@ public ArrayList<DetalleTicket> listarDetallesIndividuales(int idTicket) {
 
 
 }
+
+
+//hola de nuevo

@@ -28,41 +28,42 @@ import javax.swing.JOptionPane;
  */
 public class TicketCompraData {
     private Connection con = null;
+    
+    
 
     public TicketCompraData() {
         con = Conexion.getConexion();
     
 }
-    
-    
     public void GuardarTicketCompra(TicketCompra ticketcompra){
-         String sql = "INSERT INTO ticketcompra (codD, fechacompra, fechafuncion, monto, comprador, cantidadtickets, descuento) VALUES ( ?, ?, ?, ?, ?, ?, ?)";
-
+        String sql = "INSERT INTO ticketcompra(codD, fechacompra, fechafuncion, cantidadtickets, descuento, monto, comprador) VALUES (?,?,?,?,?,?,?)";
+        
         try {
-            PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            
+          
+        
             ps.setInt(1, ticketcompra.getcodD());
             ps.setDate(2, Date.valueOf(ticketcompra.getFechaCompra()));
             ps.setDate(3, Date.valueOf(ticketcompra.getFechaFuncion()));
-            ps.setDouble(4, ticketcompra.getMonto());
-            ps.setInt(5, ticketcompra.getComprador().getDni());
-            ps.setInt(6, ticketcompra.getCantidadtickets());
-            ps.setDouble(7, ticketcompra.getDescuento());
-            
+            ps.setInt(4, ticketcompra.getCantidadtickets());
+            ps.setDouble(5,ticketcompra.getDescuento());
+            ps.setDouble(6, ticketcompra.getMonto());
+            ps.setInt(7, ticketcompra.getComprador().getDni());
             ps.executeUpdate();
-
             
             ResultSet rs =ps.getGeneratedKeys();
             if (rs.next()) {
                 ticketcompra.setIdTicketCompra(rs.getInt(1));
-                
+                JOptionPane.showMessageDialog(null, "se guardo ticketcomprado");
             }
-            rs.close();
             ps.close();
-            JOptionPane.showMessageDialog(null, "se agrego ticket!");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"no se pudo guardar ticket"+ ex);
+            JOptionPane.showMessageDialog(null,"nose pudo guardar ticketcomprado"+ ex);
         }
-}
+    }
+    
+   
         public void EliminarTicketCompra(int idTicketCompra) {
     String sql = "DELETE FROM ticketcompra WHERE idTicket = ?";
     try {
@@ -114,8 +115,8 @@ public class TicketCompraData {
         return;
     }
 
-    String sql = "INSERT INTO ticketcompra (codD, fechacompra, fechafuncion, cantidadtickets, descuento, monto, comprador) "
-               + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    String sql = "INSERT INTO ticketcompra (fechacompra, fechafuncion, cantidadtickets, descuento, monto, comprador) "
+               + "VALUES (?, ?, ?, ?, ?, ?)";
 
     try {
         PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -138,28 +139,31 @@ public class TicketCompraData {
         ticket.setMonto(total);
 
        
-        ps.setInt(1, ticket.getcodD()); 
-        ps.setDate(2, Date.valueOf(ticket.getFechaCompra()));
-        ps.setDate(3, Date.valueOf(ticket.getFechaFuncion()));
-        ps.setInt(4, ticket.getCantidadtickets());
-        ps.setDouble(5, ticket.getDescuento());
-        ps.setDouble(6, ticket.getMonto());
-        ps.setInt(7, ticket.getComprador().getDni());
+        
+        ps.setDate(1, Date.valueOf(ticket.getFechaCompra()));
+        ps.setDate(2, Date.valueOf(ticket.getFechaFuncion()));
+        ps.setInt(3, ticket.getCantidadtickets());
+        ps.setDouble(4, ticket.getDescuento());
+        ps.setDouble(5, ticket.getMonto());
+        ps.setInt(6, ticket.getComprador().getDni());
 
         
         ps.executeUpdate();
 
         // para Obtener codD generado automáticamente si es necesario
-        ResultSet rs = ps.getGeneratedKeys();
-        if(rs.next()) {
-            ticket.setcodD(rs.getInt(1));
-        }
+       ResultSet rs = ps.getGeneratedKeys();
+if(rs.next()) {
+    ticket.setIdTicketCompra(rs.getInt(1)); // ← este es el ID del ticket
+}
 
         ps.close();
+        
+        
 
         // esto Guarda detalle por cada asiento
         DetalleTicket detalle = new DetalleTicket();
-        detalle.setCodD(ticket.getcodD());
+        detalle.setIdTicket(ticket.getIdTicketCompra());
+       
         detalle.setProyeccion(asientos.get(0).getProyeccion());
         detalle.setCodLugar(asientos.size());
         detalle.setSubTotal(total);
@@ -167,6 +171,16 @@ public class TicketCompraData {
 
         DetalleTicketData detalleData = new DetalleTicketData();
         detalleData.guardarDetalle(detalle);
+         
+        ticket.setcodD(detalle.getCodD());
+
+String sqlUpdate = "UPDATE ticketcompra SET codD = ? WHERE idticketcompra = ?";
+PreparedStatement psUpdate = con.prepareStatement(sqlUpdate);
+psUpdate.setInt(1, ticket.getcodD());
+psUpdate.setInt(2, ticket.getIdTicketCompra());
+psUpdate.executeUpdate();
+psUpdate.close();
+
 
         //esto  Marca asientos como ocupados
         AsientoData asientoData = new AsientoData();

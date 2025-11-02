@@ -36,7 +36,7 @@ public class TicketCompraData {
     
 }
     public void GuardarTicketCompra(TicketCompra ticketcompra){
-        String sql = "INSERT INTO ticketcompra(codD, fechacompra, fechafuncion, cantidadtickets, descuento, monto, comprador) VALUES (?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO `ticketcompra`(`codD`, `fechaCompra`, `fechafuncion`, `cantidadtickets`, `descuento`, `monto`, `comprador`) VALUES (?,?,?,?,?,?,?)";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
@@ -45,7 +45,7 @@ public class TicketCompraData {
         
             ps.setInt(1, ticketcompra.getcodD());
             ps.setDate(2, Date.valueOf(ticketcompra.getFechaCompra()));
-            ps.setDate(3, Date.valueOf(ticketcompra.getFechaFuncion()));
+            ps.setDate(3,Date.valueOf(ticketcompra.getFechaFuncion()));
             ps.setInt(4, ticketcompra.getCantidadtickets());
             ps.setDouble(5,ticketcompra.getDescuento());
             ps.setDouble(6, ticketcompra.getMonto());
@@ -162,7 +162,7 @@ if(rs.next()) {
 
         // esto Guarda detalle por cada asiento
         DetalleTicket detalle = new DetalleTicket();
-        detalle.setIdTicket(ticket.getIdTicketCompra());
+        detalle.setCodD(ticket.getIdTicketCompra());
        
         detalle.setProyeccion(asientos.get(0).getProyeccion());
         detalle.setCodLugar(asientos.size());
@@ -185,8 +185,8 @@ psUpdate.close();
         //esto  Marca asientos como ocupados
         AsientoData asientoData = new AsientoData();
         for(Asiento a : asientos) {
-            a.setEstado(false); // ocupado
-            asientoData.modificarAsiento(a);
+            
+            asientoData.seleccionarAsiento(a.getCodLugar());
         }
 
         JOptionPane.showMessageDialog(null, "Compra realizada correctamente. Total: $" + total);

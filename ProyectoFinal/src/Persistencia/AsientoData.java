@@ -81,7 +81,7 @@ public class AsientoData {
     
     public void seleccionarAsiento(int cod){
         
-        String sql = "UPDATE asiento estado=false WHERE codlugar=?";
+        String sql = "UPDATE `asiento` SET `estado`=false WHERE `codlugar`=?";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             

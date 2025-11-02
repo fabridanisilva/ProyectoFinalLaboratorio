@@ -24,7 +24,7 @@ public class TicketCompra {
     public TicketCompra() {
     }
 
-    public TicketCompra(int codD, LocalDate fechaCompra, LocalDate fechaFuncion,int cantidadtickets,double descuento, double monto, Comprador comprador) {
+    public TicketCompra(int codD, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
         this.codD = codD;
         this.fechaCompra = fechaCompra;
         this.fechaFuncion = fechaFuncion;
@@ -32,8 +32,9 @@ public class TicketCompra {
         this.comprador = comprador;
         this.cantidadtickets = cantidadtickets;
         this.descuento = descuento;
-        
     }
+
+    
 
     public TicketCompra(int idTicketCompra, int codD, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
         this.idTicketCompra = idTicketCompra;
@@ -44,8 +45,9 @@ public class TicketCompra {
         this.comprador = comprador;
         this.cantidadtickets = cantidadtickets;
         this.descuento = descuento;
-        
     }
+
+  
 
     public int getIdTicketCompra() {
         return idTicketCompra;

@@ -58,11 +58,11 @@ public class ProyectoFinal {
         
         
         //recuperar la lista de asientos libres
-        
+        /*
         for (Asiento listarAsiento : ad.listarAsientos(2)) {
             System.out.println(listarAsiento);
         }
-        
+        */
         
         //hacemos el comprador
         

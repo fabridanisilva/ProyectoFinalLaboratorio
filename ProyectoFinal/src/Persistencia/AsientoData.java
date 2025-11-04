@@ -97,7 +97,22 @@ public class AsientoData {
     }
     
     
-    
+        public void desocuparAsiento(int cod){
+        
+        String sql = "UPDATE `asiento` SET `estado`=true WHERE `codlugar`=? AND  `estado`=false";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1,cod);
+            int exito = ps.executeUpdate();
+            if (exito ==1) {
+                JOptionPane.showMessageDialog(null, "Se selecciono exitosamente!!!");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: "+ex.getMessage());
+        }
+    }
        
     public void generarAsientosParaFuncion(Proyeccion proyeccion) {
         

@@ -151,11 +151,94 @@ public class ProyeccionData {
             JOptionPane.showMessageDialog(null, "Error: " + ex);
         }
         return proyeccion;
-        
-        
-        
     }
     
+        public Proyeccion buscarProyeccionprPelicula(int idPelicula){
+    Proyeccion proyeccion = null;
+        String sql = "SELECT idPelicula, idFuncion, idioma, es3d, subtitulada, horainicio, horafin, cantidadLugaresDisponibles, salaProyeccion, precioLugar FROM proyeccion WHERE idPelicula=?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            
+            
+            ps.setInt(1, idPelicula);
+            
+            ResultSet rs = ps.executeQuery();
+        
+        SalaData sd = new SalaData();
+        PeliculaData pd = new PeliculaData();
+            
+            if (rs.next()) {     
+                proyeccion = new Proyeccion();
+                
+                Pelicula pelicula = null;
+                Sala sala = null;
+                
+                pelicula = pd.BuscarPelicula(rs.getInt("idPelicula")); // la funcion BuscarPelicula de la clase PeliculaData va retornar la pelicua en base el id que mandamos por parametro
+                proyeccion.setPelicula(pelicula);
+                proyeccion.setIdFuncion(rs.getInt("idFuncion"));
+                proyeccion.setIdioma(rs.getString("idioma"));
+                proyeccion.setEs3D(rs.getBoolean("es3d"));
+                proyeccion.setSubtitulada(rs.getBoolean("subtitulada"));
+                proyeccion.setHorInicio(rs.getTime("horainicio").toLocalTime());
+                proyeccion.setHoraFin(rs.getTime("horafin").toLocalTime());
+                proyeccion.setCantidadLugaresDisponibles(rs.getInt("cantidadLugaresDisponibles"));
+                sala = sd.buscarSala(rs.getInt("salaProyeccion")); //la funcion buscarSala de la calse SalaData va aretornar la sala en base el numero de sala
+                proyeccion.setSala(sala);
+                proyeccion.setPrecio(rs.getDouble("precioLugar"));
+            }else{
+                JOptionPane.showMessageDialog(null, "No existe la funcion.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex);
+        }
+        return proyeccion;
+    }
+    
+                public Proyeccion buscarProyeccionprSala(int NROsala){
+    Proyeccion proyeccion = null;
+        String sql = "SELECT idPelicula, idFuncion, idioma, es3d, subtitulada, horainicio, horafin, cantidadLugaresDisponibles, salaProyeccion, precioLugar FROM proyeccion WHERE salaProyeccion=?";
+        PreparedStatement ps;
+        try {
+            ps = con.prepareStatement(sql);
+            
+            
+            ps.setInt(1, NROsala);
+            
+            ResultSet rs = ps.executeQuery();
+        
+        SalaData sd = new SalaData();
+        PeliculaData pd = new PeliculaData();
+            
+            if (rs.next()) {     
+                proyeccion = new Proyeccion();
+                
+                Pelicula pelicula = null;
+                Sala sala = null;
+                
+                pelicula = pd.BuscarPelicula(rs.getInt("idPelicula")); // la funcion BuscarPelicula de la clase PeliculaData va retornar la pelicua en base el id que mandamos por parametro
+                proyeccion.setPelicula(pelicula);
+                proyeccion.setIdFuncion(rs.getInt("idFuncion"));
+                proyeccion.setIdioma(rs.getString("idioma"));
+                proyeccion.setEs3D(rs.getBoolean("es3d"));
+                proyeccion.setSubtitulada(rs.getBoolean("subtitulada"));
+                proyeccion.setHorInicio(rs.getTime("horainicio").toLocalTime());
+                proyeccion.setHoraFin(rs.getTime("horafin").toLocalTime());
+                proyeccion.setCantidadLugaresDisponibles(rs.getInt("cantidadLugaresDisponibles"));
+                sala = sd.buscarSala(rs.getInt("salaProyeccion")); //la funcion buscarSala de la calse SalaData va aretornar la sala en base el numero de sala
+                proyeccion.setSala(sala);
+                proyeccion.setPrecio(rs.getDouble("precioLugar"));
+            }else{
+                JOptionPane.showMessageDialog(null, "No existe la funcion.");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex);
+        }
+        return proyeccion;
+    }
+        
     public ArrayList<Proyeccion> listarProyecciones(){
         ArrayList<Proyeccion> proyecciones = new ArrayList<>();
         

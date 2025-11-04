@@ -4,6 +4,14 @@
  */
 package Vista;
 
+import Modelo.Asiento;
+import Modelo.Proyeccion;
+import Persistencia.AsientoData;
+import Persistencia.ProyeccionData;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author fabri
@@ -13,8 +21,10 @@ public class VistaAsiento extends javax.swing.JInternalFrame {
     /**
      * Creates new form VistaAsiento
      */
+    DefaultTableModel modelo;
     public VistaAsiento() {
         initComponents();
+        modelo = new DefaultTableModel();
     }
 
     /**
@@ -27,15 +37,24 @@ public class VistaAsiento extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        Asientos = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        idProyeccion = new javax.swing.JSpinner();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setText("Gestion Asientos");
 
         jButton2.setText("Generar Asientos");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setText("Proyeccion id:");
@@ -59,8 +78,8 @@ public class VistaAsiento extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel7)
                                 .addGap(39, 39, 39)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(idProyeccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Asientos, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(98, 98, 98))
         );
         layout.setVerticalGroup(
@@ -71,10 +90,10 @@ public class VistaAsiento extends javax.swing.JInternalFrame {
                 .addGap(78, 78, 78)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(idProyeccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Asientos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(153, Short.MAX_VALUE))
         );
@@ -82,12 +101,33 @@ public class VistaAsiento extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+        AsientoData ad = new AsientoData();
+        ProyeccionData pd = new ProyeccionData();
+        int idPro = (int) idProyeccion.getValue();
+        
+        Proyeccion proyeccion = pd.buscarProyeccion(idPro);
+        
+        ad.generarAsientosParaFuncion(proyeccion);
+        
+        ArrayList<Asiento> asientos = ad.listarAsientos(idPro);
+        
+        DefaultComboBoxModel<Asiento> comboBoxAsiento = new DefaultComboBoxModel();
+        for (Asiento asiento : asientos) {
+            comboBoxAsiento.addElement(asiento);
+        }
+        Asientos.setModel(comboBoxAsiento);
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Asiento> Asientos;
+    private javax.swing.JSpinner idProyeccion;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JSpinner jSpinner1;
     // End of variables declaration//GEN-END:variables
 }

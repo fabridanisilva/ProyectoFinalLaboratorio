@@ -8,6 +8,8 @@ import Persistencia.PeliculaData;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import static java.time.temporal.TemporalQueries.zone;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,6 +27,16 @@ public class VistaPeliculas extends javax.swing.JInternalFrame {
     public VistaPeliculas() {
         
         initComponents();
+        
+        
+        String[] tabla = { "idPelicula", "Titulo", "director", "actores", "origen", "genero","estreno", "encartelera"};
+        modelo.setColumnIdentifiers(tabla);
+        TablaPelicula.setModel(modelo);
+        
+        
+        Guardar.setEnabled(false);
+        
+        /*
         peliculaData = new PeliculaData();
         modelo = (DefaultTableModel) TablaPelicula.getModel();
         cargarComboPeliculas();
@@ -35,13 +47,18 @@ public class VistaPeliculas extends javax.swing.JInternalFrame {
         Actualizar.addActionListener(e -> actualizarPelicula());
         Eliminar.addActionListener(e -> eliminarPelicula());
         Cartelera.addActionListener(e -> cargarPeliculasEnTabla());
+    
+    
+        */
     } 
+    /*
         private void cargarComboPeliculas() {
         SeleccionarPelicula.removeAllItems();
         for (Pelicula p : peliculaData.ListarPeliculas()) {
             SeleccionarPelicula.addItem(p);
         }
     }
+        
 private void cargarPeliculasEnTabla() {
         modelo.setRowCount(0);
         for (Pelicula p : peliculaData.ListarPeliculas()) {
@@ -67,21 +84,7 @@ private void buscarPelicula() {
     }
 
 
-    private void guardarPelicula() {
-        
-        Pelicula nueva = new Pelicula();
-        nueva.setTitulo("Ejemplo");
-        nueva.setDirector("Director");
-        nueva.setActores("Actores");
-        nueva.setOrigen("Origen");
-        nueva.setGenero("Género");
-        nueva.setEstreno(LocalDate.now());
-        nueva.setEnCartelera(true);
-
-        peliculaData.GuardarPelicula(nueva);
-        cargarComboPeliculas();
-        cargarPeliculasEnTabla();
-    }
+  
 
     private void actualizarPelicula() {
         Pelicula seleccionada = (Pelicula) SeleccionarPelicula.getSelectedItem();
@@ -103,7 +106,7 @@ private void buscarPelicula() {
 
 
 
-
+*/
 
 
     /**
@@ -118,11 +121,8 @@ private void buscarPelicula() {
         Actualizar = new javax.swing.JButton();
         Eliminar = new javax.swing.JButton();
         Buscar = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         Guardar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        SeleccionarPelicula = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         Cartelera = new javax.swing.JRadioButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -134,14 +134,15 @@ private void buscarPelicula() {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
+        Origen = new javax.swing.JTextField();
+        Genero = new javax.swing.JTextField();
+        idPelicula = new javax.swing.JTextField();
+        Titulo = new javax.swing.JTextField();
+        Director = new javax.swing.JTextField();
+        Actores = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        Estreno = new com.toedter.calendar.JDateChooser();
+        listarPeliculas = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -172,9 +173,6 @@ private void buscarPelicula() {
             }
         });
 
-        jButton4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        jButton4.setText("Salir");
-
         Guardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         Guardar.setText("Guardar");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
@@ -185,15 +183,6 @@ private void buscarPelicula() {
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
         jLabel1.setText("Pelicula");
-
-        SeleccionarPelicula.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SeleccionarPeliculaActionPerformed(evt);
-            }
-        });
-
-        jLabel2.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel2.setText("Peliculas:");
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel3.setText("En Cartelera:");
@@ -239,38 +228,45 @@ private void buscarPelicula() {
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel10.setText("Estreno:");
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        idPelicula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                idPeliculaActionPerformed(evt);
             }
         });
 
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        Actores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                ActoresActionPerformed(evt);
             }
         });
 
         jButton1.setText("Agregar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        listarPeliculas.setText("Listar Peliculas");
+        listarPeliculas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                listarPeliculasActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton1)
-                .addGap(164, 164, 164)
-                .addComponent(Guardar)
-                .addGap(64, 64, 64)
-                .addComponent(Actualizar)
-                .addGap(28, 28, 28)
-                .addComponent(Eliminar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
-                .addComponent(Buscar)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addGap(15, 15, 15))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(342, 342, 342))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(listarPeliculas)
+                        .addGap(50, 50, 50))))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -289,10 +285,10 @@ private void buscarPelicula() {
                                     .addComponent(jLabel6))
                                 .addGap(29, 29, 29)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextField4)
-                            .addComponent(jTextField5)
-                            .addComponent(jTextField6)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
+                            .addComponent(idPelicula)
+                            .addComponent(Titulo)
+                            .addComponent(Director)
+                            .addComponent(Actores, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(224, 224, 224)
@@ -302,10 +298,10 @@ private void buscarPelicula() {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(15, 15, 15)
-                                        .addComponent(jDateChooser1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(Estreno, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jTextField2))))
+                                        .addComponent(Genero))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(201, 201, 201)
                                 .addComponent(jLabel3)
@@ -316,21 +312,22 @@ private void buscarPelicula() {
                                 .addGap(226, 226, 226)
                                 .addComponent(jLabel8)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1))))
+                                .addComponent(Origen))))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton1)
+                        .addGap(160, 160, 160)
+                        .addComponent(Guardar)
+                        .addGap(45, 45, 45)
+                        .addComponent(Actualizar)
+                        .addGap(47, 47, 47)
+                        .addComponent(Eliminar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Buscar)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(180, 180, 180)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SeleccionarPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(342, 342, 342))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,14 +339,14 @@ private void buscarPelicula() {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(idPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(19, 19, 19)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Director, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -359,49 +356,52 @@ private void buscarPelicula() {
                                 .addGap(24, 24, 24)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(Cartelera)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Actores, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel3))))
-                        .addGap(67, 67, 67))
+                        .addGap(60, 60, 60))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Origen, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(Genero, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(SeleccionarPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(50, 50, 50)
+                            .addComponent(Estreno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(listarPeliculas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Buscar)
                     .addComponent(Guardar)
                     .addComponent(Actualizar)
                     .addComponent(Eliminar)
-                    .addComponent(jButton4)
                     .addComponent(jButton1))
-                .addGap(15, 15, 15))
+                .addGap(51, 51, 51))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void SeleccionarPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SeleccionarPeliculaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SeleccionarPeliculaActionPerformed
-
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
         // TODO add your handling code here:
          
-
+        try {
+            int id = Integer.parseInt(idPelicula.getText());
+            PeliculaData pd = new PeliculaData();
+            Pelicula peli = pd.BuscarPelicula(id);
+            cargarDatos(peli);
+            
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El id debe ser un numero");
+        }
+        
 
         
 
@@ -410,48 +410,128 @@ private void buscarPelicula() {
 
     private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
         // TODO add your handling code here:
+        
+        
+        String titulo = Titulo.getText();
+        String director = Director.getText();
+        String actore = Actores.getText();
+        String origen = Origen.getText();
+        String genero = Genero.getText();
+        java.util.Date estrenoDate = Estreno.getDate();
+        LocalDate estreno = estrenoDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        boolean cartelera = Cartelera.isSelected();
+        
+        Pelicula pelicula = new Pelicula(titulo,director,actore,origen,genero,estreno,cartelera);
+        PeliculaData pd = new PeliculaData();
+        pd.GuardarPelicula(pelicula);
+        
+        
+        
+        
+        
+        
+        
+        Actualizar.setEnabled(true);
+        Eliminar.setEnabled(true);
+        Buscar.setEnabled(true);
+        Guardar.setEnabled(false);
        
     }//GEN-LAST:event_GuardarActionPerformed
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
         // TODO add your handling code here:
         
+        String titulo = Titulo.getText();
+        String director = Director.getText();
+        String actore = Actores.getText();
+        String origen = Origen.getText();
+        String genero = Genero.getText();
+        java.util.Date estrenoDate = Estreno.getDate();
+        LocalDate estreno = estrenoDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        boolean cartelera = Cartelera.isSelected();
         
+        Pelicula pelicula = new Pelicula(titulo,director,actore,origen,genero,estreno,cartelera);
+        PeliculaData pd = new PeliculaData();
+        pd.ActualizarPelicula(pelicula);
 
 
     }//GEN-LAST:event_ActualizarActionPerformed
 
     private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
         // TODO add your handling code here:
+        
+        try {
+            int id = Integer.parseInt(idPelicula.getText());
+            PeliculaData pd = new PeliculaData();
+            pd.EliminarPelicula(id);
+            
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "El id debe ser un numero");
+        }
+        
+        
     }//GEN-LAST:event_EliminarActionPerformed
 
     private void CarteleraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarteleraActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CarteleraActionPerformed
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void idPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idPeliculaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_idPeliculaActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void ActoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActoresActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_ActoresActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        Actualizar.setEnabled(false);
+        Eliminar.setEnabled(false);
+        Buscar.setEnabled(false);
+        Guardar.setEnabled(true);
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void listarPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarPeliculasActionPerformed
+        // TODO add your handling code here:
+        PeliculaData pd = new PeliculaData();
+        
+        for (Pelicula ListarPelicula : pd.ListarPeliculas()) {
+            cargarDatos(ListarPelicula);
+        }
+        
+        
+        
+    }//GEN-LAST:event_listarPeliculasActionPerformed
+
+    
+    public void cargarDatos(Pelicula p){
+    
+        modelo.addRow(new Object[]{p.getIdPelicula(),p.getTitulo(),p.getDirector(),p.getActores(),p.getOrigen(),p.getGenero(),p.getEstreno(),p.isEnCartelera()});
+        
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Actores;
     private javax.swing.JButton Actualizar;
     private javax.swing.JButton Buscar;
     private javax.swing.JRadioButton Cartelera;
+    private javax.swing.JTextField Director;
     private javax.swing.JButton Eliminar;
+    private com.toedter.calendar.JDateChooser Estreno;
+    private javax.swing.JTextField Genero;
     private javax.swing.JButton Guardar;
-    private javax.swing.JComboBox SeleccionarPelicula;
+    private javax.swing.JTextField Origen;
     private javax.swing.JTable TablaPelicula;
+    private javax.swing.JTextField Titulo;
+    private javax.swing.JTextField idPelicula;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton4;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -460,12 +540,7 @@ private void buscarPelicula() {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JButton listarPeliculas;
     // End of variables declaration//GEN-END:variables
 
 

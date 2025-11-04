@@ -4,17 +4,29 @@
  */
 package Vista;
 
+import Modelo.Sala;
+import Persistencia.SalaData;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author fabri
  */
 public class VistaSala extends javax.swing.JInternalFrame {
-
+    DefaultTableModel modelo = new DefaultTableModel();
     /**
      * Creates new form VistaSala
      */
     public VistaSala() {
         initComponents();
+        
+        String[] columnas = {"NroSala","Es 3D","Capacidad","Estado"};
+        modelo.setColumnIdentifiers(columnas);
+        tablaSala.setModel(modelo);
+        
+        
+        Guardar.setEnabled(false);
+        
     }
 
     /**
@@ -27,24 +39,29 @@ public class VistaSala extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaSala = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        Guardar = new javax.swing.JButton();
+        Actualizar = new javax.swing.JButton();
+        Eliminar = new javax.swing.JButton();
+        BuscarPorNum = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jSpinner1 = new javax.swing.JSpinner();
+        es3d = new javax.swing.JRadioButton();
+        libre = new javax.swing.JRadioButton();
+        capacidad = new javax.swing.JSpinner();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
+        numeroSala = new javax.swing.JSpinner();
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+
+        tablaSala.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -52,20 +69,45 @@ public class VistaSala extends javax.swing.JInternalFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "NroSala", "Es 3D", "Capacidad", "Libre"
+                "NroSala", "Es 3D", "Capacidad", "Estado"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaSala);
 
         jButton1.setText("Agregar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Guardar");
+        Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Actualizar");
+        Actualizar.setText("Actualizar");
+        Actualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ActualizarActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Eliminar");
+        Eliminar.setText("Eliminar");
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EliminarActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Buscar");
+        BuscarPorNum.setText("Buscar por Num Sala");
+        BuscarPorNum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BuscarPorNumActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel1.setText("NroSala:");
@@ -82,6 +124,13 @@ public class VistaSala extends javax.swing.JInternalFrame {
         jLabel6.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         jLabel6.setText("Agregar Salas");
 
+        jButton6.setText("Listar todas las Salas");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,96 +139,215 @@ public class VistaSala extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(86, 86, 86)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(219, 219, 219)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(244, 244, 244)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton2))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(421, 421, 421)
-                        .addComponent(jLabel6))
+                                .addGap(211, 211, 211)
+                                .addComponent(jLabel5)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(124, 124, 124)
+                                        .addComponent(jLabel6))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel1)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(es3d)
+                                                    .addComponent(numeroSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(libre))
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                                        .addGap(26, 26, 26)
+                                        .addComponent(capacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jButton6)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 824, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(123, 123, 123)
                         .addComponent(jButton1)
                         .addGap(88, 88, 88)
-                        .addComponent(jButton2)
+                        .addComponent(Guardar)
                         .addGap(108, 108, 108)
-                        .addComponent(jButton3)
+                        .addComponent(Actualizar)
                         .addGap(94, 94, 94)
-                        .addComponent(jButton4)
+                        .addComponent(Eliminar)
                         .addGap(88, 88, 88)
-                        .addComponent(jButton5)))
-                .addContainerGap(117, Short.MAX_VALUE))
+                        .addComponent(BuscarPorNum)))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(51, 51, 51)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel5)
-                            .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(32, 32, 32)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jRadioButton2)
-                            .addComponent(jRadioButton1)
-                            .addComponent(jLabel2)))
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGap(41, 41, 41)
+                        .addComponent(jLabel5)
+                        .addGap(128, 128, 128))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel4)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel3)
+                                            .addComponent(capacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(26, 26, 26)
+                                        .addComponent(libre)
+                                        .addGap(2, 2, 2)))
+                                .addGap(9, 9, 9))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel1)
+                                    .addComponent(numeroSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(32, 32, 32)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(es3d)
+                                    .addComponent(jLabel2))))
+                        .addGap(10, 10, 10)
+                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5))
+                    .addComponent(Guardar)
+                    .addComponent(Actualizar)
+                    .addComponent(Eliminar)
+                    .addComponent(BuscarPorNum))
                 .addGap(23, 23, 23))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+        // TODO add your handling code here:
+        
+        boolean es3D = es3d.isSelected();
+        int cap = (int) capacidad.getValue();
+        boolean esstLibre = libre.isSelected();
+        
+        
+        
+        Sala sala = new Sala(es3D,cap,esstLibre);
+        SalaData sd = new SalaData();
+        sd.ingresarSala(sala);
+        
+        
+        Actualizar.setEnabled(true);
+        Eliminar.setEnabled(true);
+        BuscarPorNum.setEnabled(true);
+        Guardar.setEnabled(false);
+        numeroSala.setEnabled(true);
+    }//GEN-LAST:event_GuardarActionPerformed
+
+    private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
+        // TODO add your handling code here:
+        
+        int numero = (int) numeroSala.getValue();
+        boolean es3D = es3d.isSelected();
+        int cap = (int) capacidad.getValue();
+        boolean esstLibre = libre.isSelected();
+        
+        
+        
+        Sala sala = new Sala(numero,es3D,cap,esstLibre);
+        SalaData sd = new SalaData();
+        sd.modificar(sala);
+        
+        
+    }//GEN-LAST:event_ActualizarActionPerformed
+
+    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
+        // TODO add your handling code here:
+        
+        int numero = (int) numeroSala.getValue();
+        boolean es3D = es3d.isSelected();
+        int cap = (int) capacidad.getValue();
+        boolean esstLibre = libre.isSelected();
+        
+        
+        
+        Sala sala = new Sala(numero,es3D,cap,esstLibre);
+        SalaData sd = new SalaData();
+        sd.darBajaSala(sala);
+        
+        
+        
+    }//GEN-LAST:event_EliminarActionPerformed
+
+    private void BuscarPorNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarPorNumActionPerformed
+        // TODO add your handling code here:
+        
+        
+        int numero = (int) numeroSala.getValue();
+        SalaData sd = new SalaData();
+        Sala sala = sd.buscarSala(numero);
+        
+        if (sala!=null) {
+            cargarDatos(sala);
+        }
+        
+        
+    }//GEN-LAST:event_BuscarPorNumActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        SalaData sd = new SalaData();
+        for (Sala listarSala : sd.listarSalas()) {
+            cargarDatos(listarSala);
+        }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        
+        Actualizar.setEnabled(false);
+        Eliminar.setEnabled(false);
+        BuscarPorNum.setEnabled(false);
+        Guardar.setEnabled(true);
+        numeroSala.setEnabled(false);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void cargarDatos(Sala sala){
+    
+        modelo.addRow(new Object[]{sala.getNroSala(),sala.isApta3D(),sala.getCapacidad(),sala.isEstado()});
+    
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Actualizar;
+    private javax.swing.JButton BuscarPorNum;
+    private javax.swing.JButton Eliminar;
+    private javax.swing.JButton Guardar;
+    private javax.swing.JSpinner capacidad;
+    private javax.swing.JRadioButton es3d;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JRadioButton libre;
+    private javax.swing.JSpinner numeroSala;
+    private javax.swing.JTable tablaSala;
     // End of variables declaration//GEN-END:variables
 }

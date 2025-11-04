@@ -127,8 +127,7 @@ public class PeliculaData {
     }
     public ArrayList<Pelicula> ListarPeliculas(){
        
-        String sql = "SELECT idpelicula, titulo, director, actores, origen, genero, estreno, encartelera FROM pelicula"
-                +  "WHERE estado = 1";
+        String sql = "SELECT idpelicula, titulo, director, actores, origen, genero, estreno, encartelera FROM pelicula WHERE encartelera = 1";
         ArrayList<Pelicula> peliculas = new ArrayList<>();
         try {
             PreparedStatement ps =con.prepareStatement(sql);

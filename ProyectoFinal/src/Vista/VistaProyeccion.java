@@ -515,7 +515,7 @@ private void buscarPorSala() {
         JOptionPane.showMessageDialog(this, "No se encontró la película: " + textoPeli);
         return;
     }
-
+//hola
 
 
 

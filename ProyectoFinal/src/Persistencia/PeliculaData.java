@@ -85,6 +85,33 @@ public class PeliculaData {
         }
  return pelicula;
     }
+    public Pelicula buscarPeliculaPorTitulo(String titulo) {
+    Pelicula pelicula = null;
+    String sql = "SELECT * FROM pelicula WHERE titulo = ?";
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setString(1, titulo);
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            pelicula = new Pelicula();
+            
+               pelicula.setidPelicula(rs.getInt("idpelicula"));
+                pelicula.setTitulo(rs.getString("titulo"));
+                pelicula.setDirector(rs.getString("director"));
+               pelicula.setActores(rs.getString("actores"));
+               pelicula.setOrigen(rs.getString("origen"));
+               pelicula.setGenero(rs.getString("genero"));
+               pelicula.setEstreno(rs.getDate("estreno").toLocalDate());
+               pelicula.setEnCartelera(true);
+               
+            }
+            ps.close();
+        
+    } catch (SQLException ex) {
+        ex.printStackTrace();
+    }
+    return pelicula;
+}
+
     
     public void ActualizarPelicula(Pelicula pelicula){
         String sql = "UPDATE pelicula SET titulo = ?, director = ?, actores = ?, origen = ?"

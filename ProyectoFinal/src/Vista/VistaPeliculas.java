@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import static java.time.temporal.TemporalQueries.zone;
+import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -205,6 +206,11 @@ private void buscarPelicula() {
                 "Idpelicula", "Titulo", "Director", "Actores", "Origen", "Genero", "Estreno", "Cartelera"
             }
         ));
+        TablaPelicula.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaPeliculaMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaPelicula);
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -507,6 +513,36 @@ private void buscarPelicula() {
         
         
     }//GEN-LAST:event_listarPeliculasActionPerformed
+
+    private void TablaPeliculaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPeliculaMouseClicked
+        // TODO add your handling code here:
+        
+        int fila = TablaPelicula.getSelectedRow();
+        
+        if (fila>=0) {
+            int id = (int) TablaPelicula.getValueAt(fila, 0);
+            String titulo = (String) TablaPelicula.getValueAt(fila, 1);
+            String director = (String) TablaPelicula.getValueAt(fila, 2);
+            String actores = (String) TablaPelicula.getValueAt(fila, 3);
+            String origen = (String) TablaPelicula.getValueAt(fila, 4);
+            String genero = (String) TablaPelicula.getValueAt(fila, 5);
+            LocalDate date = (LocalDate) TablaPelicula.getValueAt(fila, 6);
+            boolean cartelera = (boolean) TablaPelicula.getValueAt(fila, 7);
+            
+            
+            idPelicula.setText(id + "");
+            Titulo.setText(titulo);
+            Director.setText(director);
+            Actores.setText(actores);
+            Origen.setText(origen);
+            Genero.setText(genero);
+            Estreno.setDate(Date.from(date.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            Cartelera.setSelected(cartelera);
+            
+        }
+        
+        
+    }//GEN-LAST:event_TablaPeliculaMouseClicked
 
     
     public void cargarDatos(Pelicula p){

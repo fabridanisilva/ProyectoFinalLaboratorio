@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import static java.time.temporal.TemporalQueries.zone;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -123,6 +124,11 @@ public class VistaComprador extends javax.swing.JInternalFrame {
                 "DNI", "Nombre", "Nacimiento", "Contraseña", "Medio de Pago", "Cantidad Entradas"
             }
         ));
+        tablaCompradores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaCompradoresMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaCompradores);
 
         Guardar.setText("Guardar");
@@ -373,6 +379,29 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void tablaCompradoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaCompradoresMouseClicked
+        // TODO add your handling code here:
+        
+        int fila = tablaCompradores.getSelectedRow();
+        
+        if (fila>=0) {
+            
+            int DNI = (int) tablaCompradores.getValueAt(fila, 0);
+            String nombre = (String) tablaCompradores.getValueAt(fila, 1);
+            LocalDate nacimiento = (LocalDate) tablaCompradores.getValueAt(fila, 2);
+            String pago = (String) tablaCompradores.getValueAt(fila, 3);
+            int entradas = (int) tablaCompradores.getValueAt(fila, 5);
+            
+            dni.setText(DNI+ "");
+            Nombre.setText(nombre);
+            Nacimiento.setDate(Date.from(nacimiento.atStartOfDay(ZoneId.systemDefault()).toInstant()));
+            MedioPago.setSelectedItem(pago);
+            Entradas.setValue(entradas);
+            
+            
+        }
+    }//GEN-LAST:event_tablaCompradoresMouseClicked
 
     public void cargarDatos(Comprador comprador){
     

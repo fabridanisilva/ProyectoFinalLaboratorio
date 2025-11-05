@@ -76,6 +76,11 @@ public class Pantalla extends javax.swing.JFrame {
         });
 
         jButton3.setText("Proyeccion");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Asientos");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -92,6 +97,11 @@ public class Pantalla extends javax.swing.JFrame {
         });
 
         jButton6.setText("Detalle");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
         jButton7.setText("Compra");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -104,7 +114,7 @@ public class Pantalla extends javax.swing.JFrame {
         dpVistas.setLayout(dpVistasLayout);
         dpVistasLayout.setHorizontalGroup(
             dpVistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 877, Short.MAX_VALUE)
+            .addGap(0, 1017, Short.MAX_VALUE)
         );
         dpVistasLayout.setVerticalGroup(
             dpVistasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +153,7 @@ public class Pantalla extends javax.swing.JFrame {
                                 .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(27, 27, 27)
                 .addComponent(dpVistas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(11, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,6 +234,23 @@ public class Pantalla extends javax.swing.JFrame {
         dpVistas.add(vp);
         vp.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        VistaProyeccion vp = new VistaProyeccion();
+        dpVistas.add(vp);
+        vp.setVisible(true);
+        
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        
+        VistaDetalleTicket vdt = new VistaDetalleTicket();
+        dpVistas.add(vdt);
+        vdt.setVisible(true);
+        
+    }//GEN-LAST:event_jButton6ActionPerformed
     
     
     

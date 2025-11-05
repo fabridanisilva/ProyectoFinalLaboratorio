@@ -39,6 +39,14 @@ public class DetalleTicket {
         this.asientos = asientos;
         this.subTotal = subTotal;
     }
+
+    public DetalleTicket(int codD, Proyeccion proyeccion, int codLugar, double subTotal) {
+        this.codD = codD;
+        this.proyeccion = proyeccion;
+        this.codLugar = codLugar;
+        this.subTotal = subTotal;
+    }
+    
 public DetalleTicket(Proyeccion proyeccion, int codLugar, double subTotal) {
     this.proyeccion = proyeccion;
     this.codLugar = codLugar;

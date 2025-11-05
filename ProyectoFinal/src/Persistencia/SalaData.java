@@ -141,18 +141,19 @@ public class SalaData {
     public ArrayList<Sala> listarSalas(){
     
         ArrayList<Sala> salas = new ArrayList<>();
-        Sala sala = null;
+       
         
-        String sql = "SELECT NROsala, apta3D, capacidad, estado FROM sala WHERE 1";
+        String sql = "SELECT `NROsala`, `apta3D`, `capacidad`, `estado` FROM `sala` ";
         
         try {
             PreparedStatement ps = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             
             ResultSet rs = ps.executeQuery();
             
-            sala = new Sala();
             
-            while (rs.next()) {                
+            
+            while (rs.next()) {    
+                Sala sala = new Sala();
                 sala.setNroSala(rs.getInt("NROsala"));
                 sala.setApta3D(rs.getBoolean("apta3D"));
                 sala.setCapacidad(rs.getInt("capacidad"));

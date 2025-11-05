@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/fabri/OneDrive/Escritorio/facultad/primer%20año/segundo%20cuatrimestre/Laboratorio%20Programacion/Proyecto%20Final/Proyecto/ProyectoFinal/src/Vista/VistaComprador.java</file>
-            <file>file:/C:/Users/fabri/OneDrive/Escritorio/facultad/primer%20año/segundo%20cuatrimestre/Laboratorio%20Programacion/Proyecto%20Final/Proyecto/ProyectoFinal/src/Vista/VistaPeliculas.java</file>
-            <file>file:/C:/Users/fabri/OneDrive/Escritorio/facultad/primer%20año/segundo%20cuatrimestre/Laboratorio%20Programacion/Proyecto%20Final/Proyecto/ProyectoFinal/src/Vista/VistaSala.java</file>
-            <file>file:/C:/Users/fabri/OneDrive/Escritorio/facultad/primer%20año/segundo%20cuatrimestre/Laboratorio%20Programacion/Proyecto%20Final/Proyecto/ProyectoFinal/src/Vista/Pantalla.java</file>
+            <file>file:/C:/Users/fabri/OneDrive/Escritorio/facultad/primer%20año/segundo%20cuatrimestre/Laboratorio%20Programacion/Proyecto%20Final/Proyecto/ProyectoFinal/src/Persistencia/ProyeccionData.java</file>
+            <file>file:/C:/Users/fabri/OneDrive/Escritorio/facultad/primer%20año/segundo%20cuatrimestre/Laboratorio%20Programacion/Proyecto%20Final/Proyecto/ProyectoFinal/src/Vista/VistaProyeccion.java</file>
+            <file>file:/C:/Users/fabri/OneDrive/Escritorio/facultad/primer%20año/segundo%20cuatrimestre/Laboratorio%20Programacion/Proyecto%20Final/Proyecto/ProyectoFinal/src/Vista/VistaAsiento.java</file>
+            <file>file:/C:/Users/fabri/OneDrive/Escritorio/facultad/primer%20año/segundo%20cuatrimestre/Laboratorio%20Programacion/Proyecto%20Final/Proyecto/ProyectoFinal/src/Persistencia/AsientoData.java</file>
         </group>
     </open-files>
 </project-private>

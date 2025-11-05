@@ -119,13 +119,13 @@ public void guardarDetalle(DetalleTicket detalle) {
     }
 
 
-public ArrayList<DetalleTicket> listarDetallesIndividuales(int idTicket) {
+public ArrayList<DetalleTicket> listarDetallesPorFuncion(int idFuncion) {
         ArrayList<DetalleTicket> detalles = new ArrayList<>();
-        String sql = "SELECT codD, funcion, codlugar, subtotal FROM detalleticket WHERE codD = ?";
+        String sql = "SELECT `codD`, `funcion`, `codLugar`, `subtotal` FROM `detalleticket` WHERE `funcion`=? ";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idTicket);
+            ps.setInt(1, idFuncion);
             ResultSet rs = ps.executeQuery();
 
             ProyeccionData pd = new ProyeccionData();
@@ -137,9 +137,9 @@ public ArrayList<DetalleTicket> listarDetallesIndividuales(int idTicket) {
                 
                 detalle.setProyeccion(pd.buscarProyeccion(rs.getInt("funcion")));
 
-                ArrayList<Asiento> asientoUnico = new ArrayList<>();
+               // ArrayList<Asiento> asientoUnico = new ArrayList<>();
                 //asientoUnico.add(ad.buscarAsientoPorcodLugar(rs.getInt("codlugar")));
-                detalle.setCodLugar(rs.getInt("codlugar"));
+                detalle.setCodLugar(rs.getInt("codLugar"));
                // detalle.setAsientos(asientoUnico); // ← esto falta
 
                 //detalle.setCodD(idTicket);

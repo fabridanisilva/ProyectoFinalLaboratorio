@@ -79,7 +79,7 @@ public class TicketCompra {
         return codD;
     }
 
-    public void setcodD(int detD) {
+    public void setcodD(int codD) {
         this.codD = codD;
     }
 
@@ -122,10 +122,3 @@ public class TicketCompra {
 
 
 }
-
-    
-
-  
-    
- //hello
-

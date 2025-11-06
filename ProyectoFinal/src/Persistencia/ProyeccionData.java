@@ -290,6 +290,30 @@ public class ProyeccionData {
     
     
     }
+    
+    public void restarAsientoPorFuncion(int idFuncion){
+        
+        String sql = "UPDATE `proyeccion` SET `cantidadLugaresDisponibles` = `cantidadLugaresDisponibles` - 1 WHERE `idFuncion` = ?";
+        
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ps.setInt(1, idFuncion);
+            
+            int exito = ps.executeUpdate();
+            
+            if (exito ==1) {
+                JOptionPane.showMessageDialog(null, "Se resto un lugar");
+            }
+            
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error: " + ex);
+        }
+        
+        
+    
+    }
 
     
     

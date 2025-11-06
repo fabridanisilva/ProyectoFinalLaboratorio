@@ -50,6 +50,16 @@ public class VistaDetalleTicket extends javax.swing.JInternalFrame {
         modelo2.setColumnIdentifiers(columnas);
         tablaDetalle.setModel(modelo2);
         
+        
+        
+        // verificar que si queden lugares para guardar detalles
+        
+        Proyeccion pro = (Proyeccion) Proyecciones.getSelectedItem();
+        int cantidadLugares = pro.getCantidadLugaresDisponibles();
+        if (cantidadLugares==0) {
+            Guardar.setEnabled(false);
+        }
+        
     }
 
     /**

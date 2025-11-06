@@ -45,6 +45,8 @@ public void guardarDetalle(DetalleTicket detalle) {
         ps.setDouble(3, detalle.getSubTotal());
         ad.seleccionarAsiento(detalle.getCodLugar());  // esto va amodificar el estado del asiento a false cuando se realize el detalleticket
         
+        ProyeccionData pd = new ProyeccionData();
+        pd.restarAsientoPorFuncion(detalle.getProyeccion().getIdFuncion()); //esto cada vez que se guarde un detalle va a restar de a 1 la cantidad de lugares disponobles 
         
         ps.executeUpdate();
 

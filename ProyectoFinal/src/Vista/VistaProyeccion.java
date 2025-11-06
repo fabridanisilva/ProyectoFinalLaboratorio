@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +28,8 @@ public class VistaProyeccion extends javax.swing.JInternalFrame {
     private final PeliculaData peliData = new PeliculaData();
     private final SalaData salaData = new SalaData();
     private final DefaultTableModel modelo = new DefaultTableModel();
+    
+    DefaultTableModel modelo2 = new DefaultTableModel();
 
     /**
      * Creates new form VistaProyeccion
@@ -35,6 +39,17 @@ public class VistaProyeccion extends javax.swing.JInternalFrame {
          armarTabla();
         limpiarCampos();
         //cargarTabla();
+        
+        //cargar peliculas
+        
+        PeliculaData pd = new PeliculaData();
+        ArrayList<Pelicula> peliculas = pd.ListarPeliculas();
+        DefaultComboBoxModel<Pelicula> comboBoxPeli = new DefaultComboBoxModel();
+        for (Pelicula pelicula : peliculas) {
+            comboBoxPeli.addElement(pelicula);
+        }
+        
+        cbPeliculas.setModel(comboBoxPeli);
         
         jguardar.setEnabled(false);
     }
@@ -54,13 +69,13 @@ public class VistaProyeccion extends javax.swing.JInternalFrame {
 
     private void limpiarCampos() {
         jidfuncion.setText("");
-        jpelicula.setText("");
+        
         jidioma.setText("");
-        jes3d.setText("");
+        
         jessubtitulada.setText("");
         jhorainicio.setText("");
         jhorafin.setText("");
-        jlugaresdisponibles.setText("");
+        
         jsala.setText("");
         jprecio.setText("");
     }
@@ -87,14 +102,9 @@ public class VistaProyeccion extends javax.swing.JInternalFrame {
         }
     }
 private void buscarPelicula() {
-    String titulo = jpelicula.getText().trim();
+    
 
-    if (titulo.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Ingrese el nombre de una película para buscar.");
-        return;
-    }
-
-    Pelicula peli = peliData.buscarPeliculaPorTitulo(titulo);
+    Pelicula peli = (Pelicula) cbPeliculas.getSelectedItem();
 
     if (peli == null) {
         JOptionPane.showMessageDialog(this, "No se encontró una película con ese título.");
@@ -188,11 +198,8 @@ private void buscarPorSala() {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jidfuncion = new javax.swing.JTextField();
-        jpelicula = new javax.swing.JTextField();
         jidioma = new javax.swing.JTextField();
-        jes3d = new javax.swing.JTextField();
         jessubtitulada = new javax.swing.JTextField();
-        jlugaresdisponibles = new javax.swing.JTextField();
         jhorafin = new javax.swing.JTextField();
         jhorainicio = new javax.swing.JTextField();
         jsala = new javax.swing.JTextField();
@@ -200,6 +207,8 @@ private void buscarPorSala() {
         jLabel11 = new javax.swing.JLabel();
         jbuscarporpelicula = new javax.swing.JButton();
         jbuscarporsala = new javax.swing.JButton();
+        jlugaresdisponibles = new javax.swing.JTextField();
+        cbPeliculas = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -341,10 +350,9 @@ private void buscarPorSala() {
                                     .addComponent(jLabel4))
                                 .addGap(48, 48, 48)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jes3d, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                                    .addComponent(jidioma)
-                                    .addComponent(jpelicula)
-                                    .addComponent(jidfuncion))))
+                                    .addComponent(jidioma, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+                                    .addComponent(jidfuncion)
+                                    .addComponent(cbPeliculas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                         .addGap(223, 223, 223)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
@@ -354,36 +362,38 @@ private void buscarPorSala() {
                             .addComponent(jLabel6))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jhorafin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jhorainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jlugaresdisponibles, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jsala, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jprecio, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jlistartodo))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jhorafin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jhorainicio, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jsala, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jprecio, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jlistartodo)))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jlugaresdisponibles)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(360, 360, 360)
-                        .addComponent(jLabel11)))
-                .addContainerGap(7, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(jagregar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jguardar)
-                .addGap(36, 36, 36)
-                .addComponent(jactualizar)
-                .addGap(44, 44, 44)
-                .addComponent(jborrar)
-                .addGap(53, 53, 53)
-                .addComponent(jbuscarporid)
-                .addGap(72, 72, 72)
-                .addComponent(jbuscarporsala)
-                .addGap(62, 62, 62)
-                .addComponent(jbuscarporpelicula)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 947, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel11))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jagregar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jguardar)
+                        .addGap(36, 36, 36)
+                        .addComponent(jactualizar)
+                        .addGap(44, 44, 44)
+                        .addComponent(jborrar)
+                        .addGap(53, 53, 53)
+                        .addComponent(jbuscarporid)
+                        .addGap(72, 72, 72)
+                        .addComponent(jbuscarporsala)
+                        .addGap(62, 62, 62)
+                        .addComponent(jbuscarporpelicula)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(11, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 947, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -402,8 +412,8 @@ private void buscarPorSala() {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
                             .addComponent(jLabel7)
-                            .addComponent(jpelicula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jhorafin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jhorafin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(35, 35, 35)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
@@ -413,9 +423,8 @@ private void buscarPorSala() {
                         .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
-                            .addComponent(jes3d, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9))
-                        .addGap(28, 28, 28)
+                        .addGap(29, 29, 29)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(jessubtitulada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -464,15 +473,15 @@ private void buscarPorSala() {
             Proyeccion p = new Proyeccion();
 
             // Película y Sala se buscan desde BD
-            String nombrePeli = jpelicula.getText();
-            Pelicula peli = peliData.buscarPeliculaPorTitulo(nombrePeli);
+            
+            Pelicula peli = (Pelicula) cbPeliculas.getSelectedItem();
             int idSala = Integer.parseInt(jsala.getText());
             Sala sala = salaData.buscarSala(idSala);
 
             p.setPelicula(peli);
             p.setSala(sala);
             p.setIdioma(jidioma.getText());
-            p.setEs3D(Boolean.parseBoolean(jes3d.getText()));
+            p.setEs3D(sala.isApta3D());
             p.setSubtitulada(Boolean.parseBoolean(jessubtitulada.getText()));
 
             try {
@@ -484,7 +493,7 @@ private void buscarPorSala() {
                 return;
             }
 
-            p.setCantidadLugaresDisponibles(Integer.parseInt(jlugaresdisponibles.getText()));
+            p.setCantidadLugaresDisponibles(sala.getCapacidad());
             p.setPrecio(Double.parseDouble(jprecio.getText()));
 
             proyData.ingresarProyeccion(p);
@@ -503,41 +512,35 @@ private void buscarPorSala() {
         jbuscarporpelicula.setEnabled(true);
          jidfuncion.setEnabled(true);
         jguardar.setEnabled(false);
+        jlugaresdisponibles.setEnabled(true);
     }//GEN-LAST:event_jguardarActionPerformed
 
     private void jactualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jactualizarActionPerformed
         // TODO add your handling code here:
         try {
-        // 1. Obtener ID de la proyección a actualizar
-        int id = Integer.parseInt(jidfuncion.getText().trim());
-        Proyeccion p = proyData.buscarProyeccion(id);
-
-        if (p == null) {
+        
+            
+                // 1. Obtener ID de la proyección a actualizar
+                int id = Integer.parseInt(jidfuncion.getText().trim());
+                Proyeccion p = proyData.buscarProyeccion(id);
+                if (p == null) {
             JOptionPane.showMessageDialog(this, "No se encontró la proyección con ese ID");
             return;
-        }
+            }
+                
+                
+                // 2. Obtener los nuevos datos desde los campos
+        
+        Pelicula peli = (Pelicula) cbPeliculas.getSelectedItem();
 
-        // 2. Obtener los nuevos datos desde los campos
-        String textoPeli = jpelicula.getText().trim();
-    Pelicula peli = peliData.buscarPeliculaPorTitulo(textoPeli);
-
-    if (peli == null) {
-        JOptionPane.showMessageDialog(this, "No se encontró la película: " + textoPeli);
-        return;
-    }
+   
 //hola
 
 
 
-if (peli == null) {
-    JOptionPane.showMessageDialog(this, "No se encontró la película: " + textoPeli);
-    return;
-}
 
-        if (peli == null) {
-            JOptionPane.showMessageDialog(this, "No se encontró la película: " + textoPeli);
-            return;
-        }
+
+        
 
         int idSala = Integer.parseInt(jsala.getText().trim());
         Sala sala = salaData.buscarSala(idSala);
@@ -550,7 +553,7 @@ if (peli == null) {
         p.setPelicula(peli);
         p.setSala(sala);
         p.setIdioma(jidioma.getText().trim());
-        p.setEs3D(Boolean.parseBoolean(jes3d.getText().trim()));
+        p.setEs3D(sala.isApta3D());
         p.setSubtitulada(Boolean.parseBoolean(jessubtitulada.getText().trim()));
         p.setCantidadLugaresDisponibles(Integer.parseInt(jlugaresdisponibles.getText().trim()));
         p.setPrecio(Double.parseDouble(jprecio.getText().trim()));
@@ -558,20 +561,28 @@ if (peli == null) {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("HH:mm");
         p.setHorInicio(LocalTime.parse(jhorainicio.getText().trim(), formato));
         p.setHoraFin(LocalTime.parse(jhorafin.getText().trim(), formato));
-
+                
         // 4. Actualizar en la base de datos
         proyData.modificarProyeccion(p);
 
         JOptionPane.showMessageDialog(this, "Proyección actualizada correctamente.");
         cargarTabla();
-
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Error de formato numérico: " + e.getMessage());
-    } catch (DateTimeParseException e) {
+        }catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "El id debe ser un numero: "+ e);
+            }   catch (DateTimeParseException e) {
         JOptionPane.showMessageDialog(this, "Formato de hora incorrecto. Usa HH:mm (por ej. 14:30)");
     } catch (Exception e) {
         JOptionPane.showMessageDialog(this, "Error al actualizar: " + e.getMessage());
     }
+        
+
+        
+
+        
+
+        
+
+      
     }//GEN-LAST:event_jactualizarActionPerformed
 
     private void jborrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jborrarActionPerformed
@@ -644,6 +655,7 @@ if (peli == null) {
         jbuscarporpelicula.setEnabled(false);
         jidfuncion.setEnabled(false);
         jguardar.setEnabled(true);
+        jlugaresdisponibles.setEnabled(false);
         
           
 
@@ -651,6 +663,7 @@ if (peli == null) {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<Pelicula> cbPeliculas;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -670,7 +683,6 @@ if (peli == null) {
     private javax.swing.JButton jbuscarporid;
     private javax.swing.JButton jbuscarporpelicula;
     private javax.swing.JButton jbuscarporsala;
-    private javax.swing.JTextField jes3d;
     private javax.swing.JTextField jessubtitulada;
     private javax.swing.JButton jguardar;
     private javax.swing.JTextField jhorafin;
@@ -679,7 +691,6 @@ if (peli == null) {
     private javax.swing.JTextField jidioma;
     private javax.swing.JButton jlistartodo;
     private javax.swing.JTextField jlugaresdisponibles;
-    private javax.swing.JTextField jpelicula;
     private javax.swing.JTextField jprecio;
     private javax.swing.JTextField jsala;
     // End of variables declaration//GEN-END:variables

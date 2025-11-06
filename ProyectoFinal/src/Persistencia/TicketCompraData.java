@@ -65,7 +65,7 @@ public class TicketCompraData {
     
    
         public void EliminarTicketCompra(int idTicketCompra) {
-    String sql = "DELETE FROM ticketcompra WHERE idTicket = ?";
+    String sql = "DELETE FROM ticketcompra WHERE idTicketCompra = ?";
     try {
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setInt(1, idTicketCompra);
@@ -80,7 +80,7 @@ public class TicketCompraData {
 }
 
         public void ModificarTicketCompra(TicketCompra ticket) {
-    String sql = "UPDATE ticketcompra SET fechacompra=?, fechafuncion=?, monto=?, comprador=?, cantidadtickets=?, descuento=? WHERE idTicket=?";
+    String sql = "UPDATE ticketcompra SET fechacompra=?, fechafuncion=?, monto=?, comprador=?, cantidadtickets=?, descuento=? WHERE idTicketCompra=?";
     try {
         PreparedStatement ps = con.prepareStatement(sql);
         ps.setDate(1, Date.valueOf(ticket.getFechaCompra()));
@@ -200,18 +200,23 @@ psUpdate.close();
         
             
     public TicketCompra BuscarTicketCompra(int id){
-        String sql = "SELECT idTicketCompra fechacompra, fechafuncion, monto, comprador FROM ticketcompra WHERE idTicket = ?";
+        String sql = "SELECT idTicketCompra,codD, fechacompra, fechafuncion,cantidadtickets,descuento, monto, comprador FROM ticketcompra WHERE idTicketCompra = ?";
         
         TicketCompra ticketcompra = null;
         try {
-            PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps= con.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             if (rs.next()){
                 ticketcompra = new TicketCompra ();
                 ticketcompra.setIdTicketCompra(rs.getInt("idTicketCompra"));
+                ticketcompra.setcodD(rs.getInt("codD"));
                 ticketcompra.setFechaCompra(rs.getDate("fechacompra").toLocalDate());
                 ticketcompra.setFechaFuncion(rs.getDate("fechafuncion").toLocalDate());
+                ticketcompra.setCantidadtickets(rs.getInt("cantidadtickets"));
+                ticketcompra.setDescuento(rs.getDouble("descuento"));
+
+
                 ticketcompra.setMonto(rs.getDouble("monto"));
                 Comprador c = new Comprador();
                 c.setDni(rs.getInt("comprador"));
@@ -225,32 +230,39 @@ psUpdate.close();
         return ticketcompra;
     }
     public ArrayList<TicketCompra> MostrarTicketComprados(int dniComprador){
-        String sql ="SELECT idTicket, fechacompra, fechafuncion, monto FROM ticketcompra WHERE comprador = ?";
+    String sql = "SELECT idTicketCompra, codD, fechacompra, fechafuncion, cantidadtickets, descuento, monto, comprador FROM ticketcompra WHERE comprador = ?";
+    
+    ArrayList<TicketCompra> ticketcomprados = new ArrayList<>();
+    
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, dniComprador);
         
-        ArrayList<TicketCompra> ticketcomprados = new ArrayList<>();
-        
-        try {
-            PreparedStatement ps= con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
                 TicketCompra ticketcompra = new TicketCompra();
-                ticketcompra = new TicketCompra ();
-                ticketcompra.setIdTicketCompra(rs.getInt("idTicket"));
+                ticketcompra.setIdTicketCompra(rs.getInt("idTicketCompra"));
+                ticketcompra.setcodD(rs.getInt("codD"));
                 ticketcompra.setFechaCompra(rs.getDate("fechacompra").toLocalDate());
                 ticketcompra.setFechaFuncion(rs.getDate("fechafuncion").toLocalDate());
+                ticketcompra.setCantidadtickets(rs.getInt("cantidadtickets"));
+                ticketcompra.setDescuento(rs.getDouble("descuento"));
                 ticketcompra.setMonto(rs.getDouble("monto"));
+                
                 Comprador c = new Comprador();
                 c.setDni(rs.getInt("comprador"));
                 ticketcompra.setComprador(c);
                 
                 ticketcomprados.add(ticketcompra);
             }
-            rs.close();
-            ps.close();
-            JOptionPane.showMessageDialog(null, "ticket encontrado");
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"no se encontraron ticket"+ ex);
         }
-        return ticketcomprados;
+        
+        JOptionPane.showMessageDialog(null, "Tickets que quedan");
+        
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al buscar tickets: " + ex.getMessage());
+    }
+    
+    return ticketcomprados;
+
     }
 }

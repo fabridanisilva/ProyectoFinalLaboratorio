@@ -78,7 +78,7 @@ public class Asiento {
 
     @Override
     public String toString() {
-        return "Asiento{" + "codLugar=" + codLugar + ", fila=" + fila + ", numero=" + numero + ", estado=" + estado + ", proyeccion=" + proyeccion + '}';
+        return " fila=" + fila + ", numero=" + numero + ", estado=" + estado + ", proyeccion=" + proyeccion.getPelicula();
     }
 
    

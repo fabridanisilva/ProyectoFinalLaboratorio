@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,7 +29,8 @@ public class VistaComprador extends javax.swing.JInternalFrame {
     DefaultTableModel modelo2;
     public VistaComprador() {
         initComponents();
-        
+        Entradas.setModel(new SpinnerNumberModel(1, 1, 5, 1));
+
         //lenando comboBox
         modelo = new DefaultTableModel();
         
@@ -291,8 +293,12 @@ public class VistaComprador extends javax.swing.JInternalFrame {
             char[] contraseña = Contraseña.getPassword();
             String contra = new String(contraseña);
             String medioPago = (String) MedioPago.getSelectedItem();
-            int entradas = (int) Entradas.getValue();
             
+            int entradas = (int) Entradas.getValue();
+            while(entradas>5 || entradas<1){
+                JOptionPane.showMessageDialog(null, "La cantidad de entradas debe ser entre 1 a 5");
+                entradas = (int) Entradas.getValue();
+            }
             Comprador comprador = new Comprador(DNI,nombre,nacimiento,contra,medioPago,entradas);
             CompradorData cd = new CompradorData();
             cd.AgregarComprador(comprador);

@@ -6,9 +6,14 @@ package Vista;
 
 import Modelo.Comprador;
 import Modelo.TicketCompra;
+import Persistencia.CompradorData;
+import Persistencia.DetalleTicketData;
+import Persistencia.ProyeccionData;
 import Persistencia.TicketCompraData;
 import java.util.ArrayList;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,7 +32,7 @@ TicketCompraData ticketData = new TicketCompraData();
         initComponents();
         modelo = new DefaultTableModel();
 
-        String[] tabla = { "idTicketCompra", "codD", "fechacompra", "fechafuncion", "cantidadtickets", "descuento","monto", "comprador"};
+        String[] tabla = { "idTicketCompra", "codD", "fechacompra", "fechafuncion","monto", "comprador", "cantidadtickets", "descuento"};
         modelo.setColumnIdentifiers(tabla);
         jTablacompra.setModel(modelo);
         
@@ -37,7 +42,7 @@ TicketCompraData ticketData = new TicketCompraData();
     public void cargarTabla() {
     DefaultTableModel modelo = (DefaultTableModel) jTablacompra.getModel();
     modelo.setRowCount(0); // limpia tabla
-    ArrayList<TicketCompra> lista = ticketData.MostrarTicketComprados(Integer.parseInt(Comprador.getText()));
+    ArrayList<TicketCompra> lista = ticketData.MostrarTicketComprados(Integer.parseInt(dniComprador.getText()));
     for (TicketCompra t : lista) {
         modelo.addRow(new Object[]{
             t.getIdTicketCompra(),
@@ -76,18 +81,24 @@ TicketCompraData ticketData = new TicketCompraData();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         idTicketCompra = new javax.swing.JTextField();
-        Comprador = new javax.swing.JTextField();
+        dniComprador = new javax.swing.JTextField();
         Monto = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         FechaCompra = new com.toedter.calendar.JDateChooser();
         FechaFuncion = new com.toedter.calendar.JDateChooser();
-        jButton1 = new javax.swing.JButton();
+        Agregar = new javax.swing.JButton();
         Buscar = new javax.swing.JButton();
         ListarTickets = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTablacompra = new javax.swing.JTable();
         Guardar = new javax.swing.JButton();
         jEliminar = new javax.swing.JButton();
+        codD = new javax.swing.JTextField();
+        Entradas = new javax.swing.JSpinner();
+        jTextField2 = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -106,27 +117,32 @@ TicketCompraData ticketData = new TicketCompraData();
         jLabel4.setText("Monto:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel5.setText("Comprador:");
+        jLabel5.setText("DNI Comprador:");
 
-        Comprador.addActionListener(new java.awt.event.ActionListener() {
+        dniComprador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CompradorActionPerformed(evt);
+                dniCompradorActionPerformed(evt);
             }
         });
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         jLabel6.setText("Ticket Compra");
 
-        jButton1.setText("Agregar");
+        Agregar.setText("Agregar");
+        Agregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AgregarActionPerformed(evt);
+            }
+        });
 
-        Buscar.setText("Buscar");
+        Buscar.setText("Buscar por id");
         Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BuscarActionPerformed(evt);
             }
         });
 
-        ListarTickets.setText("Listar Tickets");
+        ListarTickets.setText("Listar Tickets por dni");
         ListarTickets.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ListarTicketsActionPerformed(evt);
@@ -135,18 +151,23 @@ TicketCompraData ticketData = new TicketCompraData();
 
         jTablacompra.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "IdTicket", "Fecha Compra", "Fecha Funcion", "Monto", "Comprador"
+                "IdTicket", "codD", "Fecha Compra", "Fecha Funcion", "Monto", "Comprador", "Cant. tickets", "descuento"
             }
         ));
         jScrollPane1.setViewportView(jTablacompra);
 
         Guardar.setText("Guardar");
+        Guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GuardarActionPerformed(evt);
+            }
+        });
 
         jEliminar.setText("Eliminar Ticket");
         jEliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -155,62 +176,86 @@ TicketCompraData ticketData = new TicketCompraData();
             }
         });
 
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setText("codDetalle:");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setText("Entradas:");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setText("Descuento");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(55, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(259, 259, 259))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 115, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(FechaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(idTicketCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(FechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel4)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(134, 134, 134)
-                                .addComponent(Monto, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(38, 38, 38)
-                                .addComponent(Comprador, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(116, 116, 116))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addGap(259, 259, 259))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel1)
+                                                .addComponent(jLabel7))
+                                            .addGap(48, 48, 48)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(idTicketCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(codD, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel2)
+                                            .addGap(18, 18, 18)
+                                            .addComponent(FechaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel8)
+                                        .addComponent(jLabel9))
+                                    .addGap(260, 260, 260))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(Entradas, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(dniComprador, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(Monto, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(FechaFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addContainerGap()))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(45, 45, 45)
-                                .addComponent(Guardar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Buscar)
-                                .addGap(44, 44, 44)
-                                .addComponent(jEliminar)
-                                .addGap(38, 38, 38)
-                                .addComponent(ListarTickets))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(44, 44, 44))))
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addComponent(Agregar)
+                .addGap(18, 18, 18)
+                .addComponent(Guardar)
+                .addGap(17, 17, 17)
+                .addComponent(Buscar)
+                .addGap(18, 18, 18)
+                .addComponent(jEliminar)
+                .addGap(18, 18, 18)
+                .addComponent(ListarTickets)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+                .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(idTicketCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(16, 16, 16)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(codD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel2)
@@ -225,26 +270,30 @@ TicketCompraData ticketData = new TicketCompraData();
                     .addComponent(Monto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(Comprador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(53, 53, 53)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                    .addComponent(dniComprador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(Entradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Agregar)
                     .addComponent(Buscar)
                     .addComponent(ListarTickets)
                     .addComponent(Guardar)
                     .addComponent(jEliminar))
-                .addGap(133, 133, 133))
+                .addGap(12, 12, 12))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void CompradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompradorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CompradorActionPerformed
 
     private void BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarActionPerformed
         // TODO add your handling code here:
@@ -257,7 +306,7 @@ TicketCompraData ticketData = new TicketCompraData();
         FechaCompra.setDate(Date.valueOf(ticket.getFechaCompra()));
          FechaFuncion.setDate(Date.valueOf(ticket.getFechaFuncion()));
         Monto.setText(String.valueOf(ticket.getMonto()));
-        Comprador.setText(String.valueOf(ticket.getComprador().getDni()));
+        dniComprador.setText(String.valueOf(ticket.getComprador().getDni()));
 
         // Cargar tabla
         DefaultTableModel modelo = (DefaultTableModel) jTablacompra.getModel();
@@ -318,7 +367,7 @@ TicketCompraData ticketData = new TicketCompraData();
     private void ListarTicketsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTicketsActionPerformed
         // TODO add your handling code here:
         try {
-    String dniTexto = Comprador.getText().trim();
+    String dniTexto = dniComprador.getText().trim();
 
     if (dniTexto.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Por favor, ingresá un DNI.");
@@ -341,10 +390,12 @@ TicketCompraData ticketData = new TicketCompraData();
                 t.getcodD(),
                 t.getFechaCompra(),
                 t.getFechaFuncion(),
-                t.getCantidadtickets(),
-                t.getDescuento(),
                 t.getMonto(),
-                t.getComprador().getDni()
+                t.getComprador().getDni(),
+                t.getCantidadtickets(),
+                t.getDescuento()
+                
+                
             });
         }
     }
@@ -357,17 +408,103 @@ TicketCompraData ticketData = new TicketCompraData();
 
     }//GEN-LAST:event_ListarTicketsActionPerformed
 
+    private void dniCompradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dniCompradorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_dniCompradorActionPerformed
+
+    private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
+        // TODO add your handling code here:
+        Guardar.setEnabled(true);
+        idTicketCompra.setEnabled(false);
+        Monto.setEnabled(false);
+        Entradas.setEnabled(false);
+        jTextField2.setEnabled(false);
+        
+    }//GEN-LAST:event_AgregarActionPerformed
+
+    private void GuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuardarActionPerformed
+        // TODO add your handling code here:
+        CompradorData cd = new CompradorData();
+        DetalleTicketData dtd = new DetalleTicketData();
+        TicketCompraData tcd = new TicketCompraData();
+        try {
+            TicketCompra ticketCompra = null;
+            int coD = Integer.parseInt(codD.getText());
+            java.util.Date fechaCompra = FechaCompra.getDate();
+            LocalDate ldFechaCompra = fechaCompra.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            java.util.Date fechaFuncion = FechaFuncion.getDate();
+            LocalDate ldFechaFuncion = fechaFuncion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            
+            
+            
+            int dni = Integer.parseInt(dniComprador.getText());
+            Comprador comprado = cd.BuscarComprador(dni);
+            int entradas  = cd.BuscarComprador(dni).getMaxticketpermitidos();
+            
+            double proyPrecio = dtd.buscarDetallePorTicket(coD).getProyeccion().getPrecio();
+            
+            switch (entradas) {
+                case 1:
+                    double monto = proyPrecio;
+                    ticketCompra = new TicketCompra(coD,ldFechaCompra,ldFechaFuncion,monto,comprado,entradas,0);
+                    tcd.GuardarTicketCompra(ticketCompra);
+                    break;
+                    
+                case 2:
+                    double descuento =  (proyPrecio*5)/100;
+                    monto = proyPrecio-descuento;
+                    ticketCompra = new TicketCompra(coD,ldFechaCompra,ldFechaFuncion,monto,comprado,entradas,descuento);
+                    tcd.GuardarTicketCompra(ticketCompra);
+                    break;
+                case 3:
+                    descuento =  (proyPrecio*10)/100;
+                    monto = proyPrecio-descuento;
+                    ticketCompra = new TicketCompra(coD,ldFechaCompra,ldFechaFuncion,monto,comprado,entradas,descuento);
+                    tcd.GuardarTicketCompra(ticketCompra);
+                    break;
+                case 4:
+                    descuento =  (proyPrecio*15)/100;
+                    monto = proyPrecio-descuento;
+                    ticketCompra = new TicketCompra(coD,ldFechaCompra,ldFechaFuncion,monto,comprado,entradas,descuento);
+                    tcd.GuardarTicketCompra(ticketCompra);
+                    break;
+                case 5:
+                    descuento =  (proyPrecio*20)/100;
+                    monto = proyPrecio-descuento;
+                    ticketCompra = new TicketCompra(coD,ldFechaCompra,ldFechaFuncion,monto,comprado,entradas,descuento);
+                    tcd.GuardarTicketCompra(ticketCompra);
+                    break;
+                  
+                default:
+                    throw new AssertionError();
+            }
+            
+            
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error, asegurese que los compaos de numeros se agreguen numeros y no letras."+ e);
+        }
+        
+        idTicketCompra.setEnabled(true);
+        Monto.setEnabled(true);
+        Entradas.setEnabled(true);
+        jTextField2.setEnabled(true);
+        
+        
+    }//GEN-LAST:event_GuardarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Agregar;
     private javax.swing.JButton Buscar;
-    private javax.swing.JTextField Comprador;
+    private javax.swing.JSpinner Entradas;
     private com.toedter.calendar.JDateChooser FechaCompra;
     private com.toedter.calendar.JDateChooser FechaFuncion;
     private javax.swing.JButton Guardar;
     private javax.swing.JButton ListarTickets;
     private javax.swing.JTextField Monto;
+    private javax.swing.JTextField codD;
+    private javax.swing.JTextField dniComprador;
     private javax.swing.JTextField idTicketCompra;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jEliminar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -375,7 +512,11 @@ TicketCompraData ticketData = new TicketCompraData();
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTablacompra;
+    private javax.swing.JTextField jTextField2;
     // End of variables declaration//GEN-END:variables
 }

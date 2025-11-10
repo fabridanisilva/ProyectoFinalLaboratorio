@@ -488,7 +488,7 @@ TicketCompraData ticketData = new TicketCompraData();
         Monto.setEnabled(true);
         Entradas.setEnabled(true);
         jTextField2.setEnabled(true);
-        
+        Guardar.setEnabled(false);
         
     }//GEN-LAST:event_GuardarActionPerformed
 

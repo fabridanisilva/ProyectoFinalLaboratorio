@@ -296,8 +296,7 @@ public class VistaComprador extends javax.swing.JInternalFrame {
             
             int entradas = (int) Entradas.getValue();
             while(entradas>5 || entradas<1){
-                JOptionPane.showMessageDialog(null, "La cantidad de entradas debe ser entre 1 a 5");
-                entradas = (int) Entradas.getValue();
+                Guardar.setEnabled(false);
             }
             Comprador comprador = new Comprador(DNI,nombre,nacimiento,contra,medioPago,entradas);
             CompradorData cd = new CompradorData();

@@ -4,9 +4,11 @@
  */
 package Vista;
 
+import java.awt.BorderLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JPanel;
 /**
  *
  * @author chich
@@ -19,6 +21,25 @@ public class Pantalla extends javax.swing.JFrame {
     public Pantalla() {
         initComponents();
         setLocationRelativeTo(null);
+        
+        ImageIcon fondo = new ImageIcon(getClass().getResource("/Proyectofinal/imagenes/cartelerafondo.png"));
+    Image imagen = fondo.getImage();
+
+    // Reemplazá 'jPanelFondo' por el nombre real de tu panel azul
+    JPanel panelFondo = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
+        }
+    };
+
+    panelFondo.setLayout(new BorderLayout());
+    dpVistas.setLayout(new BorderLayout());
+    dpVistas.removeAll();
+    dpVistas.add(panelFondo, BorderLayout.CENTER);
+    dpVistas.revalidate();
+    dpVistas.repaint();
     }
 
     /**
@@ -62,6 +83,7 @@ public class Pantalla extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/Imagenes/carrete-de-pelicula.png"))); // NOI18N
         jButton1.setText("Pelicula");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +91,7 @@ public class Pantalla extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/Imagenes/cine.png"))); // NOI18N
         jButton2.setText("Sala");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,6 +99,7 @@ public class Pantalla extends javax.swing.JFrame {
             }
         });
 
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/Imagenes/proyector.png"))); // NOI18N
         jButton3.setText("Proyeccion");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -83,6 +107,7 @@ public class Pantalla extends javax.swing.JFrame {
             }
         });
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/Imagenes/asiento-de-cine (1).png"))); // NOI18N
         jButton4.setText("Asientos");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +115,7 @@ public class Pantalla extends javax.swing.JFrame {
             }
         });
 
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/Imagenes/comprador.png"))); // NOI18N
         jButton5.setText("Comprador");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -97,6 +123,7 @@ public class Pantalla extends javax.swing.JFrame {
             }
         });
 
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/Imagenes/detalle-del-cliente.png"))); // NOI18N
         jButton6.setText("Detalle");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +131,7 @@ public class Pantalla extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/Imagenes/verificar.png"))); // NOI18N
         jButton7.setText("Compra");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,6 +150,7 @@ public class Pantalla extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/Imagenes/entrada-de-cine.png"))); // NOI18N
         jButton8.setText("Ver Entrada");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +187,7 @@ public class Pantalla extends javax.swing.JFrame {
                             .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                                .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(27, 27, 27)

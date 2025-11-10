@@ -82,7 +82,7 @@
                               <Component id="jButton8" min="-2" pref="152" max="-2" attributes="0"/>
                               <Component id="jButton7" min="-2" pref="152" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jButton6" pref="152" max="32767" attributes="0"/>
+                                  <Component id="jButton6" max="32767" attributes="0"/>
                                   <Component id="jButton5" max="32767" attributes="0"/>
                                   <Component id="jButton4" max="32767" attributes="0"/>
                               </Group>
@@ -130,6 +130,9 @@
       <SubComponents>
         <Component class="javax.swing.JButton" name="jButton1">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/proyectofinal/Imagenes/carrete-de-pelicula.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Pelicula"/>
           </Properties>
           <Events>
@@ -138,6 +141,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/proyectofinal/Imagenes/cine.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Sala"/>
           </Properties>
           <Events>
@@ -146,6 +152,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton3">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/proyectofinal/Imagenes/proyector.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Proyeccion"/>
           </Properties>
           <Events>
@@ -154,6 +163,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton4">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/proyectofinal/Imagenes/asiento-de-cine (1).png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Asientos"/>
           </Properties>
           <Events>
@@ -162,6 +174,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton5">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/proyectofinal/Imagenes/comprador.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Comprador"/>
           </Properties>
           <Events>
@@ -170,6 +185,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton6">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/proyectofinal/Imagenes/detalle-del-cliente.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Detalle"/>
           </Properties>
           <Events>
@@ -178,6 +196,9 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton7">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/proyectofinal/Imagenes/verificar.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Compra"/>
           </Properties>
           <Events>
@@ -201,6 +222,9 @@
         </Container>
         <Component class="javax.swing.JButton" name="jButton8">
           <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/proyectofinal/Imagenes/entrada-de-cine.png"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Ver Entrada"/>
           </Properties>
           <Events>

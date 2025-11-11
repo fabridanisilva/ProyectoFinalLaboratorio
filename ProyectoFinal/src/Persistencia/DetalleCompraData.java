@@ -32,8 +32,8 @@ public class DetalleCompraData {
      public void guardarDetalleCompra(DetalleCompra compra) {
         String sql = """
                      INSERT INTO detallecompra
-                     (fechaCompra, fechaFuncion, cantidadtickets, descuento, monto, comprador, funcion, codLugar, subtotal)
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                     (fechaCompra, fechaFuncion, cantidadtickets, descuento, monto, comprador, funcion, codLugar)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
                      """;
 
         try {
@@ -53,7 +53,7 @@ public class DetalleCompraData {
 
             double total = subtotal - (subtotal * descuento / 100.0);
 
-            compra.setSubTotal(subtotal);
+            
             compra.setDescuento(descuento);
             compra.setMonto(total);
 
@@ -65,7 +65,7 @@ public class DetalleCompraData {
             ps.setInt(6, compra.getComprador().getDni());
             ps.setInt(7, compra.getProyeccion().getIdFuncion());
             ps.setInt(8, compra.getCodLugar());
-            ps.setDouble(9, compra.getSubTotal());
+            
 
             ps.executeUpdate();
 
@@ -115,7 +115,7 @@ public class DetalleCompraData {
                 compra.setDescuento(rs.getDouble("descuento"));
                 compra.setMonto(rs.getDouble("monto"));
                 compra.setCodLugar(rs.getInt("codLugar"));
-                compra.setSubTotal(rs.getDouble("subtotal"));
+                
 
                 Comprador comp = new Comprador();
                 comp.setDni(rs.getInt("comprador"));
@@ -157,7 +157,7 @@ public class DetalleCompraData {
                 compra.setDescuento(rs.getDouble("descuento"));
                 compra.setMonto(rs.getDouble("monto"));
                 compra.setCodLugar(rs.getInt("codLugar"));
-                compra.setSubTotal(rs.getDouble("subtotal"));
+                
 
                 Comprador comp = new Comprador();
                 comp.setDni(rs.getInt("comprador"));
@@ -183,7 +183,7 @@ public class DetalleCompraData {
     public void modificarDetalleCompra(DetalleCompra compra) {
         String sql = """
                      UPDATE detallecompra
-                     SET fechaCompra=?, fechaFuncion=?, cantidadtickets=?, descuento=?, monto=?, comprador=?, funcion=?, codLugar=?, subtotal=?
+                     SET fechaCompra=?, fechaFuncion=?, cantidadtickets=?, descuento=?, monto=?, comprador=?, funcion=?, codLugar=?
                      WHERE idTicketCompra=?
                      """;
         try {
@@ -197,8 +197,8 @@ public class DetalleCompraData {
             ps.setInt(6, compra.getComprador().getDni());
             ps.setInt(7, compra.getProyeccion().getIdFuncion());
             ps.setInt(8, compra.getCodLugar());
-            ps.setDouble(9, compra.getSubTotal());
-            ps.setInt(10, compra.getIdTicketCompra());
+            
+            ps.setInt(9, compra.getIdTicketCompra());
 
             int filas = ps.executeUpdate();
             if (filas > 0) {
@@ -232,5 +232,50 @@ public class DetalleCompraData {
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al eliminar compra: " + ex.getMessage());
         }
+    }
+    
+    
+    
+    public ArrayList<DetalleCompra> listarTodasLasCompras(){
+    
+        ArrayList<DetalleCompra> lista = new ArrayList<>();
+        String sql = "SELECT * FROM detallecompra ";
+
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            
+            ResultSet rs = ps.executeQuery();
+
+            ProyeccionData proyData = new ProyeccionData();
+
+            while (rs.next()) {
+                DetalleCompra compra = new DetalleCompra();
+                compra.setIdTicketCompra(rs.getInt("idTicketCompra"));
+                compra.setFechaCompra(rs.getDate("fechaCompra").toLocalDate());
+                compra.setFechaFuncion(rs.getDate("fechaFuncion").toLocalDate());
+                compra.setCantidadtickets(rs.getInt("cantidadtickets"));
+                compra.setDescuento(rs.getDouble("descuento"));
+                compra.setMonto(rs.getDouble("monto"));
+                compra.setCodLugar(rs.getInt("codLugar"));
+                
+
+                Comprador comp = new Comprador();
+                comp.setDni(rs.getInt("comprador"));
+                compra.setComprador(comp);
+
+                Proyeccion proy = proyData.buscarProyeccion(rs.getInt("funcion"));
+                compra.setProyeccion(proy);
+
+                lista.add(compra);
+            }
+
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Error al listar compras: " + ex.getMessage());
+        }
+
+        return lista;
+    
+    
     }
 }

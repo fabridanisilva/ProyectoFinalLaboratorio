@@ -13,11 +13,11 @@ import Modelo.Sala;
 import Modelo.TicketCompra;
 import Persistencia.AsientoData;
 import Persistencia.CompradorData;
-import Persistencia.DetalleTicketData;
+
 import Persistencia.PeliculaData;
 import Persistencia.ProyeccionData;
 import Persistencia.SalaData;
-import Persistencia.TicketCompraData;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -66,7 +66,7 @@ public class ProyectoFinal {
         
         //hacemos el comprador
         
-        Comprador comprador = new Comprador(33444555,"Julian Alvarez",LocalDate.of(2000, 01, 31),"AtleticoMadrid","Efectivo",4);
+        Comprador comprador = new Comprador(33444555,"Julian Alvarez",LocalDate.of(2000, 01, 31),"AtleticoMadrid","Efectivo");
         //Comprador comprador2 = new Comprador(24350998,"Emmanuel Vasquez",LocalDate.of(2025,10,30),"123","tarjeta",2);
         //CompradorData cd = new CompradorData();
         //cd.AgregarComprador(comprador);
@@ -93,7 +93,7 @@ public class ProyectoFinal {
         }
        */
          TicketCompra ticketcompra = new TicketCompra(1,LocalDate.of(2025,10,30),LocalDate.of(2025,10,31),3000,comprador,3,1500);
-         TicketCompraData ticket = new TicketCompraData();
+         
        //  ticket.GuardarTicketCompra(ticketcompra);
 
          

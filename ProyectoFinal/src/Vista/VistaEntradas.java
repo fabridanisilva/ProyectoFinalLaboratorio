@@ -13,8 +13,7 @@ import Modelo.Sala;
 import Modelo.TicketCompra;
 import Persistencia.AsientoData;
 import Persistencia.CompradorData;
-import Persistencia.DetalleTicketData;
-import Persistencia.TicketCompraData;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -30,8 +29,7 @@ public class VistaEntradas extends javax.swing.JInternalFrame {
      * Creates new form VistaEntradas
      */
     
-    DetalleTicketData dtd = new DetalleTicketData();
-    TicketCompraData ctd = new TicketCompraData();
+    
     AsientoData ad = new AsientoData();
     CompradorData cd = new CompradorData();
     public VistaEntradas() {
@@ -203,28 +201,9 @@ public class VistaEntradas extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
-            TicketCompra tc = ctd.BuscarTicketCompra((int) idticket.getValue());
-        DetalleTicket dt = dtd.buscarDetallePorTicket(tc.getcodD());
+            
         
-        //importante 
-        Asiento asiento = ad.buscarAsientoPorcodLugar(dt.getCodLugar());
-        Proyeccion proyeccion = ad.buscarAsientoPorcodLugar(dt.getCodLugar()).getProyeccion();
-        Pelicula pelicula = proyeccion.getPelicula();
-        Sala sala = proyeccion.getSala();
-        LocalDate fechaPro = tc.getFechaFuncion();
-        double monto = tc.getMonto();
-        LocalTime horaDeInicio = proyeccion.getHorInicio();
-        LocalTime horaDeFin = proyeccion.getHoraFin();
-        Comprador comprador= cd.BuscarComprador(tc.getComprador().getDni());
         
-        nomPelicula.setText(pelicula + "");
-        laSala.setText(sala.getNroSala()+"");
-        fecha.setDate(Date.from(fechaPro.atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        horaInicio.setText(horaDeInicio+"");
-        horaFin.setText(horaDeFin +"");
-        Asientos.setText("fila: " + asiento.getFila() + " numero: "+ asiento.getNumero());
-        precio.setText(monto +"");
-        elComprador.setText("Nombre:" +comprador.getNombre()+ " dni: " +comprador.getDni());
         } catch (Exception e) {
         }
         

@@ -68,7 +68,6 @@ public class Pantalla extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         dpVistas = new javax.swing.JDesktopPane();
         jButton8 = new javax.swing.JButton();
@@ -123,14 +122,6 @@ public class Pantalla extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/Imagenes/detalle-del-cliente.png"))); // NOI18N
-        jButton6.setText("Detalle");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/proyectofinal/Imagenes/verificar.png"))); // NOI18N
         jButton7.setText("Compra");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
@@ -163,7 +154,6 @@ public class Pantalla extends javax.swing.JFrame {
         escritorio.setLayer(jButton3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jButton4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jButton5, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(jButton6, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jButton7, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(dpVistas, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(jButton8, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -187,12 +177,11 @@ public class Pantalla extends javax.swing.JFrame {
                             .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jButton6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGap(27, 27, 27)
                 .addComponent(dpVistas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(345, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,13 +201,11 @@ public class Pantalla extends javax.swing.JFrame {
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(26, 26, 26)
                         .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(28, 28, 28)
                         .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(72, Short.MAX_VALUE))))
+                        .addContainerGap(162, Short.MAX_VALUE))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -247,9 +234,9 @@ public class Pantalla extends javax.swing.JFrame {
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
         
-        VistaTicketCompra vtc= new VistaTicketCompra();
-        dpVistas.add(vtc);
-        vtc.setVisible(true);
+        VistaDetalleCompra vdc = new VistaDetalleCompra();
+        dpVistas.add(vdc);
+        vdc.setVisible(true);
         
     }//GEN-LAST:event_jButton7ActionPerformed
 
@@ -288,15 +275,6 @@ public class Pantalla extends javax.swing.JFrame {
         vp.setVisible(true);
         
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        
-        VistaDetalleTicket vdt = new VistaDetalleTicket();
-        dpVistas.add(vdt);
-        vdt.setVisible(true);
-        
-    }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
@@ -351,7 +329,6 @@ public class Pantalla extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JMenuItem jMenuItem2;

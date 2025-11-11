@@ -19,7 +19,7 @@ public class DetalleCompra {
     private Proyeccion proyeccion;
     private int codLugar;
     private List<Asiento> asientos;
-    private double subTotal;
+    
     
     
     private LocalDate fechaCompra;
@@ -32,11 +32,11 @@ public class DetalleCompra {
     public DetalleCompra() {
     }
 
-    public DetalleCompra(Proyeccion proyeccion, int codLugar, List<Asiento> asientos, double subTotal, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
+    public DetalleCompra(int idTicketCompra, Proyeccion proyeccion, int codLugar, List<Asiento> asientos, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
+        this.idTicketCompra = idTicketCompra;
         this.proyeccion = proyeccion;
         this.codLugar = codLugar;
         this.asientos = asientos;
-        this.subTotal = subTotal;
         this.fechaCompra = fechaCompra;
         this.fechaFuncion = fechaFuncion;
         this.monto = monto;
@@ -45,12 +45,10 @@ public class DetalleCompra {
         this.descuento = descuento;
     }
 
-    public DetalleCompra(int idTicketCompra, Proyeccion proyeccion, int codLugar, List<Asiento> asientos, double subTotal, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
-        this.idTicketCompra = idTicketCompra;
+    public DetalleCompra(Proyeccion proyeccion, int codLugar, List<Asiento> asientos, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
         this.proyeccion = proyeccion;
         this.codLugar = codLugar;
         this.asientos = asientos;
-        this.subTotal = subTotal;
         this.fechaCompra = fechaCompra;
         this.fechaFuncion = fechaFuncion;
         this.monto = monto;
@@ -58,6 +56,31 @@ public class DetalleCompra {
         this.cantidadtickets = cantidadtickets;
         this.descuento = descuento;
     }
+
+    public DetalleCompra(int idTicketCompra, Proyeccion proyeccion, int codLugar, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
+        this.idTicketCompra = idTicketCompra;
+        this.proyeccion = proyeccion;
+        this.codLugar = codLugar;
+        this.fechaCompra = fechaCompra;
+        this.fechaFuncion = fechaFuncion;
+        this.monto = monto;
+        this.comprador = comprador;
+        this.cantidadtickets = cantidadtickets;
+        this.descuento = descuento;
+    }
+
+    public DetalleCompra(Proyeccion proyeccion, int codLugar, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
+        this.proyeccion = proyeccion;
+        this.codLugar = codLugar;
+        this.fechaCompra = fechaCompra;
+        this.fechaFuncion = fechaFuncion;
+        this.monto = monto;
+        this.comprador = comprador;
+        this.cantidadtickets = cantidadtickets;
+        this.descuento = descuento;
+    }
+
+    
 
     public int getIdTicketCompra() {
         return idTicketCompra;
@@ -91,13 +114,7 @@ public class DetalleCompra {
         this.asientos = asientos;
     }
 
-    public double getSubTotal() {
-        return subTotal;
-    }
-
-    public void setSubTotal(double subTotal) {
-        this.subTotal = subTotal;
-    }
+    
 
     public LocalDate getFechaCompra() {
         return fechaCompra;
@@ -149,7 +166,7 @@ public class DetalleCompra {
 
     @Override
     public String toString() {
-        return "DetalleCompra{" + "idTicketCompra=" + idTicketCompra + ", proyeccion=" + proyeccion + ", codLugar=" + codLugar + ", asientos=" + asientos + ", subTotal=" + subTotal + ", fechaCompra=" + fechaCompra + ", fechaFuncion=" + fechaFuncion + ", monto=" + monto + ", comprador=" + comprador + ", cantidadtickets=" + cantidadtickets + ", descuento=" + descuento + '}';
+        return "DetalleCompra{" + "idTicketCompra=" + idTicketCompra + ", proyeccion=" + proyeccion + ", codLugar=" + codLugar + ", asientos=" + asientos +  ", fechaCompra=" + fechaCompra + ", fechaFuncion=" + fechaFuncion + ", monto=" + monto + ", comprador=" + comprador + ", cantidadtickets=" + cantidadtickets + ", descuento=" + descuento + '}';
     }
     
     

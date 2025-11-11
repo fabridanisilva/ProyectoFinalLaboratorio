@@ -29,7 +29,7 @@ public class VistaComprador extends javax.swing.JInternalFrame {
     DefaultTableModel modelo2;
     public VistaComprador() {
         initComponents();
-        Entradas.setModel(new SpinnerNumberModel(1, 1, 5, 1));
+        
 
         //lenando comboBox
         modelo = new DefaultTableModel();
@@ -44,7 +44,7 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         
         //llenando tabla
         modelo2 = new DefaultTableModel();
-        String[] columnas = {"DNI","Nombre","Nacimiento","Contraseña","Medio Pago","Cantidad Entradas"};
+        String[] columnas = {"DNI","Nombre","Nacimiento","email","Medio Pago"};
         modelo2.setColumnIdentifiers(columnas);
         tablaCompradores.setModel(modelo2);
         
@@ -64,13 +64,11 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        dni = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
         Nacimiento = new com.toedter.calendar.JDateChooser();
         Nombre = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        Contraseña = new javax.swing.JPasswordField();
         jLabel7 = new javax.swing.JLabel();
         Agregar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -80,8 +78,8 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         Borrar = new javax.swing.JButton();
         BuscarPorDni = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
-        Entradas = new javax.swing.JSpinner();
         MedioPago = new javax.swing.JComboBox<>();
+        dni1 = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -97,13 +95,10 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         jLabel3.setText("Fecha Nacimiento:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel4.setText("Contraseña:");
+        jLabel4.setText("Email");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setText("Medio de Pago:");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel6.setText("Cantidad de Entradas:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jLabel7.setText("Datos Comprador");
@@ -117,13 +112,13 @@ public class VistaComprador extends javax.swing.JInternalFrame {
 
         tablaCompradores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "DNI", "Nombre", "Nacimiento", "Contraseña", "Medio de Pago", "Cantidad Entradas"
+                "DNI", "Nombre", "Nacimiento", "email", "Medio de Pago"
             }
         ));
         tablaCompradores.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -172,37 +167,6 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(52, 52, 52)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(Nacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(92, 92, 92)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Nombre)
-                            .addComponent(dni))))
-                .addGap(120, 120, 120)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addComponent(jLabel5))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jLabel4)))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(Contraseña, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
-                        .addComponent(Entradas))
-                    .addComponent(MedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33))
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1)
@@ -228,6 +192,35 @@ public class VistaComprador extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1)
                         .addGap(20, 20, 20))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18)
+                        .addComponent(Nacimiento, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(dni1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(152, 152, 152)
+                        .addComponent(jLabel5))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(jLabel4)))
+                .addGap(44, 44, 44)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(MedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,23 +230,19 @@ public class VistaComprador extends javax.swing.JInternalFrame {
                 .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(dni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(Contraseña, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dni1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(61, 61, 61)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(Nombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
                     .addComponent(MedioPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(71, 71, 71)
+                .addGap(72, 72, 72)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel6)
-                        .addComponent(Entradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel3)
-                        .addComponent(Nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel3)
+                    .addComponent(Nacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -286,19 +275,16 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         
         
         try {
-            int DNI = Integer.parseInt(dni.getText());
+            int DNI = Integer.parseInt(email.getText());
             String nombre = Nombre.getText();
             java.util.Date fc = Nacimiento.getDate();
             LocalDate nacimiento = fc.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            char[] contraseña = Contraseña.getPassword();
-            String contra = new String(contraseña);
+            String Email = email.getText();
+            
             String medioPago = (String) MedioPago.getSelectedItem();
             
-            int entradas = (int) Entradas.getValue();
-            while(entradas>5 || entradas<1){
-                Guardar.setEnabled(false);
-            }
-            Comprador comprador = new Comprador(DNI,nombre,nacimiento,contra,medioPago,entradas);
+            
+            Comprador comprador = new Comprador(DNI,nombre,nacimiento,Email,medioPago);
             CompradorData cd = new CompradorData();
             cd.AgregarComprador(comprador);
             
@@ -319,16 +305,16 @@ public class VistaComprador extends javax.swing.JInternalFrame {
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
         // TODO add your handling code here:
         try {
-        int DNI = Integer.parseInt(dni.getText());
+        int DNI = Integer.parseInt(email.getText());
             String nombre = Nombre.getText();
             java.util.Date fc = Nacimiento.getDate();
             LocalDate nacimiento = fc.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            char[] contraseña = Contraseña.getPassword();
-            String contra = new String(contraseña);
-            String medioPago = (String) MedioPago.getSelectedItem();
-            int entradas = (int) Entradas.getValue();
             
-            Comprador comprador = new Comprador(DNI,nombre,nacimiento,contra,medioPago,entradas);
+            String Email = email.getText();
+            String medioPago = (String) MedioPago.getSelectedItem();
+            
+            
+            Comprador comprador = new Comprador(DNI,nombre,nacimiento,Email,medioPago);
             CompradorData cd = new CompradorData();
             cd.ActualizarComprador(comprador);
             
@@ -342,7 +328,7 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         
         try{
-            int DNI = Integer.parseInt(dni.getText());
+            int DNI = Integer.parseInt(email.getText());
             CompradorData cd = new CompradorData();
             cd.EliminarComprador(DNI);
             
@@ -358,7 +344,7 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         
                 try{
-            int DNI = Integer.parseInt(dni.getText());
+            int DNI = Integer.parseInt(dni1.getText());
             CompradorData cd = new CompradorData();
             Comprador comprador = cd.BuscarComprador(DNI);
             
@@ -398,11 +384,11 @@ public class VistaComprador extends javax.swing.JInternalFrame {
             String pago = (String) tablaCompradores.getValueAt(fila, 3);
             int entradas = (int) tablaCompradores.getValueAt(fila, 5);
             
-            dni.setText(DNI+ "");
+            email.setText(DNI+ "");
             Nombre.setText(nombre);
             Nacimiento.setDate(Date.from(nacimiento.atStartOfDay(ZoneId.systemDefault()).toInstant()));
             MedioPago.setSelectedItem(pago);
-            Entradas.setValue(entradas);
+            
             
             
         }
@@ -410,7 +396,7 @@ public class VistaComprador extends javax.swing.JInternalFrame {
 
     public void cargarDatos(Comprador comprador){
     
-        modelo2.addRow(new Object[]{comprador.getDni(),comprador.getNombre(),comprador.getFechaNac(),comprador.getPassword(),comprador.getMedioDePago(),comprador.getMaxticketpermitidos()});
+        modelo2.addRow(new Object[]{comprador.getDni(),comprador.getNombre(),comprador.getFechaNac(),comprador.getEmail(),comprador.getMedioDePago()});
     
     }
 
@@ -419,20 +405,18 @@ public class VistaComprador extends javax.swing.JInternalFrame {
     private javax.swing.JButton Agregar;
     private javax.swing.JButton Borrar;
     private javax.swing.JButton BuscarPorDni;
-    private javax.swing.JPasswordField Contraseña;
-    private javax.swing.JSpinner Entradas;
     private javax.swing.JButton Guardar;
     private javax.swing.JComboBox<String> MedioPago;
     private com.toedter.calendar.JDateChooser Nacimiento;
     private javax.swing.JTextField Nombre;
-    private javax.swing.JTextField dni;
+    private javax.swing.JTextField dni1;
+    private javax.swing.JTextField email;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaCompradores;

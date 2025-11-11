@@ -79,9 +79,9 @@ public class DetalleCompraData {
             // Actualizar asientos y función
             ProyeccionData proyData = new ProyeccionData();
             AsientoData asientoData = new AsientoData();
-            Asiento asiento = asientoData.buscarAsientoPorcodLugar(compra.getCodLugar2());
+            
                 asientoData.seleccionarAsiento(compra.getCodLugar());
-                if (asiento!=null) {
+                if (compra.getCantidadtickets()==2) {
                 asientoData.seleccionarAsiento(compra.getCodLugar2());
                 proyData.restarAsientoPorFuncion(compra.getProyeccion().getIdFuncion());
             }

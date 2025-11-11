@@ -18,6 +18,7 @@ public class DetalleCompra {
     
     private Proyeccion proyeccion;
     private int codLugar;
+    private int codLugar2;
     private List<Asiento> asientos;
     
     
@@ -32,10 +33,10 @@ public class DetalleCompra {
     public DetalleCompra() {
     }
 
-    public DetalleCompra(int idTicketCompra, Proyeccion proyeccion, int codLugar, List<Asiento> asientos, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
-        this.idTicketCompra = idTicketCompra;
+    public DetalleCompra(Proyeccion proyeccion, int codLugar, int codLugar2, List<Asiento> asientos, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
         this.proyeccion = proyeccion;
         this.codLugar = codLugar;
+        this.codLugar2 = codLugar2;
         this.asientos = asientos;
         this.fechaCompra = fechaCompra;
         this.fechaFuncion = fechaFuncion;
@@ -45,10 +46,23 @@ public class DetalleCompra {
         this.descuento = descuento;
     }
 
-    public DetalleCompra(Proyeccion proyeccion, int codLugar, List<Asiento> asientos, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
+    public DetalleCompra(Proyeccion proyeccion, int codLugar, int codLugar2, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
         this.proyeccion = proyeccion;
         this.codLugar = codLugar;
-        this.asientos = asientos;
+        this.codLugar2 = codLugar2;
+        this.fechaCompra = fechaCompra;
+        this.fechaFuncion = fechaFuncion;
+        this.monto = monto;
+        this.comprador = comprador;
+        this.cantidadtickets = cantidadtickets;
+        this.descuento = descuento;
+    }
+
+    public DetalleCompra(int idTicketCompra, Proyeccion proyeccion, int codLugar, int codLugar2, LocalDate fechaCompra, LocalDate fechaFuncion, double monto, Comprador comprador, int cantidadtickets, double descuento) {
+        this.idTicketCompra = idTicketCompra;
+        this.proyeccion = proyeccion;
+        this.codLugar = codLugar;
+        this.codLugar2 = codLugar2;
         this.fechaCompra = fechaCompra;
         this.fechaFuncion = fechaFuncion;
         this.monto = monto;
@@ -79,6 +93,16 @@ public class DetalleCompra {
         this.cantidadtickets = cantidadtickets;
         this.descuento = descuento;
     }
+
+    public int getCodLugar2() {
+        return codLugar2;
+    }
+
+    public void setCodLugar2(int codLugar2) {
+        this.codLugar2 = codLugar2;
+    }
+
+   
 
     
 

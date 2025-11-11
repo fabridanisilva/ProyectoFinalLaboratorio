@@ -59,6 +59,13 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         }
         Compradores.setModel(cbComprador);
         
+        //cargar cantidad entradas
+        Integer[] entradas = {1,2};
+        DefaultComboBoxModel<Integer> cbentradas = new DefaultComboBoxModel<>();
+        for (Integer entrada : entradas) {
+            cbentradas.addElement(entrada);
+        }
+        Entradas.setModel(cbentradas);
         
         // cargar columnas 
         String[] columnas = {"ID","Proyeccion","Asiento","Fecha Compra","Fecha Funcion","Comprador","Entradas","Descuento","Monto"};
@@ -66,7 +73,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         tablaDetalle.setModel(modelo);
         
         Guardar.setEnabled(false);
-        
+        Asientos2.setEnabled(false);
     }
 
     /**
@@ -92,7 +99,6 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         Proyecciones = new javax.swing.JComboBox<>();
         Asientos = new javax.swing.JComboBox<>();
         Compradores = new javax.swing.JComboBox<>();
-        Entradas = new javax.swing.JSpinner();
         Monto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDetalle = new javax.swing.JTable();
@@ -104,6 +110,9 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         ListarTodo = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        Entradas = new javax.swing.JComboBox<>();
+        jLabel10 = new javax.swing.JLabel();
+        Asientos2 = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
@@ -204,47 +213,19 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
         jLabel9.setText("Gestion Compra");
 
+        Entradas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EntradasActionPerformed(evt);
+            }
+        });
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setText("Asiento 2:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(FechaCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(Asientos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(FechaFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(131, 131, 131)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(Entradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Monto, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(161, 161, 161))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel7)
-                                .addGap(34, 34, 34)
-                                .addComponent(Compradores, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(99, 99, 99))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Proyecciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(150, 150, 150)
                 .addComponent(Agregar)
@@ -266,8 +247,54 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1026, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
             .addGroup(layout.createSequentialGroup()
-                .addGap(469, 469, 469)
-                .addComponent(jLabel9)
+                .addGap(76, 76, 76)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Asientos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FechaFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(FechaCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Asientos2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(131, 131, 131)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(Monto, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                            .addComponent(Entradas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(260, 260, 260))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(34, 34, 34)
+                        .addComponent(Compradores, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(99, 99, 99))))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(95, 95, 95)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel10))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(46, 46, 46)
+                                .addComponent(Proyecciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(id, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(469, 469, 469)
+                        .addComponent(jLabel9)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -303,14 +330,17 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(Asientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(25, 25, 25)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel10)
+                            .addComponent(Asientos2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4)
+                            .addComponent(FechaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel4)
-                                    .addComponent(FechaCompra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(53, 53, 53)
-                                .addComponent(jLabel5))
+                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(FechaFuncion, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -323,7 +353,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
                     .addComponent(BuscarPorId)
                     .addComponent(ListarTodo)
                     .addComponent(jButton1))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         pack();
@@ -342,7 +372,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
             java.util.Date fFuncion = FechaFuncion.getDate();
             LocalDate fechaFuncion = fFuncion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             Comprador comprador = (Comprador) Compradores.getSelectedItem();
-            int entradas = (int) Entradas.getValue();
+            Integer entradas =  (Integer) Entradas.getSelectedItem();
             double descuento ;
             double monto = proyeccion.getPrecio();
             switch (entradas) {
@@ -357,24 +387,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
                     detalleCompra = new DetalleCompra(proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
                     dcd.guardarDetalleCompra(detalleCompra);
                     break;
-                    case 3:
-                    descuento = (monto*10)/100;
-                    monto = monto-descuento;
-                    detalleCompra = new DetalleCompra(proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
-                    dcd.guardarDetalleCompra(detalleCompra);
-                    break;
-                    case 4:
-                    descuento = (monto*15)/100;
-                    monto = monto-descuento;
-                    detalleCompra = new DetalleCompra(proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
-                    dcd.guardarDetalleCompra(detalleCompra);
-                    break;
-                    case 5:
-                    descuento = (monto*20)/100;
-                    monto = monto-descuento;
-                    detalleCompra = new DetalleCompra(proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
-                    dcd.guardarDetalleCompra(detalleCompra);
-                    break;
+                   
                 default:
                     throw new AssertionError();
             }
@@ -398,6 +411,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
             cbAsiento.addElement(asiento);
         }
         Asientos.setModel(cbAsiento);
+        Asientos2.setModel(cbAsiento);
     }//GEN-LAST:event_ProyeccionesActionPerformed
 
     private void ListarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTodoActionPerformed
@@ -471,44 +485,28 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
             int idDetalle = Integer.parseInt(id.getText());
             Proyeccion proyeccion = (Proyeccion) Proyecciones.getSelectedItem();
             Asiento asiento = (Asiento) Asientos.getSelectedItem();
+            Asiento asiento2 = (Asiento) Asientos2.getSelectedItem();
             java.util.Date fcompra = FechaCompra.getDate();
             LocalDate fechaCompra = fcompra.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             java.util.Date fFuncion = FechaFuncion.getDate();
             LocalDate fechaFuncion = fFuncion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             Comprador comprador = (Comprador) Compradores.getSelectedItem();
-            int entradas = (int) Entradas.getValue();
+            Integer entradas = (Integer) Entradas.getSelectedItem();
             double descuento ;
             double monto = Double.parseDouble(Monto.getText());
             switch (entradas) {
                 case 1:
                     descuento = 0;
-                    detalleCompra = new DetalleCompra(idDetalle,proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
+                    detalleCompra = new DetalleCompra(idDetalle,proyeccion,asiento.getCodLugar(),asiento2.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
                     dcd.modificarDetalleCompra(detalleCompra);
                     break;
                     case 2:
-                    descuento = (monto*5)/100;
-                    monto = monto-descuento;
-                    detalleCompra = new DetalleCompra(idDetalle,proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
-                    dcd.modificarDetalleCompra(detalleCompra);
-                    break;
-                    case 3:
-                    descuento = (monto*10)/100;
-                    monto = monto-descuento;
-                    detalleCompra = new DetalleCompra(idDetalle,proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
-                    dcd.modificarDetalleCompra(detalleCompra);
-                    break;
-                    case 4:
-                    descuento = (monto*15)/100;
-                    monto = monto-descuento;
-                    detalleCompra = new DetalleCompra(idDetalle,proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
-                    dcd.modificarDetalleCompra(detalleCompra);
-                    break;
-                    case 5:
                     descuento = (monto*20)/100;
                     monto = monto-descuento;
-                    detalleCompra = new DetalleCompra(idDetalle,proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
+                    detalleCompra = new DetalleCompra(idDetalle,proyeccion,asiento.getCodLugar(),asiento2.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
                     dcd.modificarDetalleCompra(detalleCompra);
                     break;
+                    
                 default:
                     throw new AssertionError();
             }
@@ -530,6 +528,23 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         
         
     }//GEN-LAST:event_AgregarActionPerformed
+
+    private void EntradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntradasActionPerformed
+        // TODO add your handling code here:
+        try {
+            Integer entradas = (Integer) Entradas.getSelectedItem();
+        if (entradas == 2) {
+            Asientos2.setEnabled(true);
+        }else if (entradas == 1) {
+            Asientos2.setEnabled(false);
+        }
+        } catch (NumberFormatException e) {
+             JOptionPane.showMessageDialog(null, "Error, asegurese que los campos de numero sean numeros y no letras: " + e);
+        }
+        
+        
+        
+    }//GEN-LAST:event_EntradasActionPerformed
     public void cargarDatos(DetalleCompra dc){
         
         modelo.addRow(new Object[]{dc.getIdTicketCompra(),dc.getProyeccion().getPelicula(),dc.getAsientos(),dc.getFechaCompra(),dc.getFechaFuncion(),dc.getComprador().getNombre(),dc.getCantidadtickets(),dc.getDescuento(),dc.getMonto()});
@@ -540,10 +555,11 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
     private javax.swing.JButton Actualizar;
     private javax.swing.JButton Agregar;
     private javax.swing.JComboBox<Asiento> Asientos;
+    private javax.swing.JComboBox<Asiento> Asientos2;
     private javax.swing.JButton BuscarPorId;
     private javax.swing.JComboBox<Comprador> Compradores;
     private javax.swing.JButton Eliminar;
-    private javax.swing.JSpinner Entradas;
+    private javax.swing.JComboBox<Integer> Entradas;
     private com.toedter.calendar.JDateChooser FechaCompra;
     private com.toedter.calendar.JDateChooser FechaFuncion;
     private javax.swing.JButton Guardar;
@@ -553,6 +569,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
     private javax.swing.JTextField id;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

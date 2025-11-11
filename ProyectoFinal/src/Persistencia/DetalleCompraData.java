@@ -32,8 +32,8 @@ public class DetalleCompraData {
      public void guardarDetalleCompra(DetalleCompra compra) {
         String sql = """
                      INSERT INTO detallecompra
-                     (fechaCompra, fechaFuncion, cantidadtickets, descuento, monto, comprador, funcion, codLugar)
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                     (fechaCompra, fechaFuncion, cantidadtickets, descuento, monto, comprador, funcion, codLugar,codLugar2)
+                     VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)
                      """;
 
         try {
@@ -65,7 +65,7 @@ public class DetalleCompraData {
             ps.setInt(6, compra.getComprador().getDni());
             ps.setInt(7, compra.getProyeccion().getIdFuncion());
             ps.setInt(8, compra.getCodLugar());
-            
+            ps.setInt(9, compra.getCodLugar2());
 
             ps.executeUpdate();
 
@@ -77,12 +77,17 @@ public class DetalleCompraData {
             ps.close();
 
             // Actualizar asientos y función
-            AsientoData asientoData = new AsientoData();
-            for (Asiento a : compra.getAsientos()) {
-                asientoData.seleccionarAsiento(a.getCodLugar());
-            }
-
             ProyeccionData proyData = new ProyeccionData();
+            AsientoData asientoData = new AsientoData();
+            Asiento asiento = asientoData.buscarAsientoPorcodLugar(compra.getCodLugar2());
+                asientoData.seleccionarAsiento(compra.getCodLugar());
+                if (asiento!=null) {
+                asientoData.seleccionarAsiento(compra.getCodLugar2());
+                proyData.restarAsientoPorFuncion(compra.getProyeccion().getIdFuncion());
+            }
+            
+
+            
             proyData.restarAsientoPorFuncion(compra.getProyeccion().getIdFuncion());
 
             JOptionPane.showMessageDialog(null, "Compra registrada correctamente.\nTotal: $" + total);
@@ -115,7 +120,7 @@ public class DetalleCompraData {
                 compra.setDescuento(rs.getDouble("descuento"));
                 compra.setMonto(rs.getDouble("monto"));
                 compra.setCodLugar(rs.getInt("codLugar"));
-                
+                compra.setCodLugar2(rs.getInt("codLugar2"));
 
                 Comprador comp = new Comprador();
                 comp.setDni(rs.getInt("comprador"));
@@ -157,7 +162,7 @@ public class DetalleCompraData {
                 compra.setDescuento(rs.getDouble("descuento"));
                 compra.setMonto(rs.getDouble("monto"));
                 compra.setCodLugar(rs.getInt("codLugar"));
-                
+                compra.setCodLugar2(rs.getInt("codLugar2"));
 
                 Comprador comp = new Comprador();
                 comp.setDni(rs.getInt("comprador"));
@@ -183,7 +188,7 @@ public class DetalleCompraData {
     public void modificarDetalleCompra(DetalleCompra compra) {
         String sql = """
                      UPDATE detallecompra
-                     SET fechaCompra=?, fechaFuncion=?, cantidadtickets=?, descuento=?, monto=?, comprador=?, funcion=?, codLugar=?
+                     SET fechaCompra=?, fechaFuncion=?, cantidadtickets=?, descuento=?, monto=?, comprador=?, funcion=?, codLugar=?,codLugar2=?
                      WHERE idTicketCompra=?
                      """;
         try {
@@ -197,8 +202,8 @@ public class DetalleCompraData {
             ps.setInt(6, compra.getComprador().getDni());
             ps.setInt(7, compra.getProyeccion().getIdFuncion());
             ps.setInt(8, compra.getCodLugar());
-            
-            ps.setInt(9, compra.getIdTicketCompra());
+            ps.setInt(9, compra.getCodLugar2());
+            ps.setInt(10, compra.getIdTicketCompra());
 
             int filas = ps.executeUpdate();
             if (filas > 0) {
@@ -257,7 +262,7 @@ public class DetalleCompraData {
                 compra.setDescuento(rs.getDouble("descuento"));
                 compra.setMonto(rs.getDouble("monto"));
                 compra.setCodLugar(rs.getInt("codLugar"));
-                
+                compra.setCodLugar2(rs.getInt("codLugar2"));
 
                 Comprador comp = new Comprador();
                 comp.setDni(rs.getInt("comprador"));

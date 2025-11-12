@@ -30,42 +30,29 @@ public class DetalleCompraData {
     }
     
      public void guardarDetalleCompra(DetalleCompra compra) {
-        String sql = """
-                     INSERT INTO detallecompra
-                     (fechaCompra, fechaFuncion, cantidadtickets, descuento, monto, comprador, funcion, codLugar,codLugar2)
-                     VALUES (?, ?, ?, ?, ?, ?, ?, ?,?)
-                     """;
+        String sql = "INSERT INTO `detallecompra`(`funcion`, `codLugar`, `codLugar2`, `fechacompra`, `fechafuncion`, `cantidadtickets`, `descuento`, `monto`, `comprador`) VALUES (?,?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            // Calcular subtotal
-            double subtotal = 0;
-            for (Asiento a : compra.getAsientos()) {
-                subtotal += a.getProyeccion().getPrecio();
-            }
 
-            // Calcular descuento y total
-            double descuento = 0;
-            if (compra.getCantidadtickets() >= 2) {
-                descuento = 10; // ejemplo: 10% por 2 o más entradas
-            }
-
-            double total = subtotal - (subtotal * descuento / 100.0);
-
+            ps.setInt(1, compra.getProyeccion().getIdFuncion());
+            ps.setInt(2, compra.getCodLugar());
+            if (compra.getCantidadtickets() == 2) {
+            // Si son 2, se setea el ID del segundo asiento
+            ps.setInt(3, compra.getCodLugar2());
+        } else {
+            // Si es 1, se manda NULL a la base de datos
+            ps.setNull(3, java.sql.Types.INTEGER);
+        }         
             
-            compra.setDescuento(descuento);
-            compra.setMonto(total);
-
-            ps.setDate(1, Date.valueOf(compra.getFechaCompra()));
-            ps.setDate(2, Date.valueOf(compra.getFechaFuncion()));
-            ps.setInt(3, compra.getCantidadtickets());
-            ps.setDouble(4, compra.getDescuento());
-            ps.setDouble(5, compra.getMonto());
-            ps.setInt(6, compra.getComprador().getDni());
-            ps.setInt(7, compra.getProyeccion().getIdFuncion());
-            ps.setInt(8, compra.getCodLugar());
-            ps.setInt(9, compra.getCodLugar2());
+            ps.setDate(4, Date.valueOf(compra.getFechaCompra()));
+            ps.setDate(5, Date.valueOf(compra.getFechaFuncion()));
+            ps.setInt(6, compra.getCantidadtickets());
+            ps.setDouble(7, compra.getDescuento());
+            ps.setDouble(8, compra.getMonto());
+            ps.setInt(9, compra.getComprador().getDni());
+            
 
             ps.executeUpdate();
 
@@ -90,7 +77,7 @@ public class DetalleCompraData {
             
             proyData.restarAsientoPorFuncion(compra.getProyeccion().getIdFuncion());
 
-            JOptionPane.showMessageDialog(null, "Compra registrada correctamente.\nTotal: $" + total);
+            JOptionPane.showMessageDialog(null, "Compra registrada correctamente.\nTotal: $" + compra.getMonto());
 
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al guardar la compra: " + ex.getMessage());

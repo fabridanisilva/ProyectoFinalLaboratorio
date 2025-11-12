@@ -367,6 +367,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
             DetalleCompra detalleCompra = null;
             Proyeccion proyeccion = (Proyeccion) Proyecciones.getSelectedItem();
             Asiento asiento = (Asiento) Asientos.getSelectedItem();
+            Asiento asiento2 = (Asiento) Asientos2.getSelectedItem();
             java.util.Date fcompra = FechaCompra.getDate();
             LocalDate fechaCompra = fcompra.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             java.util.Date fFuncion = FechaFuncion.getDate();
@@ -378,14 +379,25 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
             switch (entradas) {
                 case 1:
                     descuento = 0;
-                    detalleCompra = new DetalleCompra(proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
-                    dcd.guardarDetalleCompra(detalleCompra);
+                    if (entradas == 1) {
+                        detalleCompra = new DetalleCompra(proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
+                        dcd.guardarDetalleCompra(detalleCompra);
+                    }else if(entradas==2){
+                        detalleCompra = new DetalleCompra(proyeccion,asiento.getCodLugar(),asiento2.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
+                        dcd.guardarDetalleCompra(detalleCompra);
+                    }
+                    
                     break;
                     case 2:
                     descuento = (monto*5)/100;
                     monto = monto-descuento;
-                    detalleCompra = new DetalleCompra(proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
-                    dcd.guardarDetalleCompra(detalleCompra);
+                     if (entradas == 1) {
+                        detalleCompra = new DetalleCompra(proyeccion,asiento.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
+                        dcd.guardarDetalleCompra(detalleCompra);
+                    }else if(entradas==2){
+                        detalleCompra = new DetalleCompra(proyeccion,asiento.getCodLugar(),asiento2.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
+                        dcd.guardarDetalleCompra(detalleCompra);
+                    }
                     break;
                    
                 default:

@@ -108,17 +108,17 @@ public class DetalleCompraData {
                 compra.setMonto(rs.getDouble("monto"));
                 compra.setCodLugar(rs.getInt("codLugar"));
                 compra.setCodLugar2(rs.getInt("codLugar2"));
-
-                Comprador comp = new Comprador();
-                comp.setDni(rs.getInt("comprador"));
-                compra.setComprador(comp);
+                CompradorData cd = new CompradorData();
+                Comprador comprador = cd.BuscarComprador(rs.getInt("comprador"));
+                compra.setComprador(comprador);
+                
 
                 Proyeccion proy = proyData.buscarProyeccion(rs.getInt("funcion"));
                 compra.setProyeccion(proy);
             }
 
             ps.close();
-            JOptionPane.showMessageDialog(null, "Compra encontrada correctamente.");
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null, "Error al buscar compra: " + ex.getMessage());
         }
@@ -150,10 +150,10 @@ public class DetalleCompraData {
                 compra.setMonto(rs.getDouble("monto"));
                 compra.setCodLugar(rs.getInt("codLugar"));
                 compra.setCodLugar2(rs.getInt("codLugar2"));
-
-                Comprador comp = new Comprador();
-                comp.setDni(rs.getInt("comprador"));
-                compra.setComprador(comp);
+                CompradorData cd = new CompradorData();
+                Comprador comprador = cd.BuscarComprador(rs.getInt("comprador"));
+                compra.setComprador(comprador);
+                
 
                 Proyeccion proy = proyData.buscarProyeccion(rs.getInt("funcion"));
                 compra.setProyeccion(proy);
@@ -242,7 +242,10 @@ public class DetalleCompraData {
 
             while (rs.next()) {
                 DetalleCompra compra = new DetalleCompra();
+                CompradorData cd = new CompradorData();
                 compra.setIdTicketCompra(rs.getInt("idTicketCompra"));
+                Comprador comprador = cd.BuscarComprador(rs.getInt("comprador"));
+                compra.setComprador(comprador);
                 compra.setFechaCompra(rs.getDate("fechaCompra").toLocalDate());
                 compra.setFechaFuncion(rs.getDate("fechaFuncion").toLocalDate());
                 compra.setCantidadtickets(rs.getInt("cantidadtickets"));
@@ -251,9 +254,7 @@ public class DetalleCompraData {
                 compra.setCodLugar(rs.getInt("codLugar"));
                 compra.setCodLugar2(rs.getInt("codLugar2"));
 
-                Comprador comp = new Comprador();
-                comp.setDni(rs.getInt("comprador"));
-                compra.setComprador(comp);
+                
 
                 Proyeccion proy = proyData.buscarProyeccion(rs.getInt("funcion"));
                 compra.setProyeccion(proy);

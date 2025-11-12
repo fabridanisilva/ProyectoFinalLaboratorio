@@ -63,15 +63,10 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="1" attributes="0">
-                              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="Monto" pref="130" max="32767" attributes="0"/>
                           <Component id="Entradas" max="32767" attributes="0"/>
@@ -308,10 +303,11 @@
         <Component class="javax.swing.JTable" name="tablaDetalle">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="9" rowCount="4">
+              <Table columnCount="10" rowCount="4">
                 <Column editable="true" title="ID" type="java.lang.Object"/>
                 <Column editable="true" title="Proyeccion" type="java.lang.Object"/>
                 <Column editable="true" title="Asiento" type="java.lang.Object"/>
+                <Column editable="true" title="Asiento 2" type="java.lang.Object"/>
                 <Column editable="true" title="Fecha Compra" type="java.lang.Object"/>
                 <Column editable="true" title="Fecha Funcion" type="java.lang.Object"/>
                 <Column editable="true" title="Comprador" type="java.lang.Object"/>

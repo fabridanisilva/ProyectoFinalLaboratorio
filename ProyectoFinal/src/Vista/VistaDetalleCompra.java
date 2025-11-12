@@ -68,7 +68,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         Entradas.setModel(cbentradas);
         
         // cargar columnas 
-        String[] columnas = {"ID","Proyeccion","Asiento","Fecha Compra","Fecha Funcion","Comprador","Entradas","Descuento","Monto"};
+        String[] columnas = {"ID","Proyeccion","Asiento","Asiento 2","Fecha Compra","Fecha Funcion","Comprador","Entradas","Descuento","Monto"};
         modelo.setColumnIdentifiers(columnas);
         tablaDetalle.setModel(modelo);
         
@@ -150,13 +150,13 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
 
         tablaDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Proyeccion", "Asiento", "Fecha Compra", "Fecha Funcion", "Comprador", "Entradas", "Descuento", "Monto"
+                "ID", "Proyeccion", "Asiento", "Asiento 2", "Fecha Compra", "Fecha Funcion", "Comprador", "Entradas", "Descuento", "Monto"
             }
         ));
         jScrollPane1.setViewportView(tablaDetalle);
@@ -261,12 +261,9 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel8)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel6))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(Monto, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                             .addComponent(Entradas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -446,7 +443,12 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
             DetalleCompraData dcd = new DetalleCompraData();
             DetalleCompra lista = dcd.buscarDetalleCompra(iddetalle);
             
-            cargarDatos(lista);
+            if (lista!=null) {
+                cargarDatos(lista);
+            }else if(lista==null){
+                JOptionPane.showMessageDialog(null, "No se encontro ");
+            }
+            
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Error, asegurese que los campos de numero sean numeros y no letras: " + e);
         }
@@ -559,7 +561,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_EntradasActionPerformed
     public void cargarDatos(DetalleCompra dc){
         
-        modelo.addRow(new Object[]{dc.getIdTicketCompra(),dc.getProyeccion().getPelicula(),dc.getAsientos(),dc.getFechaCompra(),dc.getFechaFuncion(),dc.getComprador().getNombre(),dc.getCantidadtickets(),dc.getDescuento(),dc.getMonto()});
+        modelo.addRow(new Object[]{dc.getIdTicketCompra(),dc.getProyeccion().getPelicula(),dc.getCodLugar(),dc.getCodLugar2(),dc.getFechaCompra(),dc.getFechaFuncion(),dc.getComprador().getNombre(),dc.getCantidadtickets(),dc.getDescuento(),dc.getMonto()});
     
     }
 

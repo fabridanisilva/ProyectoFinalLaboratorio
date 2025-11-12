@@ -371,6 +371,8 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
             LocalDate fechaFuncion = fFuncion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             Comprador comprador = (Comprador) Compradores.getSelectedItem();
             Integer entradas =  (Integer) Entradas.getSelectedItem();
+            
+            
             double descuento ;
             double monto = proyeccion.getPrecio();
             switch (entradas) {
@@ -414,13 +416,24 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
     private void ProyeccionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ProyeccionesActionPerformed
         // TODO add your handling code here:
         Proyeccion proyeccion = (Proyeccion) Proyecciones.getSelectedItem();
+        
         ArrayList<Asiento> asientos = ad.listarAsientos(proyeccion.getIdFuncion());
         DefaultComboBoxModel<Asiento> cbAsiento = new DefaultComboBoxModel<>();
         for (Asiento asiento : asientos) {
             cbAsiento.addElement(asiento);
         }
         Asientos.setModel(cbAsiento);
-        Asientos2.setModel(cbAsiento);
+        
+        
+        
+        
+        
+        ArrayList<Asiento> asiento = ad.listarAsientos(proyeccion.getIdFuncion());
+        DefaultComboBoxModel<Asiento> cbAsientos = new DefaultComboBoxModel<>();
+        for (Asiento asient : asiento) {
+            cbAsientos.addElement(asient);
+        }
+        Asientos2.setModel(cbAsientos);
     }//GEN-LAST:event_ProyeccionesActionPerformed
 
     private void ListarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTodoActionPerformed

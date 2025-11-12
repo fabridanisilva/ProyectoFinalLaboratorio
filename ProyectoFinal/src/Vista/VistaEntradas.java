@@ -6,6 +6,7 @@ package Vista;
 
 import Modelo.Asiento;
 import Modelo.Comprador;
+import Modelo.DetalleCompra;
 import Modelo.DetalleTicket;
 import Modelo.Pelicula;
 import Modelo.Proyeccion;
@@ -13,6 +14,7 @@ import Modelo.Sala;
 import Modelo.TicketCompra;
 import Persistencia.AsientoData;
 import Persistencia.CompradorData;
+import Persistencia.DetalleCompraData;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -65,6 +67,8 @@ public class VistaEntradas extends javax.swing.JInternalFrame {
         fecha = new com.toedter.calendar.JDateChooser();
         jLabel10 = new javax.swing.JLabel();
         elComprador = new javax.swing.JTextField();
+        jLabel11 = new javax.swing.JLabel();
+        Asiento2 = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -107,55 +111,57 @@ public class VistaEntradas extends javax.swing.JInternalFrame {
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel10.setText("Comprador:");
 
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel11.setText("Asiento 2:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(151, 151, 151))
             .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
+                .addContainerGap(20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(151, 151, 151))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
                             .addComponent(jLabel7)
                             .addComponent(jLabel8)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel11))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(59, 59, 59)
+                                .addComponent(idticket, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(76, 76, 76)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(nomPelicula)
+                                    .addComponent(elComprador)
+                                    .addComponent(nomPelicula, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
                                     .addComponent(laSala)
                                     .addComponent(horaInicio)
                                     .addComponent(horaFin)
                                     .addComponent(Asientos)
-                                    .addComponent(precio)
-                                    .addComponent(fecha, javax.swing.GroupLayout.DEFAULT_SIZE, 173, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(idticket, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jButton1))
-                                    .addComponent(elComprador, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(18, Short.MAX_VALUE))
+                                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(Asiento2)
+                                    .addComponent(precio, javax.swing.GroupLayout.Alignment.TRAILING))))
+                        .addGap(56, 56, 56))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(idticket, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -184,7 +190,11 @@ public class VistaEntradas extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(Asientos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(Asiento2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(precio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -192,7 +202,7 @@ public class VistaEntradas extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel10)
                     .addComponent(elComprador, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(44, 44, 44))
+                .addGap(14, 14, 14))
         );
 
         pack();
@@ -201,6 +211,37 @@ public class VistaEntradas extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         try {
+            
+            int id = (int) idticket.getValue();
+            DetalleCompraData dcd = new DetalleCompraData();
+            DetalleCompra dc = dcd.buscarDetalleCompra(id);
+            AsientoData ad = new AsientoData();
+            
+            Pelicula pelicula = dc.getProyeccion().getPelicula();
+            Sala sala = dc.getProyeccion().getSala();
+            LocalDate fechaa = dc.getFechaFuncion();
+            Date fechad = Date.from(fechaa.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            LocalTime horaInicioo = dc.getProyeccion().getHorInicio();
+            LocalTime horaFinn = dc.getProyeccion().getHoraFin();
+            Asiento asiento1 = ad.buscarAsientoPorcodLugar(dc.getCodLugar());
+            Asiento asiento2 = ad.buscarAsientoPorcodLugar(dc.getCodLugar2());
+            double precioo = dc.getMonto();
+            Comprador comprador = dc.getComprador();
+            String nombre = comprador.getNombre();
+            
+            precio.setText(precioo+"");
+            elComprador.setText(nombre);
+            nomPelicula.setText(pelicula+"");
+            laSala.setText(sala.getNroSala()+"");
+            fecha.setDate(fechad);
+            horaInicio.setText(horaInicioo+"");
+            horaFin.setText(horaFinn+"");
+            Asientos.setText("fila: " + asiento1.getFila()+" num: "+ asiento1.getNumero());
+            if (asiento2==null) {
+                Asiento2.setText( "");
+            }
+            Asiento2.setText( "fila: " + asiento2.getFila()+" num: "+ asiento2.getNumero());
+            
             
         
         
@@ -212,6 +253,7 @@ public class VistaEntradas extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Asiento2;
     private javax.swing.JTextField Asientos;
     private javax.swing.JTextField elComprador;
     private com.toedter.calendar.JDateChooser fecha;
@@ -221,6 +263,7 @@ public class VistaEntradas extends javax.swing.JInternalFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

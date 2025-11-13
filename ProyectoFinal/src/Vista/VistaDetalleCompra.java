@@ -160,6 +160,12 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
             }
         });
 
+        Asientos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AsientosActionPerformed(evt);
+            }
+        });
+
         tablaDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
@@ -495,16 +501,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         
         
         
-        Proyeccion pro = (Proyeccion) Proyecciones.getSelectedItem();
-        int entrada = (int) Entradas.getSelectedItem();
         
-        if (entrada==1) {
-            lbPrecio.setText(pro.getPrecio()+"$");
-        }else if(entrada==2){
-            double descuento = (pro.getPrecio()*5)/100;
-            double precio = pro.getPrecio()-descuento;
-            lbPrecio.setText(precio+"$");
-        }
     }//GEN-LAST:event_ProyeccionesActionPerformed
 
     private void ListarTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ListarTodoActionPerformed
@@ -629,16 +626,33 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
 
     private void EntradasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EntradasActionPerformed
         // TODO add your handling code here:
+        
         try {
+            //habilitar/desabilitar asiento2
             Integer entradas = (Integer) Entradas.getSelectedItem();
         if (entradas == 2) {
             Asientos2.setEnabled(true);
         }else if (entradas == 1) {
             Asientos2.setEnabled(false);
         }
+        
+        //mostrar precio
+        Proyeccion pro = (Proyeccion) Proyecciones.getSelectedItem();
+        int entrada = (int) Entradas.getSelectedItem();
+        
+        if (entrada==1) {
+            lbPrecio.setText(pro.getPrecio()+"$");
+        }else if(entrada==2){
+            double descuento = (pro.getPrecio()*5)/100;
+            double precio = pro.getPrecio()-descuento;
+            lbPrecio.setText(precio+"$");
+        }
+        
         } catch (NumberFormatException e) {
              JOptionPane.showMessageDialog(null, "Error, asegurese que los campos de numero sean numeros y no letras: " + e);
         }
+        
+        
         
         
         
@@ -699,15 +713,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
 
     private void Asientos2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Asientos2ActionPerformed
         // TODO add your handling code here:
-        
-        
-        
-        
-    }//GEN-LAST:event_Asientos2ActionPerformed
-
-    private void Asientos2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Asientos2ItemStateChanged
-        // TODO add your handling code here:
-        // 1. Obtenemos los objetos (con validación de null por seguridad)
+             // 1. Obtenemos los objetos (con validación de null por seguridad)
     Asiento asiento1 = (Asiento) Asientos.getSelectedItem();
     Asiento asiento2 = (Asiento) Asientos2.getSelectedItem();
 
@@ -732,8 +738,43 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         
         
         
+    }//GEN-LAST:event_Asientos2ActionPerformed
+
+    private void Asientos2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_Asientos2ItemStateChanged
+        // TODO add your handling code here:
+   
+        
+        
+        
         
     }//GEN-LAST:event_Asientos2ItemStateChanged
+
+    private void AsientosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AsientosActionPerformed
+        // TODO add your handling code here:
+        
+             // 1. Obtenemos los objetos (con validación de null por seguridad)
+    Asiento asiento1 = (Asiento) Asientos.getSelectedItem();
+    Asiento asiento2 = (Asiento) Asientos2.getSelectedItem();
+
+    // Si alguno es null (aún no se cargaron), no hacemos nada
+    if (asiento1 == null || asiento2 == null) {
+        return;
+    }
+
+    // 2. Comparación por ID (codLugar) - ¡Es infalible!
+    if (asiento1.getCodLugar() == asiento2.getCodLugar()) {
+        
+        // CASO: SON IGUALES (Error)
+        Guardar.setEnabled(false); // Desactivamos el botón
+        JOptionPane.showMessageDialog(null, "Error: No puede seleccionar el mismo asiento dos veces.");
+        
+    } else {
+        
+        // CASO: SON DISTINTOS (Correcto)
+        // ¡IMPORTANTE! Debes volver a activar el botón si el usuario corrige el error
+        Guardar.setEnabled(true); 
+    }
+    }//GEN-LAST:event_AsientosActionPerformed
     public void cargarDatos(DetalleCompra dc){
         AsientoData ad = new AsientoData();
         Asiento asiento1 = ad.buscarAsientoPorcodLugar(dc.getCodLugar());

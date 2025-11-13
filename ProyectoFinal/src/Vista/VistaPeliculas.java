@@ -446,7 +446,8 @@ private void buscarPelicula() {
 
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
         // TODO add your handling code here:
-        
+        try {
+            int id = Integer.parseInt(idPelicula.getText());
         String titulo = Titulo.getText();
         String director = Director.getText();
         String actore = Actores.getText();
@@ -456,9 +457,12 @@ private void buscarPelicula() {
         LocalDate estreno = estrenoDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         boolean cartelera = Cartelera.isSelected();
         
-        Pelicula pelicula = new Pelicula(titulo,director,actore,origen,genero,estreno,cartelera);
+        Pelicula pelicula = new Pelicula(id,titulo,director,actore,origen,genero,estreno,cartelera);
         PeliculaData pd = new PeliculaData();
         pd.ActualizarPelicula(pelicula);
+        } catch (Exception e) {
+        }
+        
 
 
     }//GEN-LAST:event_ActualizarActionPerformed

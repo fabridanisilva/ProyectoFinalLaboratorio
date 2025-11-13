@@ -114,8 +114,8 @@ public class PeliculaData {
 
     
     public void ActualizarPelicula(Pelicula pelicula){
-        String sql = "UPDATE pelicula SET titulo = ?, director = ?, actores = ?, origen = ?"
-                +  "genero = ?, estreno = ?, encartelera = ?";
+        String sql = "UPDATE pelicula SET titulo = ?, director = ?, actores = ?, origen = ?,"
+                +  "genero = ?, estreno = ?, encartelera = ? WHERE idPelicula=?" ;
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1,pelicula.getTitulo());
@@ -125,7 +125,7 @@ public class PeliculaData {
             ps.setString(5, pelicula.getGenero());
             ps.setDate(6, Date.valueOf(pelicula.getEstreno()));
             ps.setBoolean(7, pelicula.isEnCartelera());
-            
+            ps.setInt(8, pelicula.getIdPelicula());
             int exito =ps.executeUpdate();
             if (exito ==1) {
                 JOptionPane.showMessageDialog(null, "Pelicula Modifcada");

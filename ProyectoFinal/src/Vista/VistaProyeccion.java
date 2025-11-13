@@ -89,7 +89,7 @@ public class VistaProyeccion extends javax.swing.JInternalFrame {
         for (Proyeccion p : proyData.listarProyecciones()) {
             modelo.addRow(new Object[]{
                 p.getIdFuncion(),
-                p.getPelicula().getTitulo(),
+                p.getPelicula(),
                 p.getIdioma(),
                 p.isEs3D(),
                 p.isSubtitulada(),
@@ -117,7 +117,7 @@ private void buscarPelicula() {
         if (p.getPelicula().getIdPelicula() == peli.getIdPelicula()) {
             modelo.addRow(new Object[]{
                 p.getIdFuncion(),
-                p.getPelicula().getTitulo(),
+                p.getPelicula(),
                 p.getIdioma(),
                 p.isEs3D(),
                 p.isSubtitulada(),
@@ -153,7 +153,7 @@ private void buscarPorSala() {
             if (p.getSala().getNroSala()== sala.getNroSala()) {
                 modelo.addRow(new Object[]{
                     p.getIdFuncion(),
-                    p.getPelicula().getTitulo(),
+                    p.getPelicula(),
                     p.getIdioma(),
                     p.isEs3D(),
                     p.isSubtitulada(),
@@ -226,6 +226,11 @@ private void buscarPorSala() {
                 "Id Funcion", "Pelicula", "Idioma", "Es 3D", "Subtitulada", "Inicio", "Fin", "Lugares Dispon", "Sala", "Precio"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jagregar.setText("Agregar");
@@ -498,6 +503,18 @@ private void buscarPorSala() {
             int idSala = Integer.parseInt(jsala.getText());
             Sala sala = salaData.buscarSala(idSala);
 
+            if (sala == null) {
+            JOptionPane.showMessageDialog(this, "Error: No existe ninguna sala con el ID " + idSala);
+            return; // Detenemos la ejecución
+        }
+
+        // Segundo: Verificamos si la sala está dada de baja (estado false)
+        if (!sala.isEstado()) { 
+            JOptionPane.showMessageDialog(this, "No se puede guardar: La Sala " + idSala + " está fuera de servicio (Inactiva).");
+            return; // Detenemos la ejecución aquí, no se guarda nada.
+        }                                     
+        
+            
             p.setPelicula(peli);
             p.setSala(sala);
             p.setIdioma(jidioma.getText());
@@ -636,7 +653,7 @@ private void buscarPorSala() {
                 limpiarTabla();
                 modelo.addRow(new Object[]{
                     p.getIdFuncion(),
-                    p.getPelicula().getTitulo(),
+                    p.getPelicula(),
                     p.getIdioma(),
                     p.isEs3D(),
                     p.isSubtitulada(),
@@ -680,6 +697,49 @@ private void buscarPorSala() {
           
 
     }//GEN-LAST:event_jagregarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        
+        int fila = jTable1.getSelectedRow();
+        
+        if (fila>=0) {
+            int id = (int) jTable1.getValueAt(fila, 0);
+            Pelicula peli = (Pelicula) jTable1.getValueAt(fila, 1);
+            String idioma = (String) jTable1.getValueAt(fila, 2);
+            boolean es3d = (boolean) jTable1.getValueAt(fila, 4);
+            boolean subti = (boolean) jTable1.getValueAt(fila, 4);
+            LocalTime inicio = (LocalTime) jTable1.getValueAt(fila, 5);
+            LocalTime fin = (LocalTime) jTable1.getValueAt(fila, 6);
+            int lugares = (int) jTable1.getValueAt(fila, 7);
+            int sala = (int) jTable1.getValueAt(fila, 8);
+            double precio = (double) jTable1.getValueAt(fila, 9);
+            
+            
+            jidfuncion.setText(id+"");
+            
+            for (int i = 0; i < cbPeliculas.getItemCount(); i++) {
+                Pelicula p = cbPeliculas.getItemAt(i);
+                
+                if (p.getTitulo().equalsIgnoreCase(peli.getTitulo())) {
+                    cbPeliculas.setSelectedItem(p);
+                    break;
+                }
+            }
+            
+            jidioma.setText(idioma);
+            jessubtitulada.setText(subti+"");
+            jhorainicio.setText(inicio+"");
+            jhorafin.setText(fin+"");
+            jlugaresdisponibles.setText(lugares+"");
+            jsala.setText(sala+"");
+            jprecio.setText(precio+"");
+            
+        }
+        
+        
+        
+    }//GEN-LAST:event_jTable1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

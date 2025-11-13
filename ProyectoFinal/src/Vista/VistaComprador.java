@@ -275,7 +275,7 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         
         
         try {
-            int DNI = Integer.parseInt(email.getText());
+            int DNI = Integer.parseInt(dni1.getText());
             String nombre = Nombre.getText();
             java.util.Date fc = Nacimiento.getDate();
             LocalDate nacimiento = fc.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -291,8 +291,10 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         } catch (NumberFormatException e) {
         JOptionPane.showMessageDialog(this, "Verifique el campos numérico DNI.");
     }
-        
-        
+        Guardar.setEnabled(false);
+        Actualizar.setEnabled(true);
+        Borrar.setEnabled(true);
+        BuscarPorDni.setEnabled(true);
         
         
         
@@ -305,7 +307,7 @@ public class VistaComprador extends javax.swing.JInternalFrame {
     private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
         // TODO add your handling code here:
         try {
-        int DNI = Integer.parseInt(email.getText());
+        int DNI = Integer.parseInt(dni1.getText());
             String nombre = Nombre.getText();
             java.util.Date fc = Nacimiento.getDate();
             LocalDate nacimiento = fc.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -328,7 +330,7 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         
         try{
-            int DNI = Integer.parseInt(email.getText());
+            int DNI = Integer.parseInt(dni1.getText());
             CompradorData cd = new CompradorData();
             cd.EliminarComprador(DNI);
             
@@ -381,10 +383,11 @@ public class VistaComprador extends javax.swing.JInternalFrame {
             int DNI = (int) tablaCompradores.getValueAt(fila, 0);
             String nombre = (String) tablaCompradores.getValueAt(fila, 1);
             LocalDate nacimiento = (LocalDate) tablaCompradores.getValueAt(fila, 2);
-            String pago = (String) tablaCompradores.getValueAt(fila, 3);
-            int entradas = (int) tablaCompradores.getValueAt(fila, 5);
+            String pago = (String) tablaCompradores.getValueAt(fila, 4);
+            String Email =  (String) tablaCompradores.getValueAt(fila, 3);
             
-            email.setText(DNI+ "");
+            dni1.setText(DNI+"");
+            email.setText(Email);
             Nombre.setText(nombre);
             Nacimiento.setDate(Date.from(nacimiento.atStartOfDay(ZoneId.systemDefault()).toInstant()));
             MedioPago.setSelectedItem(pago);

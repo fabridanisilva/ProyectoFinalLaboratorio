@@ -32,7 +32,7 @@ public class CompradorData {
 
 public void AgregarComprador(Comprador comprador){
     
-    String sql = "INSERT INTO `comprador`(`dni`, `nombre`, `fechaNacimiento`, `email`, `mediodepago`) VALUES (?,?,?,?,?,?)";
+    String sql = "INSERT INTO `comprador`(`dni`, `nombre`, `fechaNacimiento`, `email`, `mediodepago`) VALUES (?,?,?,?,?)";
     
         try {
             PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -55,7 +55,7 @@ public void AgregarComprador(Comprador comprador){
             ps.close();
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"comprador no encontrado"+ ex);
+            JOptionPane.showMessageDialog(null,"Error al agregar:"+ ex);
         }
     }
 
@@ -124,7 +124,9 @@ public void AgregarComprador(Comprador comprador){
                 comprador.setMedioDePago(rs.getString("mediodepago"));
                 
             }else{
-            JOptionPane.showMessageDialog(null, "No existe el comprador");}
+                
+            //JOptionPane.showMessageDialog(null, "No existe el comprador");
+            }
             ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"comprador no encontrado"+ ex);

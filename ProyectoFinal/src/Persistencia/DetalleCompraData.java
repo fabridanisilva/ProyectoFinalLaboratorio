@@ -9,13 +9,18 @@ import Modelo.Comprador;
 import Modelo.Conexion;
 import Modelo.DetalleCompra;
 import Modelo.Proyeccion;
+import Persistencia.AsientoData;
+import Persistencia.ProyeccionData;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -206,28 +211,136 @@ public class DetalleCompraData {
     }
 
     
-    //  Elimina una compra (libera asientos opcionalmente)
+   
      
-    public void eliminarDetalleCompra(int idCompra) {
-        String sql = "DELETE FROM detallecompra WHERE idTicketCompra = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, idCompra);
-            int filas = ps.executeUpdate();
+    public boolean eliminarDetalleCompra(int idCompra) {
 
-            if (filas > 0) {
-                JOptionPane.showMessageDialog(null, "Compra eliminada correctamente.");
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró la compra.");
-            }
-            ps.close();
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al eliminar compra: " + ex.getMessage());
-        }
+    // 1. Buscar la compra antes de eliminarla
+    DetalleCompra compra = buscarDetalleCompra(idCompra);
+    if (compra == null) {
+        JOptionPane.showMessageDialog(null, "No existe la compra con ese ID");
+        return false; // ← NECESARIO
     }
-    
-    
-    
+
+    // 2. Liberar asientos usando tu método REAL
+    AsientoData asientoData = new AsientoData();
+    asientoData.desocuparAsiento(compra.getCodLugar());
+
+    if (compra.getCantidadtickets() == 2) {
+        asientoData.desocuparAsiento(compra.getCodLugar2());
+    }
+
+    // 3. Sumar los asientos a la función
+    ProyeccionData proyData = new ProyeccionData();
+    proyData.sumarAsientoPorFuncion(compra.getProyeccion().getIdFuncion(), compra.getCantidadtickets());
+
+    // 4. Eliminar la compra
+    String sql = "DELETE FROM detallecompra WHERE idTicketCompra = ?";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setInt(1, idCompra);
+
+        int filas = ps.executeUpdate();
+        ps.close();
+
+        if (filas > 0) {
+            JOptionPane.showMessageDialog(null, "Compra cancelada. Asientos liberados correctamente.");
+            return true;  // ← NECESARIO
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontró la compra.");
+            return false;
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al eliminar compra: " + ex.getMessage());
+        return false;  // ← NECESARIO
+    }
+}
+public DetalleCompra buscarPorDatos(String dniStr, String asientoStr, LocalDate fecha, LocalTime hora) {
+    try {
+        if (dniStr == null || asientoStr == null || fecha == null || hora == null) return null;
+
+        int dni = Integer.parseInt(dniStr.trim());
+        int asiento = Integer.parseInt(asientoStr.trim());
+
+        // ✔ usa tu método REAL
+        ArrayList<DetalleCompra> compras = listarComprasPorComprador(dni);
+
+        for (DetalleCompra dc : compras) {
+            if (dc == null) continue;
+
+            // validar que haya proyección
+            if (dc.getProyeccion() == null) continue;
+
+            // validar asiento
+            boolean asientoOK =
+                    dc.getCodLugar() == asiento ||
+                    (dc.getCodLugar2() > 0 && dc.getCodLugar2() == asiento);
+
+            if (!asientoOK) continue;
+
+            // FECHA ✔ viene de DetalleCompra (fechaFuncion)
+            if (!dc.getFechaFuncion().isEqual(fecha)) continue;
+
+            // HORA ✔ viene de Proyeccion (getHorInicio)
+            if (!dc.getProyeccion().getHorInicio().equals(hora)) continue;
+
+            return dc; // ENCONTRADA
+        }
+
+        return null;
+
+    } catch (NumberFormatException ex) {
+        JOptionPane.showMessageDialog(null, "DNI o asiento inválidos.");
+        return null;
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al buscar compra: " + ex.getMessage());
+        return null;
+    }
+}
+
+
+public boolean eliminarPorDatos(String dniStr, String asientoStr, LocalDate fecha, LocalTime hora) {
+    try {
+        DetalleCompra compra = buscarPorDatos(dniStr, asientoStr, fecha, hora);
+
+        if (compra == null) {
+            JOptionPane.showMessageDialog(null, "No se encontró la compra con esos datos.");
+            return false;
+        }
+
+        // ✔ liberar asientos
+        AsientoData asientoData = new AsientoData();
+        if (compra.getCodLugar() > 0) {
+            asientoData.desocuparAsiento(compra.getCodLugar());
+        }
+        if (compra.getCantidadtickets() == 2 && compra.getCodLugar2() > 0) {
+            asientoData.desocuparAsiento(compra.getCodLugar2());
+        }
+
+        // ✔ sumar asientos a la función
+        ProyeccionData proyData = new ProyeccionData();
+        if (compra.getProyeccion() != null) {
+            proyData.sumarAsientoPorFuncion(
+                    compra.getProyeccion().getIdFuncion(),
+                    compra.getCantidadtickets()
+            );
+        }
+
+        // ✔ eliminar del detalle
+        eliminarDetalleCompra(compra.getIdTicketCompra());
+
+        return true;
+
+    } catch (Exception ex) {
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(null, "Error al eliminar compra: " + ex.getMessage());
+        return false;
+    }
+}
+
     public ArrayList<DetalleCompra> listarTodasLasCompras(){
     
         ArrayList<DetalleCompra> lista = new ArrayList<>();

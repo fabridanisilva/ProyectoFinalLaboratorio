@@ -150,7 +150,9 @@ private void buscarPelicula() {
         setMaximizable(true);
         setResizable(true);
 
+        Actualizar.setBackground(new java.awt.Color(0, 160, 255));
         Actualizar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        Actualizar.setForeground(new java.awt.Color(255, 255, 255));
         Actualizar.setText("Actualizar");
         Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,7 +160,9 @@ private void buscarPelicula() {
             }
         });
 
+        Eliminar.setBackground(new java.awt.Color(150, 0, 0));
         Eliminar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        Eliminar.setForeground(new java.awt.Color(255, 255, 255));
         Eliminar.setText("Eliminar");
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -166,7 +170,9 @@ private void buscarPelicula() {
             }
         });
 
+        Buscar.setBackground(new java.awt.Color(0, 160, 255));
         Buscar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        Buscar.setForeground(new java.awt.Color(255, 255, 255));
         Buscar.setText("Buscar");
         Buscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -174,7 +180,9 @@ private void buscarPelicula() {
             }
         });
 
+        Guardar.setBackground(new java.awt.Color(0, 150, 0));
         Guardar.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        Guardar.setForeground(new java.awt.Color(255, 255, 255));
         Guardar.setText("Guardar");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -183,9 +191,11 @@ private void buscarPelicula() {
         });
 
         jLabel1.setFont(new java.awt.Font("Arial", 3, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setText("Pelicula");
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 0, 102));
         jLabel3.setText("En Cartelera:");
 
         Cartelera.addActionListener(new java.awt.event.ActionListener() {
@@ -214,24 +224,31 @@ private void buscarPelicula() {
         jScrollPane1.setViewportView(TablaPelicula);
 
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 204));
         jLabel4.setText("idPelicula:");
 
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 204));
         jLabel5.setText("Titulo:");
 
         jLabel6.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 153, 0));
         jLabel6.setText("Director:");
 
         jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 153, 0));
         jLabel7.setText("Actores:");
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 153, 51));
         jLabel8.setText("Origen:");
 
         jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(255, 153, 0));
         jLabel9.setText("Genero:");
 
         jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(102, 0, 102));
         jLabel10.setText("Estreno:");
 
         idPelicula.addActionListener(new java.awt.event.ActionListener() {
@@ -246,6 +263,8 @@ private void buscarPelicula() {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(0, 150, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Agregar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -253,6 +272,8 @@ private void buscarPelicula() {
             }
         });
 
+        listarPeliculas.setBackground(new java.awt.Color(0, 0, 150));
+        listarPeliculas.setForeground(new java.awt.Color(255, 255, 255));
         listarPeliculas.setText("Listar Peliculas");
         listarPeliculas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -325,13 +346,13 @@ private void buscarPelicula() {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1)
-                        .addGap(160, 160, 160)
+                        .addGap(85, 85, 85)
                         .addComponent(Guardar)
-                        .addGap(45, 45, 45)
+                        .addGap(99, 99, 99)
                         .addComponent(Actualizar)
-                        .addGap(47, 47, 47)
-                        .addComponent(Eliminar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Eliminar)
+                        .addGap(110, 110, 110)
                         .addComponent(Buscar)))
                 .addContainerGap())
         );

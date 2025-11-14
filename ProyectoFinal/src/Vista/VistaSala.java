@@ -74,6 +74,8 @@ public class VistaSala extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(tablaSala);
 
+        jButton1.setBackground(new java.awt.Color(0, 150, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Agregar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,6 +83,8 @@ public class VistaSala extends javax.swing.JInternalFrame {
             }
         });
 
+        Guardar.setBackground(new java.awt.Color(0, 150, 0));
+        Guardar.setForeground(new java.awt.Color(255, 255, 255));
         Guardar.setText("Guardar");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -88,6 +92,7 @@ public class VistaSala extends javax.swing.JInternalFrame {
             }
         });
 
+        Actualizar.setBackground(new java.awt.Color(0, 160, 255));
         Actualizar.setText("Actualizar");
         Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +100,8 @@ public class VistaSala extends javax.swing.JInternalFrame {
             }
         });
 
+        Eliminar.setBackground(new java.awt.Color(150, 0, 0));
+        Eliminar.setForeground(new java.awt.Color(255, 255, 255));
         Eliminar.setText("Eliminar");
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,6 +109,8 @@ public class VistaSala extends javax.swing.JInternalFrame {
             }
         });
 
+        BuscarPorNum.setBackground(new java.awt.Color(0, 160, 255));
+        BuscarPorNum.setForeground(new java.awt.Color(255, 255, 255));
         BuscarPorNum.setText("Buscar por Num Sala");
         BuscarPorNum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,20 +119,27 @@ public class VistaSala extends javax.swing.JInternalFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 102, 0));
         jLabel1.setText("NroSala:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 102, 0));
         jLabel2.setText("Es 3D:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 204, 204));
         jLabel3.setText("Capacidad:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 204, 204));
         jLabel4.setText("Libre:");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 51, 0));
         jLabel6.setText("Agregar Salas");
 
+        jButton6.setBackground(new java.awt.Color(0, 0, 150));
+        jButton6.setForeground(new java.awt.Color(255, 255, 255));
         jButton6.setText("Listar todas las Salas");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -315,7 +315,42 @@ public class ProyeccionData {
     
     }
 
-    
+    public void sumarAsientoPorFuncion(int idFuncion, int cantidad) {
+
+    String sql = "UPDATE proyeccion SET cantidadLugaresDisponibles = cantidadLugaresDisponibles + ? WHERE idFuncion = ?";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+
+        ps.setInt(1, cantidad);
+        ps.setInt(2, idFuncion);
+
+        int exito = ps.executeUpdate();
+
+        if (exito == 1) {
+            JOptionPane.showMessageDialog(null, "Se sumaron " + cantidad + " lugares.");
+        }
+
+        ps.close();
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al sumar asientos: " + ex.getMessage());
+    }
+}
+public void devolverAsientos(int idProyeccion, int cantidad) {
+
+    String sql = "UPDATE proyeccion SET asientosDisponibles = asientosDisponibles + ? WHERE idProyeccion = ?";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, cantidad);
+        ps.setInt(2, idProyeccion);
+        ps.executeUpdate();
+
+    } catch (SQLException e) {
+        System.out.println("Error devolviendo asientos: " + e.getMessage());
+    }
+}
     
     
     

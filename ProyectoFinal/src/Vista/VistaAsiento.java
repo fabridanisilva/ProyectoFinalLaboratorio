@@ -47,8 +47,11 @@ public class VistaAsiento extends javax.swing.JInternalFrame {
         setMaximizable(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 51, 51));
         jLabel1.setText("Gestion Asientos");
 
+        jButton2.setBackground(new java.awt.Color(0, 150, 0));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Generar Asientos");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,6 +60,7 @@ public class VistaAsiento extends javax.swing.JInternalFrame {
         });
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(153, 0, 153));
         jLabel7.setText("Proyeccion id:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

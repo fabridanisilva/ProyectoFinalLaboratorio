@@ -37,7 +37,6 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
     CompradorData cd = new CompradorData();
     
     
-    
     public VistaDetalleCompra() {
         initComponents();
         
@@ -68,9 +67,15 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         Entradas.setModel(cbentradas);
         
         // cargar columnas 
-        String[] columnas = {"Inicio","Proyeccion","Asiento","Asiento 2","Fecha Compra","Fecha Funcion","Comprador","Entradas","Descuento","Monto"};
+        String[] columnas = {"ID","Inicio","Proyeccion","Asiento","Asiento 2",
+                     "Fecha Compra","Fecha Funcion","Comprador","Entradas",
+                     "Descuento","Monto"};
         modelo.setColumnIdentifiers(columnas);
         tablaDetalle.setModel(modelo);
+        
+        tablaDetalle.getColumnModel().getColumn(0).setMinWidth(0);
+tablaDetalle.getColumnModel().getColumn(0).setMaxWidth(0);
+tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
         
         Guardar.setEnabled(false);
         Asientos2.setEnabled(false);
@@ -78,6 +83,8 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         
         
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -120,6 +127,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         txtdni = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         lbComprador = new javax.swing.JLabel();
+        Borrar = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -268,12 +276,21 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
 
         lbComprador.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        Borrar.setText("Borrar");
+        Borrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BorrarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(150, 150, 150)
+                .addGap(41, 41, 41)
+                .addComponent(Borrar)
+                .addGap(34, 34, 34)
                 .addComponent(Agregar)
                 .addGap(18, 18, 18)
                 .addComponent(Guardar)
@@ -413,7 +430,8 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
                     .addComponent(Eliminar)
                     .addComponent(BuscarPorId)
                     .addComponent(ListarTodo)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(Borrar))
                 .addContainerGap(46, Short.MAX_VALUE))
         );
 
@@ -775,12 +793,42 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
         Guardar.setEnabled(true); 
     }
     }//GEN-LAST:event_AsientosActionPerformed
+
+    private void BorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BorrarActionPerformed
+        // TODO add your handling code here:
+        int fila = tablaDetalle.getSelectedRow();
+if (fila == -1) {
+    JOptionPane.showMessageDialog(this, "Seleccione una fila primero.");
+    return;
+}
+
+try {
+    // Tomar el ID desde la columna 0
+    int idDetalle = Integer.parseInt(tablaDetalle.getValueAt(fila, 0).toString());
+
+    DetalleCompraData dcData = new DetalleCompraData();
+
+    boolean exito = dcData.eliminarDetalleCompra(idDetalle);
+
+    if (exito) {
+        ((DefaultTableModel) tablaDetalle.getModel()).removeRow(fila);
+        JOptionPane.showMessageDialog(this, "Compra eliminada correctamente.");
+    } else {
+        JOptionPane.showMessageDialog(this, "No se pudo eliminar la compra.");
+    }
+
+} catch (Exception e) {
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this, "Error al eliminar compra: " + e.getMessage());
+}
+        //hola
+    }//GEN-LAST:event_BorrarActionPerformed
     public void cargarDatos(DetalleCompra dc){
-        AsientoData ad = new AsientoData();
+         AsientoData ad = new AsientoData();
         Asiento asiento1 = ad.buscarAsientoPorcodLugar(dc.getCodLugar());
         Asiento asiento2 = ad.buscarAsientoPorcodLugar(dc.getCodLugar2());
-        modelo.addRow(new Object[]{dc.getProyeccion().getHorInicio(),dc.getProyeccion().getPelicula(),asiento1,asiento2,dc.getFechaCompra(),dc.getFechaFuncion(),dc.getComprador().getNombre(),dc.getCantidadtickets(),dc.getDescuento(),dc.getMonto()});
-    
+        modelo.addRow(new Object[]{ dc.getIdTicketCompra(),dc.getProyeccion().getHorInicio(),dc.getProyeccion().getPelicula().getTitulo(),asiento1,asiento2,dc.getFechaCompra(),dc.getFechaFuncion(),dc.getComprador().getNombre(),dc.getCantidadtickets(),dc.getDescuento(),dc.getMonto()});
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -788,6 +836,7 @@ public class VistaDetalleCompra extends javax.swing.JInternalFrame {
     private javax.swing.JButton Agregar;
     private javax.swing.JComboBox<Asiento> Asientos;
     private javax.swing.JComboBox<Asiento> Asientos2;
+    private javax.swing.JButton Borrar;
     private javax.swing.JButton BuscarPorId;
     private javax.swing.JComboBox<Comprador> Compradores;
     private javax.swing.JButton Eliminar;

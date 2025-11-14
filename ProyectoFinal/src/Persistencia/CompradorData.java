@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
+import java.sql.*;
 /**
  *
  * @author chich
@@ -54,7 +54,10 @@ public void AgregarComprador(Comprador comprador){
             }
             ps.close();
             
-        } catch (SQLException ex) {
+        }catch(SQLIntegrityConstraintViolationException e){
+            JOptionPane.showMessageDialog(null, "Error: El dni que ingreso ya se encuentra registrado");
+        }
+        catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al agregar:"+ ex);
         }
     }

@@ -15,6 +15,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 
 /**
  *

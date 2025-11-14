@@ -88,23 +88,31 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         setMaximizable(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 204));
         jLabel1.setText("DNI:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 153));
         jLabel2.setText("Nombre:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 0, 153));
         jLabel3.setText("Fecha Nacimiento:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 0, 153));
         jLabel4.setText("Email");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 0, 153));
         jLabel5.setText("Medio de Pago:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(102, 102, 0));
         jLabel7.setText("Datos Comprador");
 
+        Agregar.setBackground(new java.awt.Color(0, 150, 0));
+        Agregar.setForeground(new java.awt.Color(255, 255, 255));
         Agregar.setText("Agregar");
         Agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -130,6 +138,7 @@ public class VistaComprador extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(tablaCompradores);
 
+        Guardar.setBackground(new java.awt.Color(0, 150, 0));
         Guardar.setText("Guardar");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -137,6 +146,8 @@ public class VistaComprador extends javax.swing.JInternalFrame {
             }
         });
 
+        Actualizar.setBackground(new java.awt.Color(255, 150, 0));
+        Actualizar.setForeground(new java.awt.Color(255, 255, 255));
         Actualizar.setText("Actualizar");
         Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,6 +155,8 @@ public class VistaComprador extends javax.swing.JInternalFrame {
             }
         });
 
+        Borrar.setBackground(new java.awt.Color(150, 0, 0));
+        Borrar.setForeground(new java.awt.Color(255, 255, 255));
         Borrar.setText("Borrar");
         Borrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -151,6 +164,8 @@ public class VistaComprador extends javax.swing.JInternalFrame {
             }
         });
 
+        BuscarPorDni.setBackground(new java.awt.Color(255, 150, 0));
+        BuscarPorDni.setForeground(new java.awt.Color(255, 255, 255));
         BuscarPorDni.setText("Buscar comprador por DNI");
         BuscarPorDni.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,6 +173,8 @@ public class VistaComprador extends javax.swing.JInternalFrame {
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(0, 0, 150));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Listar todos");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

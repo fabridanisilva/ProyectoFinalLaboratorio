@@ -129,32 +129,41 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
         lbComprador = new javax.swing.JLabel();
         Borrar = new javax.swing.JButton();
 
+        setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Gestion compra", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(102, 0, 102))); // NOI18N
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 0, 204));
         jLabel1.setText("id:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 0, 204));
         jLabel2.setText("Proyeccion:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(204, 0, 204));
         jLabel3.setText("Asiento:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 102, 0));
         jLabel4.setText("Fecha Compra:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(0, 102, 0));
         jLabel5.setText("Fecha Funcion:");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 204, 204));
         jLabel6.setText("Monto:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 204, 204));
         jLabel7.setText("Comprador:");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 204, 204));
         jLabel8.setText("Cant. Entradas:");
 
         Proyecciones.addItemListener(new java.awt.event.ItemListener() {
@@ -174,6 +183,7 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
             }
         });
 
+        tablaDetalle.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(0, 0, 51), new java.awt.Color(102, 102, 255)));
         tablaDetalle.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null},
@@ -185,8 +195,11 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
                 "Inicio", "Proyeccion", "Asiento", "Asiento 2", "Fecha Compra", "Fecha Funcion", "Comprador", "Entradas", "Descuento", "Monto"
             }
         ));
+        tablaDetalle.setGridColor(new java.awt.Color(51, 255, 0));
         jScrollPane1.setViewportView(tablaDetalle);
 
+        Agregar.setBackground(new java.awt.Color(0, 150, 0));
+        Agregar.setForeground(new java.awt.Color(255, 255, 255));
         Agregar.setText("Agregar");
         Agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +207,8 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
             }
         });
 
+        Guardar.setBackground(new java.awt.Color(0, 150, 0));
+        Guardar.setForeground(new java.awt.Color(255, 255, 255));
         Guardar.setText("Guardar");
         Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -201,6 +216,8 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
             }
         });
 
+        Actualizar.setBackground(new java.awt.Color(0, 0, 150));
+        Actualizar.setForeground(new java.awt.Color(255, 255, 255));
         Actualizar.setText("Actualizar");
         Actualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -208,6 +225,8 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
             }
         });
 
+        Eliminar.setBackground(new java.awt.Color(150, 0, 0));
+        Eliminar.setForeground(new java.awt.Color(255, 255, 255));
         Eliminar.setText("Eliminar por id");
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -215,6 +234,8 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
             }
         });
 
+        BuscarPorId.setBackground(new java.awt.Color(255, 120, 0));
+        BuscarPorId.setForeground(new java.awt.Color(255, 255, 255));
         BuscarPorId.setText("Buscar por id");
         BuscarPorId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,6 +243,8 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
             }
         });
 
+        ListarTodo.setBackground(new java.awt.Color(0, 0, 150));
+        ListarTodo.setForeground(new java.awt.Color(255, 255, 255));
         ListarTodo.setText("Listar todo");
         ListarTodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -229,6 +252,8 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
             }
         });
 
+        jButton1.setBackground(new java.awt.Color(255, 120, 0));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Buscar por dni");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -246,6 +271,7 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
         });
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(204, 0, 204));
         jLabel10.setText("Asiento 2:");
 
         Asientos2.addItemListener(new java.awt.event.ItemListener() {
@@ -267,6 +293,8 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
             }
         });
 
+        jButton2.setBackground(new java.awt.Color(0, 153, 0));
+        jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Buscar comprador");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,6 +304,8 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
 
         lbComprador.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
+        Borrar.setBackground(new java.awt.Color(150, 7, 0));
+        Borrar.setForeground(new java.awt.Color(255, 255, 255));
         Borrar.setText("Borrar");
         Borrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -312,7 +342,7 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FechaFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, 310, Short.MAX_VALUE)
+                    .addComponent(FechaFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, 311, Short.MAX_VALUE)
                     .addComponent(FechaCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -366,7 +396,7 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
                         .addComponent(jLabel9)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 24, Short.MAX_VALUE)
+                .addGap(0, 28, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18))
         );
@@ -432,7 +462,7 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
                     .addComponent(ListarTodo)
                     .addComponent(jButton1)
                     .addComponent(Borrar))
-                .addContainerGap(46, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();

@@ -233,6 +233,8 @@ private void buscarPorSala() {
         });
         jScrollPane1.setViewportView(jTable1);
 
+        jagregar.setBackground(new java.awt.Color(0, 150, 0));
+        jagregar.setForeground(new java.awt.Color(255, 255, 255));
         jagregar.setText("Agregar");
         jagregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,6 +242,8 @@ private void buscarPorSala() {
             }
         });
 
+        jguardar.setBackground(new java.awt.Color(0, 150, 0));
+        jguardar.setForeground(new java.awt.Color(255, 255, 255));
         jguardar.setText("Guardar");
         jguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -247,6 +251,8 @@ private void buscarPorSala() {
             }
         });
 
+        jactualizar.setBackground(new java.awt.Color(0, 160, 255));
+        jactualizar.setForeground(new java.awt.Color(255, 255, 255));
         jactualizar.setText("Actualizar");
         jactualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -254,6 +260,8 @@ private void buscarPorSala() {
             }
         });
 
+        jborrar.setBackground(new java.awt.Color(150, 0, 0));
+        jborrar.setForeground(new java.awt.Color(255, 255, 255));
         jborrar.setText("Borrar");
         jborrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,6 +269,8 @@ private void buscarPorSala() {
             }
         });
 
+        jbuscarporid.setBackground(new java.awt.Color(255, 150, 0));
+        jbuscarporid.setForeground(new java.awt.Color(255, 255, 255));
         jbuscarporid.setText("Buscar por ID");
         jbuscarporid.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -268,6 +278,8 @@ private void buscarPorSala() {
             }
         });
 
+        jlistartodo.setBackground(new java.awt.Color(0, 0, 150));
+        jlistartodo.setForeground(new java.awt.Color(255, 255, 255));
         jlistartodo.setText("Listar Todo");
         jlistartodo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,30 +288,39 @@ private void buscarPorSala() {
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(0, 153, 0));
         jLabel1.setText("id Funcion:");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 102, 51));
         jLabel2.setText("Pelicula:");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 0, 102));
         jLabel3.setText("Idioma:");
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(102, 0, 102));
         jLabel4.setText("Es 3D:");
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 153, 0));
         jLabel5.setText("Es Subtitulada:");
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(0, 0, 153));
         jLabel6.setText("Hora de Inicio:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(0, 0, 102));
         jLabel7.setText("Hora Fin:");
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 153, 153));
         jLabel9.setText("Sala:");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(204, 0, 0));
         jLabel10.setText("Precio:");
 
         jsala.addActionListener(new java.awt.event.ActionListener() {
@@ -315,8 +336,11 @@ private void buscarPorSala() {
         });
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 51, 51));
         jLabel11.setText("Gestion Proyeccion");
 
+        jbuscarporpelicula.setBackground(new java.awt.Color(255, 150, 0));
+        jbuscarporpelicula.setForeground(new java.awt.Color(255, 255, 255));
         jbuscarporpelicula.setText("Buscar por Pelicula");
         jbuscarporpelicula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,6 +348,8 @@ private void buscarPorSala() {
             }
         });
 
+        jbuscarporsala.setBackground(new java.awt.Color(255, 150, 0));
+        jbuscarporsala.setForeground(new java.awt.Color(255, 255, 255));
         jbuscarporsala.setText("Buscar por Sala");
         jbuscarporsala.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -332,6 +358,7 @@ private void buscarPorSala() {
         });
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(0, 153, 153));
         jLabel8.setText("Asientos disponibles:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

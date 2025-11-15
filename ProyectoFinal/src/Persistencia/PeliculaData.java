@@ -178,4 +178,60 @@ public class PeliculaData {
         }
         return peliculas;
     }
+public ArrayList<Pelicula> listarPorEstado(boolean estado) {
+    ArrayList<Pelicula> peliculas = new ArrayList<>();
+    String sql = "SELECT * FROM pelicula WHERE encartelera = ?";
+    
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ps.setBoolean(1, estado);
+        ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()) {
+            Pelicula p = new Pelicula();
+            p.setidPelicula(rs.getInt("idpelicula"));
+            p.setTitulo(rs.getString("titulo"));
+            p.setDirector(rs.getString("director"));
+            p.setActores(rs.getString("actores"));
+            p.setOrigen(rs.getString("origen"));
+            p.setGenero(rs.getString("genero"));
+            p.setEstreno(rs.getDate("estreno").toLocalDate());
+            p.setEnCartelera(rs.getBoolean("encartelera"));
+            peliculas.add(p);
+        }
+
+        ps.close();
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
+    }
+
+    return peliculas;
+}
+
+public ArrayList<Pelicula> listarFueraDeCartelera() {
+    ArrayList<Pelicula> lista = new ArrayList<>();
+    String sql = "SELECT * FROM pelicula WHERE encartelera = 0";
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Pelicula p = new Pelicula();
+            p.setidPelicula(rs.getInt("idPelicula"));
+            p.setTitulo(rs.getString("titulo"));
+            p.setDirector(rs.getString("director"));
+            p.setActores(rs.getString("actores"));
+            p.setOrigen(rs.getString("origen"));
+            p.setGenero(rs.getString("genero"));
+            p.setEstreno(rs.getDate("estreno").toLocalDate());
+            p.setEnCartelera(false);
+            lista.add(p);
+        }
+
+    } catch (SQLException e) {
+        System.out.println("Error listar NO cartelera: " + e);
+    }
+    return lista;
+}
 }

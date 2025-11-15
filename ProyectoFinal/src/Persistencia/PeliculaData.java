@@ -234,4 +234,46 @@ public ArrayList<Pelicula> listarFueraDeCartelera() {
     }
     return lista;
 }
+public void darDeBajaPelicula(int idPelicula) {
+    String sql = "UPDATE pelicula SET encartelera = 0 WHERE idPelicula = ?";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, idPelicula);
+
+        int exito = ps.executeUpdate();
+        if (exito == 1) {
+            JOptionPane.showMessageDialog(null, "La película se dio de BAJA correctamente.");
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al dar de baja la película: " + ex.getMessage());
+    }
+}
+public void darDeAltaPelicula(int idPelicula) {
+    String sql = "UPDATE pelicula SET encartelera = 1 WHERE idPelicula = ?";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, idPelicula);
+
+        int exito = ps.executeUpdate();
+        if (exito == 1) {
+            JOptionPane.showMessageDialog(null, "La película se dio de ALTA correctamente.");
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al dar de alta la película: " + ex.getMessage());
+    }
+}
+public void modificarEstadoPelicula(int idPelicula, int nuevoEstado) {
+    String sql = "UPDATE pelicula SET encartelera = ? WHERE idPelicula = ?";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, nuevoEstado);
+        ps.setInt(2, idPelicula);
+
+        ps.executeUpdate();
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error al cambiar estado: " + e.getMessage());
+    }
+}
 }

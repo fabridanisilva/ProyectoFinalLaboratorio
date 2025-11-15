@@ -10,6 +10,7 @@ import java.awt.Image;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import static java.time.temporal.TemporalQueries.zone;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -506,6 +507,17 @@ private void buscarPelicula() {
 
     private void CarteleraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CarteleraActionPerformed
         // TODO add your handling code here:
+         PeliculaData pd = new PeliculaData();
+    
+    ArrayList<Pelicula> lista;
+
+    if (Cartelera.isSelected()) {
+        lista = pd.ListarPeliculas();
+    } else {
+        lista = pd.listarFueraDeCartelera();
+    }
+
+    
     }//GEN-LAST:event_CarteleraActionPerformed
 
     private void idPeliculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idPeliculaActionPerformed
@@ -529,11 +541,15 @@ private void buscarPelicula() {
 
     private void listarPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_listarPeliculasActionPerformed
         // TODO add your handling code here:
-        PeliculaData pd = new PeliculaData();
-        
-        for (Pelicula ListarPelicula : pd.ListarPeliculas()) {
-            cargarDatos(ListarPelicula);
-        }
+      
+          PeliculaData pd = new PeliculaData();
+    boolean estado = Cartelera.isSelected();  // TRUE = en cartelera, FALSE = fuera
+
+    
+
+    for (Pelicula p : pd.listarPorEstado(estado)) {
+        cargarDatos(p);
+    }
         
         
         

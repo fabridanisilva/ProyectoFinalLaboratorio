@@ -239,57 +239,59 @@ public class ProyeccionData {
         return proyeccion;
     }
         
-    public ArrayList<Proyeccion> listarProyecciones(){
-        ArrayList<Proyeccion> proyecciones = new ArrayList<>();
-        
-        
-        
-        SalaData sd = new SalaData();
-        PeliculaData pd = new PeliculaData();
-        String sql = "SELECT idPelicula, idFuncion, idioma, es3d, subtitulada, horainicio, horafin, cantidadLugaresDisponibles, salaProyeccion, precioLugar FROM proyeccion ";
-        
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()) {     
-                Proyeccion proyeccion = new Proyeccion();
-                
-                Pelicula pelicula = null;
-                Sala sala = null;
-                
-                pelicula = pd.BuscarPelicula(rs.getInt("idPelicula")); // la funcion BuscarPelicula de la clase PeliculaData va retornar la pelicua en base el id que mandamos por parametro
-                proyeccion.setPelicula(pelicula);
-                proyeccion.setIdFuncion(rs.getInt("idFuncion"));
-                proyeccion.setIdioma(rs.getString("idioma"));
-                proyeccion.setEs3D(rs.getBoolean("es3d"));
-                proyeccion.setSubtitulada(rs.getBoolean("subtitulada"));
-                proyeccion.setHorInicio(rs.getTime("horainicio").toLocalTime());
-                proyeccion.setHoraFin(rs.getTime("horafin").toLocalTime());
-                proyeccion.setCantidadLugaresDisponibles(rs.getInt("cantidadLugaresDisponibles"));
-                sala = sd.buscarSala(rs.getInt("salaProyeccion")); //la funcion buscarSala de la calse SalaData va aretornar la sala en base el numero de sala
-                proyeccion.setSala(sala);
-                proyeccion.setPrecio(rs.getDouble("precioLugar"));
-                
-                
-                proyecciones.add(proyeccion);
+    public ArrayList<Proyeccion> listarProyecciones() {
+    ArrayList<Proyeccion> proyecciones = new ArrayList<>();
+
+    SalaData sd = new SalaData();
+    PeliculaData pd = new PeliculaData();
+
+    // AGREGADO: solo traer películas en cartelera (encartelera = 1)
+    String sql = "SELECT p.idPelicula, p.idFuncion, p.idioma, p.es3d, p.subtitulada, "
+               + "p.horainicio, p.horafin, p.cantidadLugaresDisponibles, "
+               + "p.salaProyeccion, p.precioLugar "
+               + "FROM proyeccion p "
+               + "JOIN pelicula pe ON pe.idPelicula = p.idPelicula "
+               + "WHERE pe.encartelera = 1";   // <<--- FILTRO CLAVE
+
+    try {
+        PreparedStatement ps = con.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Proyeccion proyeccion = new Proyeccion();
+
+            Pelicula pelicula = pd.BuscarPelicula(rs.getInt("idPelicula"));
+
+            // Si por alguna razón la película ya no existe → NO agregamos la proyección
+            if (pelicula == null) {
+                continue;
             }
-            ps.close();
-            
-            
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error: "+ex);
+
+            proyeccion.setPelicula(pelicula);
+            proyeccion.setIdFuncion(rs.getInt("idFuncion"));
+            proyeccion.setIdioma(rs.getString("idioma"));
+            proyeccion.setEs3D(rs.getBoolean("es3d"));
+            proyeccion.setSubtitulada(rs.getBoolean("subtitulada"));
+            proyeccion.setHorInicio(rs.getTime("horainicio").toLocalTime());
+            proyeccion.setHoraFin(rs.getTime("horafin").toLocalTime());
+            proyeccion.setCantidadLugaresDisponibles(rs.getInt("cantidadLugaresDisponibles"));
+
+            Sala sala = sd.buscarSala(rs.getInt("salaProyeccion"));
+            proyeccion.setSala(sala);
+
+            proyeccion.setPrecio(rs.getDouble("precioLugar"));
+
+            proyecciones.add(proyeccion);
         }
-        
-        
-        
-        
-        return proyecciones;
-    
-    
+        ps.close();
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error: " + ex);
     }
+
+    return proyecciones;
+}
+
     
     public void restarAsientoPorFuncion(int idFuncion){
         
@@ -351,7 +353,55 @@ public void devolverAsientos(int idProyeccion, int cantidad) {
         System.out.println("Error devolviendo asientos: " + e.getMessage());
     }
 }
-    
+   public ArrayList<Proyeccion> listarProyeccionesProximos6Meses() {
+
+    ArrayList<Proyeccion> lista = new ArrayList<>();
+
+    String sql = "SELECT p.*, pe.titulo "
+               + "FROM proyeccion p "
+               + "JOIN pelicula pe ON pe.idPelicula = p.idPelicula "
+               + "WHERE pe.estreno BETWEEN CURDATE() AND DATE_ADD(CURDATE(), INTERVAL 6 MONTH)";
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ResultSet rs = ps.executeQuery();
+
+        SalaData sd = new SalaData();
+        PeliculaData pd = new PeliculaData();
+
+        while (rs.next()) {
+
+            Proyeccion pr = new Proyeccion();
+
+            // Película completa
+            Pelicula peli = pd.BuscarPelicula(rs.getInt("idPelicula"));
+            pr.setPelicula(peli);
+
+            pr.setIdFuncion(rs.getInt("idFuncion"));
+            pr.setIdioma(rs.getString("idioma"));
+            pr.setEs3D(rs.getBoolean("es3d"));
+            pr.setSubtitulada(rs.getBoolean("subtitulada"));
+            pr.setHorInicio(rs.getTime("horainicio").toLocalTime());
+            pr.setHoraFin(rs.getTime("horafin").toLocalTime());
+            pr.setCantidadLugaresDisponibles(rs.getInt("cantidadLugaresDisponibles"));
+
+            // Sala completa
+            Sala sala = sd.buscarSala(rs.getInt("salaProyeccion"));
+            pr.setSala(sala);
+
+            pr.setPrecio(rs.getDouble("precioLugar"));
+
+            lista.add(pr);
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Error al listar estrenos próximos: " + ex.getMessage());
+    }
+
+    return lista;
+}
+
     
     
 }
+//hola

@@ -145,6 +145,7 @@ private void buscarPelicula() {
         jButton1 = new javax.swing.JButton();
         Estreno = new com.toedter.calendar.JDateChooser();
         listarPeliculas = new javax.swing.JButton();
+        BajaAlta = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -282,6 +283,15 @@ private void buscarPelicula() {
             }
         });
 
+        BajaAlta.setBackground(new java.awt.Color(255, 160, 0));
+        BajaAlta.setForeground(new java.awt.Color(255, 255, 255));
+        BajaAlta.setText("Baja/Alta");
+        BajaAlta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BajaAltaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -347,13 +357,15 @@ private void buscarPelicula() {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton1)
-                        .addGap(85, 85, 85)
+                        .addGap(41, 41, 41)
                         .addComponent(Guardar)
-                        .addGap(99, 99, 99)
+                        .addGap(65, 65, 65)
+                        .addComponent(BajaAlta)
+                        .addGap(82, 82, 82)
+                        .addComponent(Eliminar)
+                        .addGap(69, 69, 69)
                         .addComponent(Actualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Eliminar)
-                        .addGap(110, 110, 110)
                         .addComponent(Buscar)))
                 .addContainerGap())
         );
@@ -409,7 +421,8 @@ private void buscarPelicula() {
                     .addComponent(Guardar)
                     .addComponent(Actualizar)
                     .addComponent(Eliminar)
-                    .addComponent(jButton1))
+                    .addComponent(jButton1)
+                    .addComponent(BajaAlta))
                 .addGap(51, 51, 51))
         );
 
@@ -550,7 +563,22 @@ private void buscarPelicula() {
     for (Pelicula p : pd.listarPorEstado(estado)) {
         cargarDatos(p);
     }
-        
+         modelo.setRowCount(0);
+
+   //hola
+
+    if (Cartelera.isSelected()) {
+        // Mostrar SOLO las que están en cartelera (1)
+        for (Pelicula p : pd.ListarPeliculas()) {
+            cargarDatos(p);
+        }
+    } else {
+        // Mostrar SOLO las que están de baja (encartelera = 0)
+        for (Pelicula p : pd.listarFueraDeCartelera()) {
+            cargarDatos(p);
+        }
+    }
+
         
         
     }//GEN-LAST:event_listarPeliculasActionPerformed
@@ -585,6 +613,54 @@ private void buscarPelicula() {
         
     }//GEN-LAST:event_TablaPeliculaMouseClicked
 
+    private void BajaAltaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BajaAltaActionPerformed
+        // TODO add your handling code here:
+        int fila = TablaPelicula.getSelectedRow();
+
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(this, "Seleccione una película.");
+        return;
+    }
+
+    int idPelicula = Integer.parseInt(TablaPelicula.getValueAt(fila, 0).toString());
+
+    // Obtener el valor real de la columna encartelera
+    Object valor = TablaPelicula.getValueAt(fila, 7);
+    int estadoActual;
+
+    if (valor instanceof Boolean) {
+        estadoActual = ((Boolean) valor) ? 1 : 0;
+    } else {
+        estadoActual = Integer.parseInt(valor.toString());
+    }
+
+    PeliculaData pd = new PeliculaData();
+
+    if (estadoActual == 1) {
+        pd.modificarEstadoPelicula(idPelicula, 0);
+        JOptionPane.showMessageDialog(this, "Pelicula dada de BAJA de cartelera.");
+    } else {
+        pd.modificarEstadoPelicula(idPelicula, 1);
+        JOptionPane.showMessageDialog(this, "Pelicula dada de ALTA en cartelera.");
+    }
+modelo.setRowCount(0);
+
+// 🚨 RECARGAR SEGÚN EL RADIO BUTTON
+if (Cartelera.isSelected()) {
+    // Mostrar SOLO las que están en cartelera
+    for (Pelicula p : pd.ListarPeliculas()) {
+        cargarDatos(p);
+    }
+} else {
+    // Mostrar SOLO las que están dadas de baja
+    for (Pelicula p : pd.listarFueraDeCartelera()) {
+        cargarDatos(p);
+    
+    }
+    }
+   
+    }//GEN-LAST:event_BajaAltaActionPerformed
+
     
     public void cargarDatos(Pelicula p){
     
@@ -595,6 +671,7 @@ private void buscarPelicula() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Actores;
     private javax.swing.JButton Actualizar;
+    private javax.swing.JButton BajaAlta;
     private javax.swing.JButton Buscar;
     private javax.swing.JRadioButton Cartelera;
     private javax.swing.JTextField Director;

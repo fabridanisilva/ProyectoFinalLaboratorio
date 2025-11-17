@@ -7,11 +7,11 @@ package Vista;
 import Modelo.Asiento;
 import Modelo.Comprador;
 import Modelo.DetalleCompra;
-import Modelo.DetalleTicket;
+
 import Modelo.Pelicula;
 import Modelo.Proyeccion;
 import Modelo.Sala;
-import Modelo.TicketCompra;
+
 import Persistencia.AsientoData;
 import Persistencia.CompradorData;
 import Persistencia.DetalleCompraData;

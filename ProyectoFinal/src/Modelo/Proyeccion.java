@@ -139,7 +139,7 @@ public class Proyeccion {
 
     @Override
     public String toString() {
-        return   pelicula + " " + idioma + ", es3D:" + es3D + ", subtitulada:" + subtitulada + " "  + horInicio + "-" + horaFin +  ", sala:" + sala ;
+        return   pelicula + " " + idioma + ", es3D:" + es3D + ", subtitulada:" + subtitulada + " "  + horInicio + "-" + horaFin +  ", sala:" + sala.getNroSala() ;
     }
     
     

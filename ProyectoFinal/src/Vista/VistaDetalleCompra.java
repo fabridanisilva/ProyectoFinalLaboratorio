@@ -100,7 +100,6 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         FechaCompra = new com.toedter.calendar.JDateChooser();
@@ -109,13 +108,10 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
         Proyecciones = new javax.swing.JComboBox<>();
         Asientos = new javax.swing.JComboBox<>();
         Compradores = new javax.swing.JComboBox<>();
-        Monto = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaDetalle = new javax.swing.JTable();
         Agregar = new javax.swing.JButton();
         Guardar = new javax.swing.JButton();
-        Actualizar = new javax.swing.JButton();
-        Eliminar = new javax.swing.JButton();
         BuscarPorId = new javax.swing.JButton();
         ListarTodo = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
@@ -128,6 +124,7 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
         jButton2 = new javax.swing.JButton();
         lbComprador = new javax.swing.JLabel();
         Borrar = new javax.swing.JButton();
+        inicio = new javax.swing.JLabel();
 
         setBorder(null);
         setClosable(true);
@@ -153,10 +150,6 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
         jLabel5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 102, 0));
         jLabel5.setText("Fecha Funcion:");
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 204, 204));
-        jLabel6.setText("Monto:");
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 204, 204));
@@ -196,6 +189,11 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
             }
         ));
         tablaDetalle.setGridColor(new java.awt.Color(51, 255, 0));
+        tablaDetalle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaDetalleMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaDetalle);
 
         Agregar.setBackground(new java.awt.Color(0, 150, 0));
@@ -213,24 +211,6 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
         Guardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 GuardarActionPerformed(evt);
-            }
-        });
-
-        Actualizar.setBackground(new java.awt.Color(0, 0, 150));
-        Actualizar.setForeground(new java.awt.Color(255, 255, 255));
-        Actualizar.setText("Actualizar");
-        Actualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ActualizarActionPerformed(evt);
-            }
-        });
-
-        Eliminar.setBackground(new java.awt.Color(150, 0, 0));
-        Eliminar.setForeground(new java.awt.Color(255, 255, 255));
-        Eliminar.setText("Eliminar por id");
-        Eliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EliminarActionPerformed(evt);
             }
         });
 
@@ -313,28 +293,12 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
             }
         });
 
+        inicio.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(Borrar)
-                .addGap(34, 34, 34)
-                .addComponent(Agregar)
-                .addGap(18, 18, 18)
-                .addComponent(Guardar)
-                .addGap(18, 18, 18)
-                .addComponent(Actualizar)
-                .addGap(18, 18, 18)
-                .addComponent(Eliminar)
-                .addGap(18, 18, 18)
-                .addComponent(BuscarPorId)
-                .addGap(26, 26, 26)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(ListarTodo)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(76, 76, 76)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -342,7 +306,7 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(FechaFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, 316, Short.MAX_VALUE)
+                    .addComponent(FechaFuncion, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                     .addComponent(FechaCompra, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -355,13 +319,14 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel6)
-                                .addGap(41, 41, 41)
+                                .addGap(87, 87, 87)
                                 .addComponent(lbPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(Monto, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                            .addComponent(Entradas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(Entradas, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(260, 260, 260))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -397,8 +362,23 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 38, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1208, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(Borrar)
+                        .addGap(137, 137, 137)
+                        .addComponent(Agregar)
+                        .addGap(18, 18, 18)
+                        .addComponent(Guardar)
+                        .addGap(143, 143, 143)
+                        .addComponent(BuscarPorId)
+                        .addGap(26, 26, 26)
+                        .addComponent(jButton1)
+                        .addGap(18, 18, 18)
+                        .addComponent(ListarTodo)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1208, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,11 +401,9 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
                             .addComponent(jLabel8)
                             .addComponent(Entradas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(41, 41, 41)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel6)
-                                .addComponent(Monto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbPrecio, javax.swing.GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
+                            .addComponent(inicio, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Proyecciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -456,8 +434,6 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Agregar)
                     .addComponent(Guardar)
-                    .addComponent(Actualizar)
-                    .addComponent(Eliminar)
                     .addComponent(BuscarPorId)
                     .addComponent(ListarTodo)
                     .addComponent(jButton1)
@@ -519,9 +495,9 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
         }
         
         Guardar.setEnabled(false);
-        Actualizar.setEnabled(true);
-        Eliminar.setEnabled(true);
-        Monto.setEnabled(true);
+        
+        
+        
         id.setEnabled(true);
     }//GEN-LAST:event_GuardarActionPerformed
 
@@ -536,7 +512,7 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
         }
         Asientos.setModel(cbAsiento);
         
-        
+        inicio.setText(proyeccion.getHorInicio()+"");
         
         
         
@@ -603,70 +579,13 @@ tablaDetalle.getColumnModel().getColumn(0).setWidth(0);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void EliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EliminarActionPerformed
-        // TODO add your handling code here:
-        
-        
-        try {
-            int iddetalle = Integer.parseInt(id.getText());
-            DetalleCompraData dcd = new DetalleCompraData();
-            
-            dcd.eliminarDetalleCompra(iddetalle);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error, asegurese que los campos de numero sean numeros y no letras: " + e);
-        }
-        
-        
-    }//GEN-LAST:event_EliminarActionPerformed
-
-    private void ActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ActualizarActionPerformed
-        // TODO add your handling code here:
-        
-        try {
-            DetalleCompraData dcd = new DetalleCompraData();
-            DetalleCompra detalleCompra = null;
-            int idDetalle = Integer.parseInt(id.getText());
-            Proyeccion proyeccion = (Proyeccion) Proyecciones.getSelectedItem();
-            Asiento asiento = (Asiento) Asientos.getSelectedItem();
-            Asiento asiento2 = (Asiento) Asientos2.getSelectedItem();
-            java.util.Date fcompra = FechaCompra.getDate();
-            LocalDate fechaCompra = fcompra.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            java.util.Date fFuncion = FechaFuncion.getDate();
-            LocalDate fechaFuncion = fFuncion.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            Comprador comprador = (Comprador) Compradores.getSelectedItem();
-            Integer entradas = (Integer) Entradas.getSelectedItem();
-            double descuento ;
-            double monto = Double.parseDouble(Monto.getText());
-            switch (entradas) {
-                case 1:
-                    descuento = 0;
-                    detalleCompra = new DetalleCompra(idDetalle,proyeccion,asiento.getCodLugar(),asiento2.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
-                    dcd.modificarDetalleCompra(detalleCompra);
-                    break;
-                    case 2:
-                    descuento = (monto*20)/100;
-                    monto = monto-descuento;
-                    detalleCompra = new DetalleCompra(idDetalle,proyeccion,asiento.getCodLugar(),asiento2.getCodLugar(),fechaCompra,fechaFuncion,monto,comprador,entradas,descuento);
-                    dcd.modificarDetalleCompra(detalleCompra);
-                    break;
-                    
-                default:
-                    throw new AssertionError();
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Error, asegurese que los campos de numero sean numeros y no letras: " + e);
-        }
-        
-        
-    }//GEN-LAST:event_ActualizarActionPerformed
-
     private void AgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarActionPerformed
         // TODO add your handling code here:
         
         Guardar.setEnabled(true);
-        Actualizar.setEnabled(false);
-        Eliminar.setEnabled(false);
-        Monto.setEnabled(false);
+        
+        
+        
         id.setEnabled(false);
         
         
@@ -853,6 +772,14 @@ try {
 }
         //hola
     }//GEN-LAST:event_BorrarActionPerformed
+
+    private void tablaDetalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaDetalleMouseClicked
+        // TODO add your handling code here:
+        
+        int fila = tablaDetalle.getSelectedRow();
+        
+        id.setText(tablaDetalle.getValueAt(fila, 0)+"");
+    }//GEN-LAST:event_tablaDetalleMouseClicked
     public void cargarDatos(DetalleCompra dc){
          AsientoData ad = new AsientoData();
         Asiento asiento1 = ad.buscarAsientoPorcodLugar(dc.getCodLugar());
@@ -862,22 +789,20 @@ try {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Actualizar;
     private javax.swing.JButton Agregar;
     private javax.swing.JComboBox<Asiento> Asientos;
     private javax.swing.JComboBox<Asiento> Asientos2;
     private javax.swing.JButton Borrar;
     private javax.swing.JButton BuscarPorId;
     private javax.swing.JComboBox<Comprador> Compradores;
-    private javax.swing.JButton Eliminar;
     private javax.swing.JComboBox<Integer> Entradas;
     private com.toedter.calendar.JDateChooser FechaCompra;
     private com.toedter.calendar.JDateChooser FechaFuncion;
     private javax.swing.JButton Guardar;
     private javax.swing.JButton ListarTodo;
-    private javax.swing.JTextField Monto;
     private javax.swing.JComboBox<Proyeccion> Proyecciones;
     private javax.swing.JTextField id;
+    private javax.swing.JLabel inicio;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -886,7 +811,6 @@ try {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

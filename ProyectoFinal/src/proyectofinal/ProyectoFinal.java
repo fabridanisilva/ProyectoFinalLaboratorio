@@ -6,11 +6,11 @@ package proyectofinal;
 
 import Modelo.Asiento;
 import Modelo.Comprador;
-import Modelo.DetalleTicket;
+
 import Modelo.Pelicula;
 import Modelo.Proyeccion;
 import Modelo.Sala;
-import Modelo.TicketCompra;
+
 import Persistencia.AsientoData;
 import Persistencia.CompradorData;
 
@@ -92,7 +92,7 @@ public class ProyectoFinal {
             System.out.println(listarDetallesIndividuale);
         }
        */
-         TicketCompra ticketcompra = new TicketCompra(1,LocalDate.of(2025,10,30),LocalDate.of(2025,10,31),3000,comprador,3,1500);
+         
          
        //  ticket.GuardarTicketCompra(ticketcompra);
 
